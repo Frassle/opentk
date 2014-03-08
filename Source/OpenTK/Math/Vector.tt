@@ -1,0 +1,399 @@
+﻿<#@ template hostspecific="false" language="C#" #>
+<#@ output extension=".cs" #>
+#region --- License ---
+/*
+Copyright (c) 2006 - 2014 The Open Toolkit library.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+ */
+#endregion
+
+using System;
+using System.Runtime.InteropServices;
+using System.Xml.Serialization;
+namespace OpenTK
+{
+<#
+	Func<int, int, string> UnitVector = (int dimensions, int setComponent) =>
+		{
+			if(setComponent >= dimensions)
+			{
+				return "";
+			}
+			var components = new int[dimensions];
+			components[setComponent] = 1;
+			return string.Join(", ", components);
+		};
+#>
+
+<# 
+	var type_list = new string[] { "float", "double", "int", "long" };
+	var suffix_list = new string[] { "", "d", "i", "l" };
+	var is_float_list = new bool[] { true, true, false, false };
+	var help_text = new string[] {
+		"single-precision floating-point",
+		"double-precision floating-point",
+		"32bit integer",
+		"64bit integer" };
+	
+	for (int vector_type = 0; vector_type < type_list.Length; ++vector_type)
+	{
+		var type = type_list[vector_type];
+		var suffix = suffix_list[vector_type];
+		var is_float = is_float_list[vector_type];
+		var help = help_text[vector_type];
+		
+		for (int vector_size = 2; vector_size <= 4; ++vector_size) 
+		{ 
+			var name = "Vector" + vector_size.ToString() + suffix;
+			var unitx = UnitVector(vector_size, 0);
+			var unity = UnitVector(vector_size, 1);
+			var unitz = UnitVector(vector_size, 2);
+			var unitw = UnitVector(vector_size, 3);
+#>
+    /// <summary>Represents a <#=name#> vector using <#=vector_size#> <#=help#> numbers.</summary>
+    /// <remarks>
+    /// The <#=name#> structure is suitable for interoperation with unmanaged code requiring <#=vector_size#> consecutive <#=type#>s.
+    /// </remarks>
+    [Serializable]
+    [StructLayout(LayoutKind.Sequential)]
+    public struct <#=name#> : IEquatable<<#=name#>>
+    {
+        #region Fields
+
+        /// <summary>
+        /// The X component of the Vector<#=vector_size#>.
+        /// </summary>
+        public <#=type#> X;
+
+        /// <summary>
+        /// The Y component of the Vector<#=vector_size#>.
+        /// </summary>
+        public <#=type#> Y;
+
+<# if (vector_size >= 3) { #>
+
+        /// <summary>
+        /// The Z component of the Vector<#=vector_size#>.
+        /// </summary>
+        public <#=type#> Z;
+		
+<# if (vector_size >= 4) { #>
+
+        /// <summary>
+        /// The W component of the Vector<#=vector_size#>.
+        /// </summary>
+        public <#=type#> W;
+
+<# } } #>
+
+        /// <summary>
+        /// Defines a unit-length <#=name#> that points towards the X-axis.
+        /// </summary>
+        public static readonly <#=name#> UnitX = new <#=name#>(<#=unitx#>);
+
+        /// <summary>
+        /// Defines a unit-length <#=name#> that points towards the Y-axis.
+        /// </summary>
+        public static readonly <#=name#> UnitY = new <#=name#>(<#=unity#>);
+		
+<# if (vector_size >= 3) { #>
+
+        /// <summary>
+        /// Defines a unit-length <#=name#> that points towards the Z-axis.
+        /// </summary>
+        public static readonly <#=name#> UnitZ = new <#=name#>(<#=unitz#>);
+		
+<# if (vector_size >= 4) { #>
+
+        /// <summary>
+        /// Defines a unit-length <#=name#> that points towards the W-axis.
+        /// </summary>
+        public static readonly <#=name#> UnitW = new <#=name#>(<#=unitw#>);
+		
+<# } } #>
+
+        /// <summary>
+        /// Defines a zero-length <#=name#>.
+        /// </summary>
+        public static readonly <#=name#> Zero = new <#=name#>(0);
+
+        /// <summary>
+        /// Defines an instance with all components set to 1.
+        /// </summary>
+        public static readonly <#=name#> One = new <#=name#>(1);
+
+        /// <summary>
+        /// Defines the size of the <#=name#> struct in bytes.
+        /// </summary>
+        public static readonly int SizeInBytes = Marshal.SizeOf(new <#=name#>());
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Constructs a new instance.
+        /// </summary>
+        /// <param name="value">The value that will initialize this instance.</param>
+        public <#=name#>(<#=type#> value)
+        {
+            X = value;
+            Y = value;
+<# if (vector_size >= 3) { #>
+            Z = value;
+<# if (vector_size >= 4) { #>
+            W = value;
+<# } } #>
+        }
+
+        /// <summary>
+        /// Constructs a new <#=name#>.
+        /// </summary>
+        /// <param name="x">The x component of the <#=name#>.</param>
+        /// <param name="y">The y component of the <#=name#>.</param>		
+<# if (vector_size >= 3) { #>
+        /// <param name="z">The z component of the <#=name#>.</param>
+<# if (vector_size >= 3) { #>
+        /// <param name="w">The w component of the <#=name#>.</param>
+<# } } #>				
+<# if (vector_size == 2) { #>
+        public <#=name#>(<#=type#> x, <#=type#> y)
+<# } else if (vector_size == 3) { #>
+        public <#=name#>(<#=type#> x, <#=type#> y, <#=type#> z)
+<# } else if (vector_size == 4) { #>
+        public <#=name#>(<#=type#> x, <#=type#> y, <#=type#> z, <#=type#> w)
+<# } #>
+        {
+            X = x;
+            Y = y;	
+<# if (vector_size >= 3) { #>
+            Z = z;
+<# if (vector_size >= 4) { #>
+            W = w;
+<# } } #>
+        }
+
+		
+<# if (vector_size >= 3) { #>
+
+        /// <summary>
+        /// Constructs a new <#=name#> from the given Vector2<#=suffix#>.
+        /// </summary>
+        /// <param name="v">The Vector2<#=suffix#> to copy components from.</param>
+        public <#=name#>(Vector2<#=suffix#> v)
+        {
+            X = v.X;
+            Y = v.Y;
+            Z = 0;
+<# if (vector_size >= 4) { #>
+            W = 0;
+<# } #>
+        }
+
+<# if (vector_size >= 4) { #>
+
+        /// <summary>
+        /// Constructs a new <#=name#> from the given Vector3<#=suffix#>.
+        /// The w component is initialized to 0.
+        /// </summary>
+        /// <param name="v">The Vector3 to copy components from.</param>
+        /// <remarks><seealso cref="<#=name#>(Vector3<#=suffix#>, <#=type#>)"/></remarks>
+        public <#=name#>(Vector3<#=suffix#> v)
+        {
+            X = v.X;
+            Y = v.Y;
+            Z = v.Z;
+            W = 0;
+        }
+
+        /// <summary>
+        /// Constructs a new <#=name#> from the specified Vector3<#=suffix#> and w component.
+        /// </summary>
+        /// <param name="v">The Vector3 to copy components from.</param>
+        /// <param name="w">The w component of the new <#=name#>.</param>
+        public <#=name#>(Vector3<#=suffix#> v, <#=type#> w)
+        {
+            X = v.X;
+            Y = v.Y;
+            Z = v.Z;
+            W = w;
+        }
+		
+<# } } #>
+
+        /// <summary>
+        /// Constructs a new <#=name#> from the given <#=name#>.
+        /// </summary>
+        /// <param name="v">The <#=name#> to copy components from.</param>
+        public <#=name#>(<#=name#> v)
+        {
+            X = v.X;
+            Y = v.Y;
+<# if (vector_size >= 3) { #>
+            Z = v.Z;
+<# if (vector_size >= 4) { #>
+            W = v.W;
+<# } } #>
+        }
+
+        #endregion
+
+        #region Public Members
+
+        /// <summary>
+        /// Gets or sets the value at the index of the Vector.
+        /// </summary>
+        public <#=type#> this[int index] {
+            get{
+                if(index == 0) return X;
+                else if(index == 1) return Y;
+<# if (vector_size >= 3) { #>
+                else if(index == 2) return Z;
+<# if (vector_size >= 4) { #>
+                else if(index == 3) return W;
+<# } } #>
+                throw new IndexOutOfRangeException("You tried to access this vector at index: " + index);
+            } set{
+                if(index == 0) X = value;
+                else if(index == 1) Y = value;
+<# if (vector_size >= 3) { #>
+                else if(index == 2) Z = value;
+<# if (vector_size >= 4) { #>
+                else if(index == 3) W = value;
+<# } } #>
+                else throw new IndexOutOfRangeException("You tried to set this vector at index: " + index);
+            }
+        }
+
+        #region Instance
+
+        #region public void Add()
+
+        /// <summary>Add the Vector passed as parameter to this instance.</summary>
+        /// <param name="right">Right operand. This parameter is only read from.</param>
+        [CLSCompliant(false)]
+        [Obsolete("Use static Add() method instead.")]
+        public void Add(<#=name#> right)
+        {
+            this.X += right.X;			
+            this.Y += right.Y;
+<# if (vector_size >= 3) { #>
+            this.Z += right.Z;
+<# if (vector_size >= 4) { #>
+            this.W += right.W;
+<# } } #>
+        }
+
+        /// <summary>Add the Vector passed as parameter to this instance.</summary>
+        /// <param name="right">Right operand. This parameter is only read from.</param>
+        [CLSCompliant(false)]
+        [Obsolete("Use static Add() method instead.")]
+        public void Add(ref <#=name#> right)
+        {
+            this.X += right.X;
+            this.Y += right.Y;
+<# if (vector_size >= 3) { #>
+            this.Z += right.Z;
+<# if (vector_size >= 4) { #>
+            this.W += right.W;
+<# } } #>
+        }
+
+        #endregion public void Add()
+
+        #region public void Sub()
+
+        /// <summary>Subtract the Vector passed as parameter from this instance.</summary>
+        /// <param name="right">Right operand. This parameter is only read from.</param>
+        [CLSCompliant(false)]
+        [Obsolete("Use static Subtract() method instead.")]
+        public void Sub(<#=name#> right)
+        {
+            this.X -= right.X;
+            this.Y -= right.Y;
+<# if (vector_size >= 3) { #>
+            this.Z -= right.Z;
+<# if (vector_size >= 4) { #>
+            this.W -= right.W;
+<# } } #>
+        }
+
+        /// <summary>Subtract the Vector passed as parameter from this instance.</summary>
+        /// <param name="right">Right operand. This parameter is only read from.</param>
+        [CLSCompliant(false)]
+        [Obsolete("Use static Subtract() method instead.")]
+        public void Sub(ref <#=name#> right)
+        {
+            this.X -= right.X;
+            this.Y -= right.Y;
+<# if (vector_size >= 3) { #>
+            this.Z -= right.Z;
+<# if (vector_size >= 4) { #>
+            this.W -= right.W;
+<# } } #>
+        }
+
+        #endregion public void Sub()
+
+        #region public void Mult()
+
+        /// <summary>Multiply this instance by a scalar.</summary>
+        /// <param name="f">Scalar operand.</param>
+        [Obsolete("Use static Multiply() method instead.")]
+        public void Mult(<#=type#> f)
+        {
+            this.X *= f;
+            this.Y *= f;
+<# if (vector_size >= 3) { #>
+            this.Z *= f;
+<# if (vector_size >= 4) { #>
+            this.W *= f;
+<# } } #>
+        }
+
+        #endregion public void Mult()
+
+        #region public void Div()
+
+        /// <summary>Divide this instance by a scalar.</summary>
+        /// <param name="f">Scalar operand.</param>
+        [Obsolete("Use static Divide() method instead.")]
+        public void Div(<#=type#> f)
+        {
+            this.X /= f;
+            this.Y /= f;
+<# if (vector_size >= 3) { #>
+            this.Z /= f;
+<# if (vector_size >= 4) { #>
+            this.W /= f;
+<# } } #>
+        }
+
+        #endregion public void Div()
+		
+        #endregion Instance
+
+        #endregion Public Members
+    }	
+<#
+		} //end vector_size loop 
+	} //end vector_type loop		
+#>
+}

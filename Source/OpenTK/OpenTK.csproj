@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -162,6 +162,11 @@
     <Compile Include="Math\Matrix4x2d.cs" />
     <Compile Include="Math\Matrix4x3.cs" />
     <Compile Include="Math\Matrix4x3d.cs" />
+    <Compile Include="Math\Vector.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Vector.tt</DependentUpon>
+    </Compile>
     <Compile Include="Platform\DisplayDeviceBase.cs" />
     <Compile Include="Platform\MappedGamePadDriver.cs" />
     <Compile Include="Platform\Windows\WinInputBase.cs" />
@@ -558,28 +563,13 @@
     <Compile Include="Math\Matrix3d.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Math\Vector4.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Math\BezierCurve.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Math\Vector3.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Math\Functions.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Math\Matrix4d.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Math\Vector2d.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Math\Vector2h.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Math\Vector3h.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Math\Point.cs">
@@ -594,13 +584,7 @@
     <Compile Include="Math\Half.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Math\Vector4d.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Math\Rectangle.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Math\Vector2.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Math\BezierCurveQuadric.cs">
@@ -612,13 +596,7 @@
     <Compile Include="Math\Quaterniond.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Math\Vector4h.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Math\Size.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Math\Vector3d.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Math\BezierCurveCubic.cs">
@@ -802,6 +780,10 @@
     <Compile Include="Input\HatPosition.cs" />
     <Compile Include="Input\JoystickHatState.cs" />
     <Compile Include="Input\KeyModifiers.cs" />
+    <None Include="Math\Vector.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Vector.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -810,7 +792,9 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Target Name="AfterBuild">
     <Exec Command="$(OutputPath)..\..\Tools\Debug\Rewrite.exe $(OutputPath)OpenTK.dll ..\..\OpenTK.snk -debug" Condition="$(OS) == 'Windows_NT' and $(Configuration) == 'Debug'" />
     <Exec Command="$(OutputPath)..\..\Tools\Release\Rewrite.exe $(OutputPath)OpenTK.dll ..\..\OpenTK.snk" Condition="$(OS) == 'Windows_NT' and $(Configuration) != 'Debug'" />
