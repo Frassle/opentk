@@ -241,16 +241,7 @@ namespace Bind
                 }
             }
 
-            // Emit native signatures.
-            // These are required by the patcher.
-            int current_signature = 0;
-            foreach (var d in wrappers.Values.SelectMany(e => e).Select(w => w.WrappedDelegate).Distinct())
-            {
-                sw.WriteLine("[Slot({0})]", d.Slot);
-                sw.WriteLine("[DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]");
-                sw.WriteLine("static extern {0};", GetDeclarationString(d, false));
-                current_signature++;
-            }
+            int current_signature = wrappers.Values.SelectMany(e => e).Select(w => w.WrappedDelegate).Distinct().Count();
 
             sw.Unindent();
             sw.WriteLine("}");
@@ -287,7 +278,493 @@ namespace Bind
                 sw.WriteLine("[CLSCompliant(false)]");
             }
 
-            sw.WriteLine("public static {0} {{ throw new NotImplementedException(); }}", GetDeclarationString(f, Settings.Compatibility));
+            
+            sw.WriteLine("public static {0}", GetDeclarationString(f, Settings.Compatibility));
+            sw.WriteLine("{");
+            sw.Indent();
+            sw.WriteLine("unsafe");
+            sw.WriteLine("{");
+            sw.Indent();
+
+            if (f.ReturnType.CurrentType != "void")
+            {
+                sw.WriteLine("{0} __return_result;", GetTypeString(f.ReturnType));
+            }
+
+            if (f.Name != "GetError")
+            {
+                sw.WriteLine("#if DEBUG");
+                if (f.Name == "Begin")
+                {
+                    sw.WriteLine("GraphicsContext.CurrentContext.ErrorChecking = false;");
+                }
+                sw.WriteLine("using (new ErrorHelper(GraphicsContext.CurrentContext))");
+                sw.WriteLine("{");
+                sw.WriteLine("#endif");
+                sw.Indent();
+            }
+
+            // Patch convenience wrappers
+            if (f.Parameters.Count == f.WrappedDelegate.Parameters.Count)
+            {
+                EmitParameters(sw, f, true);
+            }
+            else
+            {
+                int difference = f.WrappedDelegate.Parameters.Count - f.Parameters.Count;
+                EmitConvenienceWrapper(sw, f, difference, true);
+            }
+
+            if (f.WrappedDelegate.Slot != -1)
+            {
+                // Patch convenience wrappers
+                if (f.Parameters.Count == f.WrappedDelegate.Parameters.Count)
+                {
+                    EmitParameters(sw, f, false);
+                }
+                else
+                {
+                    int difference = f.WrappedDelegate.Parameters.Count - f.Parameters.Count;
+                    EmitConvenienceWrapper(sw, f, difference, false);
+                }
+
+                // push the entry point address on the stack
+                sw.WriteLine("Silk.Cil.Load(EntryPoints);");
+                sw.WriteLine("Silk.Cil.Ldc_I4({0});", f.WrappedDelegate.Slot);
+                sw.WriteLine("Silk.Cil.Ldelem_I();");
+
+                // issue calli
+                
+                // Since the last parameter is always the entry point address,
+                // we do not need any special preparation before emiting calli.
+                sw.Write(
+                    "Silk.Cil.Calli(System.Runtime.InteropServices.CallingConvention.StdCall, typeof({0})", 
+                    GetTypeString(f.WrappedDelegate.ReturnType));
+
+                foreach (var parameter in f.WrappedDelegate.Parameters)
+                {
+                    sw.Write(", typeof({0})", GetTypeString(parameter));
+                }
+
+                sw.WriteLine(");");
+
+                if (f.ReturnType.CurrentType != "void")
+                {
+                    EmitReturnTypeWrapper(sw, f);
+                    sw.WriteLine("Silk.Cil.Store(out __return_result);");
+                }
+            }
+            else
+            {
+                throw new Exception("Slot == -1!");
+            }
+
+            if (f.Parameters.Any(p => p.CurrentType == "StringBuilder"))
+            {
+                EmitStringBuilderEpilogue(sw, f);
+            }
+            if (f.Parameters.Any(p => p.CurrentType == "String" && p.Array != 0))
+            {
+                EmitStringArrayEpilogue(sw, f);
+            }
+            if (f.Parameters.Any(p => p.CurrentType == "String" && p.Array == 0))
+            {
+                EmitStringEpilogue(sw, f);
+            }
+            
+            // return
+            if (f.Name != "GetError")
+            {
+                sw.Unindent();
+                sw.WriteLine("#if DEBUG");
+                if (f.Name == "End")
+                {
+                    sw.WriteLine("GraphicsContext.CurrentContext.ErrorChecking = true;");
+                }
+                sw.WriteLine("}");
+                sw.WriteLine("#endif");
+            }
+
+            if (f.ReturnType.CurrentType != "void")
+            {
+                sw.WriteLine("Silk.Cil.Load(__return_result);");
+            }
+
+            sw.WriteLine("Silk.Cil.Ret();");
+
+            // throw an exception to keep the C# compiler happy, we shouldn't ever actually throw this
+            sw.WriteLine("throw new InvalidProgramException();");
+
+            sw.Unindent();
+            sw.WriteLine("}");
+
+            sw.Unindent();
+            sw.WriteLine("}");
+        }
+
+        private static void EmitReturnTypeWrapper(BindStreamWriter sw, Function f)
+        {
+            if (f.Parameters.Count < f.WrappedDelegate.Parameters.Count)
+            {
+                // Convenience wrapper. The result is stored in the __result variable
+                sw.WriteLine("Silk.Cil.Load(__result);");
+            }
+            else if (f.ReturnType != f.WrappedDelegate.ReturnType)
+            {
+                if (f.ReturnType.CurrentType == "String")
+                {
+                    // String return-type wrapper
+                    sw.WriteLine("Silk.Cil.Load(new string((sbyte*)((void*)Silk.Cil.Peek<IntPtr>())));");
+                }
+                else if (f.ReturnType.IsEnum)
+                {
+                    // Nothing to do
+                }
+                else if (f.ReturnType.CurrentType == "bool" && f.WrappedDelegate.ReturnType.CurrentType == "byte")
+                {
+                    // Nothing to do
+                    // It appears that a byte with 1 = true (GL_TRUE) and 0 = false (GL_FALSE)
+                    // can be reinterpreted as a bool without a problem.
+                    // Todo: maybe we should return (value == 0 ? false : true) just to be
+                    // on the safe side?
+                }
+                else
+                {
+                    Console.Error.WriteLine("Return wrapper for '{1}' not implemented yet ({0})", f.WrappedDelegate.Name, f.WrappedDelegate.ReturnType.CurrentType);
+                }
+            }
+            else
+            {
+                // nothing to do, the native call leaves the return value
+                // on the stack and we return that unmodified to the caller.
+            }
+        }
+
+        static void EmitStringBuilderEpilogue(BindStreamWriter sw, Function f)
+        {
+            for (int i = f.Parameters.Count - 1; i >= 0; --i)
+            {
+                var p = f.Parameters[i];
+                if (p.CurrentType == "StringBuilder")
+                {
+                    // void GetShaderInfoLog(..., StringBuilder foo)
+                    // try {
+                    //  foo_sb_ptr = Marshal.AllocHGlobal(sb.Capacity + 1); -- already emitted
+                    //  glGetShaderInfoLog(..., foo_sb_ptr); -- already emitted
+                    //  MarshalPtrToStringBuilder(foo_sb_ptr, foo);
+                    // }
+                    // finally {
+                    //  Marshal.FreeHGlobal(foo_sb_ptr);
+                    // }
+
+                    var variable_name = p.Name + "_sb_ptr";
+
+                    sw.WriteLine("MarshalPtrToStringBuilder({0}, {1});", variable_name, p.Name);
+                    sw.Unindent();
+                    sw.WriteLine("} finally {");
+                    sw.Indent();
+                    sw.WriteLine("Marshal.FreeHGlobal({0});", variable_name);
+                    sw.Unindent();
+                    sw.WriteLine("}");
+                }
+            }
+        }
+
+        static void EmitStringEpilogue(BindStreamWriter sw, Function f)
+        {
+            for (int i = f.Parameters.Count - 1; i >= 0; --i)
+            {
+                var p = f.Parameters[i];
+                if (p.CurrentType == "String" && p.Array == 0)
+                {
+                    // FreeStringPtr(ptr)
+                    var variable_name = p.Name + "_string_ptr";
+                    sw.Unindent();
+                    sw.WriteLine("} finally {");
+                    sw.Indent();
+                    sw.WriteLine("FreeStringPtr({0});", variable_name);
+                    sw.Unindent();
+                    sw.WriteLine("}");
+                }
+            }
+        }
+
+        static void EmitStringArrayEpilogue(BindStreamWriter sw, Function f)
+        {
+            for (int i = f.Parameters.Count - 1; i >= 0; --i)
+            {
+                var p = f.Parameters[i];
+                if (p.CurrentType == "String" && p.Array != 0)
+                {
+                    var variable_name = p.Name + "_string_array_ptr";
+                    sw.Unindent();
+                    sw.WriteLine("} finally {");
+                    sw.Indent();
+                    sw.WriteLine("FreeStringArrayPtr({0}, {1}.Length);", variable_name, p.Name);
+                    sw.Unindent();
+                    sw.WriteLine("}");
+                }
+            }
+        }
+
+        private void EmitConvenienceWrapper(BindStreamWriter sw, Function f, int difference, bool setup)
+        {
+            if (f.Parameters.Count > 2)
+            {
+                // Todo: emit all parameters bar the last two
+                throw new NotImplementedException();
+            }
+
+            if (f.ReturnType.CurrentType != "void")
+            {
+                if (difference == 2)
+                {
+                    // Convert sized out-array/reference to return value, for example:
+                    // void GenTextures(int n, int[] textures) -> int GenTexture()
+                    // {
+                    //  const int n = 1;
+                    //  int __result;
+                    //  calli GenTextures(n, &__result);
+                    //  return __result;
+                    // }
+
+                    if (setup)
+                    {
+                        sw.WriteLine("{0} __result = default({0});", GetTypeString(f.ReturnType));
+                    }
+                    else
+                    {
+                        sw.WriteLine("Silk.Cil.Ldc_I4(1);"); // const int n 
+                        sw.WriteLine("Silk.Cil.LoadAddress(__result);"); //&__result
+                    }
+                }
+                else if (difference == 1)
+                {
+                    // Convert unsized out-array/reference to return value, for example:
+                    // void GetBoolean(GetPName pname, out bool data) -> bool GetBoolean(GetPName pname)
+                    // {
+                    //   bool __result;
+                    //   GetBooleanv(pname, &__result);
+                    //   return __result;
+                    // }
+
+                    if (setup)
+                    {
+                        sw.WriteLine("{0} __result = default({0});", GetTypeString(f.ReturnType));
+                        EmitParameters(sw, f, true);
+                    }
+                    else
+                    {
+                        EmitParameters(sw, f, false);
+                        sw.WriteLine("Silk.Cil.LoadAddress(__result);");
+                    }
+                }
+                else
+                {
+                    Console.Error.WriteLine("Unknown wrapper type for ({0})", f.WrappedDelegate.Name);
+                }
+            }
+            else
+            {
+                if (difference == 1)
+                {
+                    // Convert in-array/reference to single element, for example:
+                    // void DeleteTextures(int n, ref int textures) -> void DeleteTexture(int texture)
+                    // {
+                    //   const int n = 1;
+                    //   calli DeleteTextures(n, &texture);
+                    // }
+                    if (!setup)
+                    {
+                        sw.WriteLine("Silk.Cil.Ldc_I4(1);"); // const int n = 1
+                        sw.WriteLine("Silk.Cil.LoadAddress({0});", f.Parameters.Last().Name); // &textures
+                    }
+                }
+                else
+                {
+                    Console.Error.WriteLine("Unknown wrapper type for ({0})", f.WrappedDelegate.Name);
+                }
+            }
+        }
+
+        private void EmitParameters(BindStreamWriter sw, Function f, bool setup)
+        {
+            for (int i = 0; i < f.Parameters.Count; ++i)
+            {
+                var parameter = f.Parameters[i];
+
+                if (parameter.CurrentType == "StringBuilder")
+                {
+                    // void GetShaderInfoLog(..., StringBuilder foo)
+                    // IntPtr foo_sb_ptr;
+                    // try {
+                    //  foo_sb_ptr = Marshal.AllocHGlobal(sb.Capacity + 1);
+                    //  glGetShaderInfoLog(..., foo_sb_ptr);
+                    //  MarshalPtrToStringBuilder(foo_sb_ptr, sb);
+                    // }
+                    // finally {
+                    //  Marshal.FreeHGlobal(sb_ptr);
+                    // }
+
+                    var variable_name = parameter.Name + "_sb_ptr";
+
+                    if (setup)
+                    {
+                        sw.WriteLine("IntPtr {0} = IntPtr.Zero;", variable_name);
+                        sw.WriteLine("try");
+                        sw.WriteLine("{");
+                        sw.Indent();
+                        sw.WriteLine("{0} = Marshal.AllocHGlobal({1}.Capacity + 1);", variable_name, parameter.Name);
+                    }
+                    else
+                    {
+                        sw.WriteLine("Silk.Cil.Load({0});", variable_name);
+                    }
+
+                    // We'll emit the finally block in the epilogue implementation.
+                }
+                else if (parameter.CurrentType == "String" && parameter.Array == 0)
+                {
+                    // string marshaling:
+                    // IntPtr ptr = MarshalStringToPtr(str);
+                    // try { calli }
+                    // finally { FreeStringPtr(ptr); }
+
+                    var variable_name = parameter.Name + "_string_ptr";
+
+                    if (setup)
+                    {
+                        sw.WriteLine("IntPtr {0} = MarshalStringToPtr({1});", variable_name, parameter.Name);
+                        sw.WriteLine("try {");
+                        sw.Indent();
+                    }
+                    else
+                    {
+                        sw.WriteLine("Silk.Cil.Load({0});", variable_name);
+                    }
+
+                    // The finally block will be emitted in the function epilogue
+                }
+                else if (parameter.Reference)
+                {
+                    var variable_name = (parameter.Name + "_pinned").Replace("@", "");
+
+                    if (setup)
+                    {
+                        sw.WriteLine("Silk.Cil.DeclareLocal(\"{0} pinned\", \"{1}\");", GetTypeString(parameter, true), variable_name);
+                        sw.WriteLine("Silk.Cil.Ldarg({0});", i);
+                        sw.WriteLine("Silk.Cil.StoreByName(\"{0}\");", variable_name);
+                    }
+                    else
+                    {
+                        sw.WriteLine("Silk.Cil.LoadByName(\"{0}\");", variable_name);
+                        sw.WriteLine("Silk.Cil.Conv_I();");
+                    }
+                }
+                else if (parameter.Array != 0)
+                {
+                    if (parameter.CurrentType != "String")
+                    {
+                        // .Net treats 1d arrays differently than higher rank arrays.
+                        // 1d arrays are directly supported by instructions such as ldlen and ldelema.
+                        // Higher rank arrays must be accessed through System.Array methods such as get_Length.
+                        // 1d array:
+                        //    check array is not null
+                        //    check ldlen array > 0
+                        //    ldc.i4.0
+                        //    ldelema
+                        // 2d array:
+                        //    check array is not null
+                        //    check array.get_Length() > 0
+                        //    ldc.i4.0
+                        //    ldc.i4.0
+                        //    call instance T& T[0..., 0...]::Address(int32, int32)
+                        // Mono treats everything as a 1d array.
+                        // Interestingly, the .Net approach works on both Mono and .Net.
+                        // The Mono approach fails when using high-rank arrays on .Net.
+                        // We should report a bug to http://bugzilla.xamarin.com
+
+                        // Pin the array and pass the address
+                        // of its first element.
+                        var array_type = GetTypeString(parameter);
+                        var element_type = parameter.CurrentType;
+                        var pinned_array = (parameter.Name + "_array").Replace("@", "");
+                        var pinned_array_ptr = parameter.Name + "_array_ptr";
+
+                        if (setup)
+                        {
+                            sw.WriteLine("Silk.Cil.DeclareLocal(\"{0} pinned\", \"{1}\");", array_type, pinned_array);
+                            sw.WriteLine("Silk.Cil.Ldarg({0});", i);
+                            sw.WriteLine("Silk.Cil.StoreByName(\"{0}\");", pinned_array);
+                            sw.WriteLine("IntPtr {0} = IntPtr.Zero;", pinned_array_ptr);
+
+                            sw.WriteLine("if({0} != null && {0}.Length != 0)", parameter.Name);
+                            sw.WriteLine("{");
+                            sw.Indent();
+
+                            sw.WriteLine("Silk.Cil.LoadByName(\"{0}\");", pinned_array);
+
+                            if (parameter.Array == 1)
+                            {
+                                sw.WriteLine("Silk.Cil.Ldc_I4(0);");
+                                sw.WriteLine("Silk.Cil.Ldelema<{0}>();", element_type);
+                                sw.WriteLine("Silk.Cil.Store(out {0});", pinned_array_ptr);
+                            }
+                            else
+                            {
+                                // 2d-3d array, address must be taken as follows:
+                                // call instance T& T[0..., 0..., 0...]::Address(int, int, int)
+
+                                for (int r = 0; r < parameter.Array; r++)
+                                {
+                                    sw.WriteLine("Silk.Cil.Ldc_I4(0);");
+                                }
+
+                                string method = string.Format("{0}& {1}::Address({2})", parameter.CurrentType, array_type, string.Join(",", Enumerable.Repeat("System.Int32", parameter.Array).ToArray()));
+
+                                sw.WriteLine("Silk.Cil.Call(\"{0}\");", method);
+                                sw.WriteLine("Silk.Cil.Store(out {0});", pinned_array_ptr);
+                            }
+
+                            sw.Unindent();
+                            sw.WriteLine("}");
+                        }
+                        else
+                        {
+                            sw.WriteLine("Silk.Cil.Load({0});", pinned_array_ptr);
+                            sw.WriteLine("Silk.Cil.Conv_I();");
+                        }
+                    }
+                    else
+                    {
+                        // string[] masrhaling:
+                        // IntPtr ptr = MarshalStringArrayToPtr(strings);
+                        // try { calli }
+                        // finally { UnmarshalStringArray(ptr); }
+
+                        var variable_name = parameter.Name + "_string_array_ptr";
+                        if (setup)
+                        {
+                            sw.WriteLine("IntPtr {0} = MarshalStringArrayToPtr({1});", variable_name, parameter.Name);
+                            sw.WriteLine("try {");
+                            sw.Indent();
+                        }
+                        else
+                        {
+                            sw.WriteLine("Silk.Cil.Load({0});", variable_name);
+                        }
+
+                        // The finally block will be emitted in the function epilogue
+                    }
+                }
+                else
+                {
+                    if (!setup)
+                    {
+                        sw.WriteLine("Silk.Cil.Ldarg({0});", i);
+                    }
+                }
+            }
         }
 
         void WriteDocumentation(BindStreamWriter sw, Function f)
@@ -741,6 +1218,25 @@ namespace Bind
             return sb.ToString();
         }
 
+        string GetTypeString(Type t, bool cli = false)
+        {
+            if (cli)
+            {
+                return String.Format("{0}{1}{2}{3}",
+                    t.QualifiedType,
+                    t.Reference ? "&" : "",
+                    pointer_levels[t.Pointer],
+                    array_levels[t.Array]);
+            }
+            else
+            {
+                return String.Format("{0}{1}{2}",
+                    t.QualifiedType,
+                    pointer_levels[t.Pointer],
+                    array_levels[t.Array]);
+            }
+        }
+
         string GetDeclarationString(Type type, Settings.Legacy settings)
         {
             var t = type.QualifiedType;
@@ -752,10 +1248,7 @@ namespace Bind
                 }
             }
 
-            return String.Format("{0}{1}{2}",
-                t,
-                pointer_levels[type.Pointer],
-                array_levels[type.Array]);
+            return GetTypeString(type);
         }
 
         #endregion

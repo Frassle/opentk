@@ -111,6 +111,9 @@
     <AssemblyOriginatorKeyFile>..\..\OpenTK.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Silk">
+      <HintPath>..\..\Dependencies\managed\Silk.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -738,7 +741,6 @@
     <Compile Include="Graphics\ES11\ES11Enums.cs" />
     <Compile Include="Graphics\ES11\ES11Obsolete.cs" />
     <Compile Include="SlotAttribute.cs" />
-    <Compile Include="RewrittenAttribute.cs" />
     <Compile Include="Graphics\OpenGL\GLObsolete.cs" />
     <Compile Include="Platform\MacOS\NS.cs" />
     <Compile Include="Input\GamePadCapabilities.cs" />
@@ -829,15 +831,12 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent></PostBuildEvent>
   </PropertyGroup>
-  <ItemGroup />
+  <ItemGroup />  
   <Target Name="AfterBuild">
-    <Exec Command="$(OutputPath)..\..\Tools\Debug\Rewrite.exe $(OutputPath)OpenTK.dll ..\..\OpenTK.snk -debug" Condition="$(OS) == 'Windows_NT' and $(Configuration) == 'Debug'" />
-    <Exec Command="$(OutputPath)..\..\Tools\Release\Rewrite.exe $(OutputPath)OpenTK.dll ..\..\OpenTK.snk" Condition="$(OS) == 'Windows_NT' and $(Configuration) != 'Debug'" />
-    <Exec Command="mono $(OutputPath)..\..\Tools\Debug\Rewrite.exe $(OutputPath)OpenTK.dll ..\..\OpenTK.snk -debug" Condition="$(OS) != 'Windows_NT' and $(Configuration) == 'Debug'" />
-    <Exec Command="mono $(OutputPath)..\..\Tools\Release\Rewrite.exe $(OutputPath)OpenTK.dll ..\..\OpenTK.snk" Condition="$(OS) != 'Windows_NT' and $(Configuration) != 'Debug'" />
+    <Exec Command="$(SolutionDir)\Dependencies\managed\Weave.exe --input $(TargetPath) --output $(TargetPath) --key $(SolutionDir)\OpenTK.snk" Condition="$(OS) == 'Windows_NT'" />
+    <Exec Command="mono $(SolutionDir)\Dependencies\managed\Weave.exe --input $(TargetPath) --output $(TargetPath) --key $(SolutionDir)\OpenTK.snk" Condition="$(OS) != 'Windows_NT'" />
   </Target>
   <ProjectExtensions>
     <MonoDevelop>

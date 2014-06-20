@@ -354,6 +354,22 @@ namespace Bind.Structures
             return result;
         }
 
+        public static bool operator ==(Type a, Type b)
+        {
+            if (Object.ReferenceEquals(a, null) && Object.ReferenceEquals(b, null))
+                return true;
+
+            if (Object.ReferenceEquals(a, null) || Object.ReferenceEquals(b, null))
+                return false;
+
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(Type a, Type b)
+        {
+            return !(a == b);
+        }
+
         #endregion
     }
 }
