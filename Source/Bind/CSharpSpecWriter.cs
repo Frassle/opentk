@@ -686,7 +686,7 @@ namespace Bind
 
                         // Pin the array and pass the address
                         // of its first element.
-                        var array_type = GetTypeString(parameter);
+                        var array_type = GetTypeString(parameter, true);
                         var element_type = parameter.CurrentType;
                         var pinned_array = (parameter.Name + "_array").Replace("@", "");
                         var pinned_array_ptr = parameter.Name + "_array_ptr";
@@ -1222,8 +1222,86 @@ namespace Bind
         {
             if (cli)
             {
+                string name = t.QualifiedType;
+                switch (name)
+                {
+                    case "SByte":
+                    case "sbyte":
+                        name = "System.SByte";
+                        break;
+                    case "Int16":
+                    case "short":
+                        name = "System.Int16";
+                        break;
+                    case "Int32":
+                    case "int":
+                        name = "System.Int32";
+                        break;
+                    case "Int64":
+                    case "long":
+                        name = "System.Int64";
+                        break;
+                    case "IntPtr":
+                        name = "System.IntPtr";
+                        break;
+
+                    case "Byte":
+                    case "byte":
+                        name = "System.Byte";
+                        break;
+                    case "UInt16":
+                    case "ushort":
+                        name = "System.UInt16";
+                        break;
+                    case "UInt32":
+                    case "uint":
+                        name = "System.UInt32";
+                        break;
+                    case "UInt64":
+                    case "ulong":
+                        name = "System.UInt64";
+                        break;
+                    case "UIntPtr":
+                        name = "System.UIntPtr";
+                        break;
+
+                    case "Single":
+                    case "float":
+                        name = "System.Single";
+                        break;
+                    case "Double":
+                    case "double":
+                        name = "System.Double";
+                        break;
+
+                    case "Object":
+                    case "object":
+                        name = "System.Object";
+                        break;
+                    case "String":
+                    case "string":
+                        name = "System.String";
+                        break;
+                    case "Char":
+                    case "char":
+                        name = "System.Char";
+                        break;
+                    case "Boolean":
+                    case "bool":
+                        name = "System.Boolean";
+                        break;
+
+                    case "void":
+                        name = "System.Void";
+                        break;
+                        
+                    case "Half":
+                        name = "OpenTK.Half";
+                        break;
+                }
+
                 return String.Format("{0}{1}{2}{3}",
-                    t.QualifiedType,
+                    name,
                     t.Reference ? "&" : "",
                     pointer_levels[t.Pointer],
                     array_levels[t.Array]);
