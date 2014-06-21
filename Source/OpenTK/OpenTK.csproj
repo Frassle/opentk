@@ -831,9 +831,10 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent></PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
-  <ItemGroup />  
+  <ItemGroup />
   <Target Name="AfterBuild">
     <Exec Command="$(SolutionDir)\Dependencies\managed\Weave.exe --input $(TargetPath) --output $(TargetPath) --key $(SolutionDir)\OpenTK.snk" Condition="$(OS) == 'Windows_NT'" />
     <Exec Command="mono $(SolutionDir)\Dependencies\managed\Weave.exe --input $(TargetPath) --output $(TargetPath) --key $(SolutionDir)\OpenTK.snk" Condition="$(OS) != 'Windows_NT'" />
