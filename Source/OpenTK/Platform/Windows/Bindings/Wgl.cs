@@ -110,18 +110,15 @@ namespace OpenTK.Platform.Windows
             {
                 Silk.Cil.Ldarg(0);
                 Silk.Cil.Ldarg(1);
-                Silk.Cil.DeclareLocal("System.Int32[] pinned", "attribList_array");
-                Silk.Cil.Ldarg(2);
-                Silk.Cil.StoreByName("attribList_array");
-                IntPtr attribList_array_ptr = IntPtr.Zero;
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "attribList_pinned");
                 if (attribList != null && attribList.Length != 0)
                 {
-                    Silk.Cil.LoadByName("attribList_array");
+                    Silk.Cil.Load(attribList);
                     Silk.Cil.Ldc_I4(0);
                     Silk.Cil.Ldelema<int>();
-                    Silk.Cil.Store(out attribList_array_ptr);
+                    Silk.Cil.StoreByName("attribList_pinned");
                 }
-                Silk.Cil.Load(attribList_array_ptr);
+                Silk.Cil.LoadByName("attribList_pinned");
                 Silk.Cil.Conv_I();
                 Silk.Cil.Load(EntryPoints);
                 Silk.Cil.Ldc_I4(0);

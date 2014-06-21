@@ -686,44 +686,41 @@ namespace Bind
 
                         // Pin the array and pass the address
                         // of its first element.
+                        var non_array_parameter = new Parameter(parameter);
+                        non_array_parameter.Array = 0;
+                        var element_type = GetTypeString(non_array_parameter, true);
                         var array_type = GetTypeString(parameter, true);
-                        var element_type = parameter.CurrentType;
-                        var pinned_array = (parameter.Name + "_array").Replace("@", "");
-                        var pinned_array_ptr = parameter.Name + "_array_ptr";
+
+                        var pinned_elem = (parameter.Name + "_pinned").Replace("@", "");
 
                         if (setup)
                         {
-                            sw.WriteLine("Silk.Cil.DeclareLocal(\"{0} pinned\", \"{1}\");", array_type, pinned_array);
-                            sw.WriteLine("Silk.Cil.Ldarg({0});", i);
-                            sw.WriteLine("Silk.Cil.StoreByName(\"{0}\");", pinned_array);
-                            sw.WriteLine("IntPtr {0} = IntPtr.Zero;", pinned_array_ptr);
-
+                            sw.WriteLine("Silk.Cil.DeclareLocal(\"{0}& pinned\", \"{1}\");", element_type, pinned_elem);
                             sw.WriteLine("if({0} != null && {0}.Length != 0)", parameter.Name);
                             sw.WriteLine("{");
                             sw.Indent();
-
-                            sw.WriteLine("Silk.Cil.LoadByName(\"{0}\");", pinned_array);
-
                             if (parameter.Array == 1)
                             {
+                                sw.WriteLine("Silk.Cil.Ldarg({0});", i);
                                 sw.WriteLine("Silk.Cil.Ldc_I4(0);");
-                                sw.WriteLine("Silk.Cil.Ldelema<{0}>();", element_type);
-                                sw.WriteLine("Silk.Cil.Store(out {0});", pinned_array_ptr);
+                                sw.WriteLine("Silk.Cil.Ldelema(\"{0}\");", element_type);
+                                sw.WriteLine("Silk.Cil.StoreByName(\"{0}\");", pinned_elem);
                             }
                             else
                             {
                                 // 2d-3d array, address must be taken as follows:
                                 // call instance T& T[0..., 0..., 0...]::Address(int, int, int)
+                                sw.WriteLine("Silk.Cil.Ldarg({0});", i);
 
                                 for (int r = 0; r < parameter.Array; r++)
                                 {
                                     sw.WriteLine("Silk.Cil.Ldc_I4(0);");
                                 }
 
-                                string method = string.Format("{0}& {1}::Address({2})", parameter.CurrentType, array_type, string.Join(",", Enumerable.Repeat("System.Int32", parameter.Array).ToArray()));
+                                string method = string.Format("{0}& {1}::Address({2})", element_type, array_type, string.Join(",", Enumerable.Repeat("System.Int32", parameter.Array).ToArray()));
 
                                 sw.WriteLine("Silk.Cil.Call(\"{0}\");", method);
-                                sw.WriteLine("Silk.Cil.Store(out {0});", pinned_array_ptr);
+                                sw.WriteLine("Silk.Cil.StoreByName(\"{0}\");", pinned_elem);
                             }
 
                             sw.Unindent();
@@ -731,7 +728,7 @@ namespace Bind
                         }
                         else
                         {
-                            sw.WriteLine("Silk.Cil.Load({0});", pinned_array_ptr);
+                            sw.WriteLine("Silk.Cil.LoadByName(\"{0}\");", pinned_elem);
                             sw.WriteLine("Silk.Cil.Conv_I();");
                         }
                     }
