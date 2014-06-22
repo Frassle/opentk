@@ -740,7 +740,6 @@
     <Compile Include="Graphics\ES11\ES11.cs" />
     <Compile Include="Graphics\ES11\ES11Enums.cs" />
     <Compile Include="Graphics\ES11\ES11Obsolete.cs" />
-    <Compile Include="SlotAttribute.cs" />
     <Compile Include="Graphics\OpenGL\GLObsolete.cs" />
     <Compile Include="Platform\MacOS\NS.cs" />
     <Compile Include="Input\GamePadCapabilities.cs" />
