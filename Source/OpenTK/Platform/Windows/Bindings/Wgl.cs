@@ -134,7 +134,7 @@ namespace OpenTK.Platform.Windows
             {
                 Silk.Cil.Ldarg(0);
                 Silk.Cil.Load(EntryPoints);
-                Silk.Cil.Ldc_I4(0);
+                Silk.Cil.Ldc_I4(1);
                 Silk.Cil.Ldelem_I();
                 Silk.Cil.Calli(CallingConvention.Winapi, typeof(IntPtr), typeof(IntPtr));
                 return Marshal.PtrToStringAnsi(Silk.Cil.Peek<IntPtr>());
@@ -144,6 +144,35 @@ namespace OpenTK.Platform.Windows
             public static
             Boolean GetPixelFormatAttrib(IntPtr hdc, int iPixelFormat, int iLayerPlane, Int32 nAttributes, int[] piAttributes, [Out] int[] piValues)
             {
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "piAttributes_pinned");
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "piValues_pinned");
+                if (piAttributes != null && piAttributes.Length != 0)
+                {
+                    Silk.Cil.Load(piAttributes);
+                    Silk.Cil.Ldc_I4(0);
+                    Silk.Cil.Ldelema<int>();
+                    Silk.Cil.StoreByName("piAttributes_pinned");
+
+                    piValues = new int[piAttributes.Length];
+                    Silk.Cil.Load(piValues);
+                    Silk.Cil.Ldc_I4(0);
+                    Silk.Cil.Ldelema<int>();
+                    Silk.Cil.StoreByName("piValues_pinned");
+                }
+
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.Ldarg(1);
+                Silk.Cil.Ldarg(2);
+                Silk.Cil.Ldarg(3);
+                Silk.Cil.LoadByName("piAttributes_pinned");
+                Silk.Cil.Conv_I();
+                Silk.Cil.LoadByName("piValues_pinned");
+                Silk.Cil.Conv_I();
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(2);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(Boolean), typeof(IntPtr), typeof(int), typeof(int), typeof(Int32), typeof(int*), typeof(int*));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -151,6 +180,30 @@ namespace OpenTK.Platform.Windows
             public static
             Boolean GetPixelFormatAttrib(IntPtr hdc, int iPixelFormat, int iLayerPlane, Int32 nAttributes, ref int piAttributes, [Out] out int piValues)
             {
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "piAttributes_pinned");
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "piValues_pinned");
+                if (piAttributes != null)
+                {
+                    Silk.Cil.LoadByName("piAttributes");
+                    Silk.Cil.StoreByName("piAttributes_pinned");
+
+                    Silk.Cil.LoadByName("piValues");
+                    Silk.Cil.StoreByName("piValues_pinned");
+                }
+
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.Ldarg(1);
+                Silk.Cil.Ldarg(2);
+                Silk.Cil.Ldarg(3);
+                Silk.Cil.LoadByName("piAttributes_pinned");
+                Silk.Cil.Conv_I();
+                Silk.Cil.LoadByName("piValues_pinned");
+                Silk.Cil.Conv_I();
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(2);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(Boolean), typeof(IntPtr), typeof(int), typeof(int), typeof(Int32), typeof(int*), typeof(int*));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -159,6 +212,34 @@ namespace OpenTK.Platform.Windows
             public static
             Boolean GetPixelFormatAttrib(IntPtr hdc, int iPixelFormat, int iLayerPlane, int nAttributes, int[] piAttributes, [Out] Single[] pfValues)
             {
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "piAttributes_pinned");
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "pfValues_pinned");
+                if (piAttributes != null && piAttributes.Length != 0)
+                {
+                    Silk.Cil.Load(piAttributes);
+                    Silk.Cil.Ldc_I4(0);
+                    Silk.Cil.Ldelema<int>();
+                    Silk.Cil.StoreByName("piAttributes_pinned");
+
+                    pfValues = new float[piAttributes.Length];
+                    Silk.Cil.Load(pfValues);
+                    Silk.Cil.Ldc_I4(0);
+                    Silk.Cil.Ldelema<int>();
+                    Silk.Cil.StoreByName("pfValues_pinned");
+                }
+
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.Ldarg(1);
+                Silk.Cil.Ldarg(2);
+                Silk.Cil.Ldarg(3);
+                Silk.Cil.LoadByName("piAttributes_pinned");
+                Silk.Cil.Conv_I();
+                Silk.Cil.LoadByName("pfValues_pinned");
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(3);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(Boolean), typeof(IntPtr), typeof(int), typeof(int), typeof(Int32), typeof(int*), typeof(float*));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -166,6 +247,27 @@ namespace OpenTK.Platform.Windows
             public static
             Boolean GetPixelFormatAttrib(IntPtr hdc, int iPixelFormat, int iLayerPlane, Int32 nAttributes, ref int piAttributes, [Out] out Single pfValues)
             {
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "piAttributes_pinned");
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "pfValues_pinned");
+
+                Silk.Cil.LoadByName("piAttributes");
+                Silk.Cil.StoreByName("piAttributes_pinned");
+
+                Silk.Cil.LoadByName("pfValues");
+                Silk.Cil.StoreByName("pfValues_pinned");
+
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.Ldarg(1);
+                Silk.Cil.Ldarg(2);
+                Silk.Cil.Ldarg(3);
+                Silk.Cil.LoadByName("piAttributes_pinned");
+                Silk.Cil.Conv_I();
+                Silk.Cil.LoadByName("pfValues_pinned");
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(3);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(Boolean), typeof(IntPtr), typeof(int), typeof(int), typeof(Int32), typeof(int*), typeof(float*));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -173,6 +275,50 @@ namespace OpenTK.Platform.Windows
             public static
             Boolean ChoosePixelFormat(IntPtr hdc, int[] piAttribIList, Single[] pfAttribFList, Int32 nMaxFormats, [Out] int[] piFormats, out int nNumFormats)
             {
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "piAttribIList_pinned");
+                Silk.Cil.DeclareLocal("System.Single& pinned", "pfAttribFList_pinned");
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "piFormats_pinned");
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "nNumFormats_pinned");
+
+                if (piAttribIList != null && piAttribIList.Length != 0)
+                {
+                    Silk.Cil.Load(piAttribIList);
+                    Silk.Cil.Ldc_I4(0);
+                    Silk.Cil.Ldelema<int>();
+                    Silk.Cil.StoreByName("piAttribIList_pinned");
+                }
+
+                if (pfAttribFList != null && pfAttribFList.Length != 0)
+                {
+                    Silk.Cil.Load(pfAttribFList);
+                    Silk.Cil.Ldc_I4(0);
+                    Silk.Cil.Ldelema<int>();
+                    Silk.Cil.StoreByName("pfAttribFList_pinned");
+                }
+
+                if (piFormats != null && piFormats.Length != 0)
+                {
+                    Silk.Cil.Load(piFormats);
+                    Silk.Cil.Ldc_I4(0);
+                    Silk.Cil.Ldelema<int>();
+                    Silk.Cil.StoreByName("piFormats_pinned");
+                }
+
+                Silk.Cil.LoadByName("nNumFormats");
+                Silk.Cil.StoreByName("nNumFormats_pinned");
+
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.LoadByName("piAttribIList_pinned");
+                Silk.Cil.LoadByName("pfAttribFList_pinned");
+                Silk.Cil.Ldarg(3);
+                Silk.Cil.LoadByName("piFormats_pinned");
+                Silk.Cil.LoadByName("nNumFormats_pinned");
+
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(4);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(Boolean), typeof(IntPtr), typeof(int*), typeof(Single*), typeof(UInt32), typeof(int*), typeof(UInt32*));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -180,6 +326,36 @@ namespace OpenTK.Platform.Windows
             public static
             Boolean ChoosePixelFormat(IntPtr hdc, ref int piAttribIList, ref Single pfAttribFList, Int32 nMaxFormats, [Out] out int piFormats, [Out] out Int32 nNumFormats)
             {
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "piAttribIList_pinned");
+                Silk.Cil.DeclareLocal("System.Single& pinned", "pfAttribFList_pinned");
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "piFormats_pinned");
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "nNumFormats_pinned");
+
+
+                Silk.Cil.LoadByName("piAttribIList");
+                Silk.Cil.StoreByName("piAttribIList_pinned");
+
+                Silk.Cil.LoadByName("pfAttribFList");
+                Silk.Cil.StoreByName("pfAttribFList_pinned");
+
+                Silk.Cil.LoadByName("piFormats");
+                Silk.Cil.StoreByName("piFormats_pinned");
+
+                Silk.Cil.LoadByName("nNumFormats");
+                Silk.Cil.StoreByName("nNumFormats_pinned");
+
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.LoadByName("piAttribIList_pinned");
+                Silk.Cil.LoadByName("pfAttribFList_pinned");
+                Silk.Cil.Ldarg(3);
+                Silk.Cil.LoadByName("piFormats_pinned");
+                Silk.Cil.LoadByName("nNumFormats_pinned");
+
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(4);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(Boolean), typeof(IntPtr), typeof(int*), typeof(Single*), typeof(UInt32), typeof(int*), typeof(UInt32*));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -187,6 +363,14 @@ namespace OpenTK.Platform.Windows
             public static
             Boolean MakeContextCurrent(IntPtr hDrawDC, IntPtr hReadDC, IntPtr hglrc)
             {
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.Ldarg(1);
+                Silk.Cil.Ldarg(2);
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(5);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(Boolean), typeof(IntPtr), typeof(IntPtr), typeof(IntPtr));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -194,6 +378,11 @@ namespace OpenTK.Platform.Windows
             public static
             IntPtr GetCurrentReadDC()
             {
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(6);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(IntPtr));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -201,6 +390,27 @@ namespace OpenTK.Platform.Windows
             public static
             IntPtr CreatePbuffer(IntPtr hDC, int iPixelFormat, int iWidth, int iHeight, int[] piAttribList)
             {
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "piAttribList_pinned");
+
+                if (piAttribList != null && piAttribList.Length != 0)
+                {
+                    Silk.Cil.Load(piAttribList);
+                    Silk.Cil.Ldc_I4(0);
+                    Silk.Cil.Ldelema<int>();
+                    Silk.Cil.StoreByName("piAttribList_pinned");
+                }
+
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.Ldarg(1);
+                Silk.Cil.Ldarg(2);
+                Silk.Cil.Ldarg(3);
+                Silk.Cil.LoadByName("piAttribList_pinned");
+
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(7);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(IntPtr), typeof(IntPtr), typeof(int), typeof(int), typeof(int), typeof(int*));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -208,6 +418,22 @@ namespace OpenTK.Platform.Windows
             public static
             IntPtr CreatePbuffer(IntPtr hDC, int iPixelFormat, int iWidth, int iHeight, ref int piAttribList)
             {
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "piAttribList_pinned");
+
+                Silk.Cil.LoadByName("piAttribList");
+                Silk.Cil.StoreByName("piAttribList_pinned");
+
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.Ldarg(1);
+                Silk.Cil.Ldarg(2);
+                Silk.Cil.Ldarg(3);
+                Silk.Cil.LoadByName("piAttribList_pinned");
+
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(7);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(IntPtr), typeof(IntPtr), typeof(int), typeof(int), typeof(int), typeof(int*));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -215,6 +441,12 @@ namespace OpenTK.Platform.Windows
             public static
             IntPtr GetPbufferDC(IntPtr hPbuffer)
             {
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(8);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(IntPtr), typeof(IntPtr));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -222,6 +454,13 @@ namespace OpenTK.Platform.Windows
             public static
             int ReleasePbufferDC(IntPtr hPbuffer, IntPtr hDC)
             {
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.Ldarg(1);
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(9);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(int), typeof(IntPtr), typeof(IntPtr));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -229,6 +468,12 @@ namespace OpenTK.Platform.Windows
             public static
             Boolean DestroyPbuffer(IntPtr hPbuffer)
             {
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(10);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(Boolean), typeof(IntPtr));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -236,6 +481,24 @@ namespace OpenTK.Platform.Windows
             public static
             Boolean QueryPbuffer(IntPtr hPbuffer, int iAttribute, [Out] int[] piValue)
             {
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "piValue_pinned");
+
+                if (piValue != null && piValue.Length != 0)
+                {
+                    Silk.Cil.Load(piValue);
+                    Silk.Cil.Ldc_I4(0);
+                    Silk.Cil.Ldelema<int>();
+                    Silk.Cil.StoreByName("piValue_pinned");
+                }
+
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.Ldarg(1);
+                Silk.Cil.LoadByName("piValue_pinned");
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(11);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(Boolean), typeof(IntPtr), typeof(int), typeof(int*));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -243,6 +506,19 @@ namespace OpenTK.Platform.Windows
             public static
             Boolean QueryPbuffer(IntPtr hPbuffer, int iAttribute, [Out] out int piValue)
             {
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "piValue_pinned");
+
+                Silk.Cil.LoadByName("piValue");
+                Silk.Cil.StoreByName("piValue_pinned");
+
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.Ldarg(1);
+                Silk.Cil.LoadByName("piValue_pinned");
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(11);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(Boolean), typeof(IntPtr), typeof(int), typeof(int*));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -250,6 +526,13 @@ namespace OpenTK.Platform.Windows
             public static
             Boolean BindTexImage(IntPtr hPbuffer, int iBuffer)
             {
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.Ldarg(1);
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(12);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(Boolean), typeof(IntPtr), typeof(int));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -257,6 +540,13 @@ namespace OpenTK.Platform.Windows
             public static
             Boolean ReleaseTexImage(IntPtr hPbuffer, int iBuffer)
             {
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.Ldarg(1);
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(13);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(Boolean), typeof(IntPtr), typeof(int));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -264,6 +554,23 @@ namespace OpenTK.Platform.Windows
             public static
             Boolean SetPbufferAttrib(IntPtr hPbuffer, int[] piAttribList)
             {
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "piAttribList_pinned");
+
+                if (piAttribList != null && piAttribList.Length != 0)
+                {
+                    Silk.Cil.Load(piAttribList);
+                    Silk.Cil.Ldc_I4(0);
+                    Silk.Cil.Ldelema<int>();
+                    Silk.Cil.StoreByName("piAttribList_pinned");
+                }
+
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.LoadByName("piAttribList_pinned");
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(14);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(Boolean), typeof(IntPtr), typeof(int*));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
 
@@ -271,6 +578,18 @@ namespace OpenTK.Platform.Windows
             public static
             Boolean SetPbufferAttrib(IntPtr hPbuffer, ref int piAttribList)
             {
+                Silk.Cil.DeclareLocal("System.Int32& pinned", "piAttribList_pinned");
+
+                Silk.Cil.LoadByName("piAttribList");
+                Silk.Cil.StoreByName("piAttribList_pinned");
+
+                Silk.Cil.Ldarg(0);
+                Silk.Cil.LoadByName("piAttribList_pinned");
+                Silk.Cil.Load(EntryPoints);
+                Silk.Cil.Ldc_I4(14);
+                Silk.Cil.Ldelem_I();
+                Silk.Cil.Calli(CallingConvention.Winapi, typeof(Boolean), typeof(IntPtr), typeof(int*));
+                Silk.Cil.Ret();
                 throw new NotImplementedException();
             }
         }
@@ -282,7 +601,7 @@ namespace OpenTK.Platform.Windows
             string GetExtensionsString()
             {
                 Silk.Cil.Load(EntryPoints);
-                Silk.Cil.Ldc_I4(0);
+                Silk.Cil.Ldc_I4(15);
                 Silk.Cil.Ldelem_I();
                 Silk.Cil.Calli(CallingConvention.Winapi, typeof(IntPtr));
                 return Marshal.PtrToStringAnsi(Silk.Cil.Peek<IntPtr>());
@@ -294,11 +613,10 @@ namespace OpenTK.Platform.Windows
             {
                 Silk.Cil.Ldarg(0);
                 Silk.Cil.Load(EntryPoints);
-                Silk.Cil.Ldc_I4(0);
+                Silk.Cil.Ldc_I4(16);
                 Silk.Cil.Ldelem_I();
                 Silk.Cil.Calli(CallingConvention.Winapi, typeof(Boolean), typeof(int));
-                Silk.Cil.Ret();
-                throw new NotImplementedException();
+                return Silk.Cil.Peek<Boolean>();
             }
 
             [AutoGenerated(EntryPoint = "wglGetSwapIntervalEXT")]
@@ -306,67 +624,11 @@ namespace OpenTK.Platform.Windows
             int GetSwapInterval()
             {
                 Silk.Cil.Load(EntryPoints);
-                Silk.Cil.Ldc_I4(0);
+                Silk.Cil.Ldc_I4(17);
                 Silk.Cil.Ldelem_I();
                 Silk.Cil.Calli(CallingConvention.Winapi, typeof(int));
-                Silk.Cil.Ret();
-                throw new NotImplementedException();
+                return Silk.Cil.Peek<int>();
             }
         }
-
-        [Slot(0)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal unsafe static extern IntPtr wglCreateContextAttribsARB(IntPtr hDC, IntPtr hShareContext, int* attribList);
-        [Slot(1)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal static extern IntPtr wglGetExtensionsStringARB(IntPtr hdc);
-        [Slot(2)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal unsafe static extern Boolean wglGetPixelFormatAttribivARB(IntPtr hdc, int iPixelFormat, int iLayerPlane, UInt32 nAttributes, int* piAttributes, [Out] int* piValues);
-        [Slot(3)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal unsafe static extern Boolean wglGetPixelFormatAttribfvARB(IntPtr hdc, int iPixelFormat, int iLayerPlane, UInt32 nAttributes, int* piAttributes, [Out] Single* pfValues);
-        [Slot(4)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal unsafe static extern Boolean wglChoosePixelFormatARB(IntPtr hdc, int* piAttribIList, Single* pfAttribFList, UInt32 nMaxFormats, [Out] int* piFormats, [Out] UInt32* nNumFormats);
-        [Slot(5)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal static extern Boolean wglMakeContextCurrentARB(IntPtr hDrawDC, IntPtr hReadDC, IntPtr hglrc);
-        [Slot(6)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal static extern IntPtr wglGetCurrentReadDCARB();
-        [Slot(7)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal unsafe static extern IntPtr wglCreatePbufferARB(IntPtr hDC, int iPixelFormat, int iWidth, int iHeight, int* piAttribList);
-        [Slot(8)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal static extern IntPtr wglGetPbufferDCARB(IntPtr hPbuffer);
-        [Slot(9)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal static extern int wglReleasePbufferDCARB(IntPtr hPbuffer, IntPtr hDC);
-        [Slot(10)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal static extern Boolean wglDestroyPbufferARB(IntPtr hPbuffer);
-        [Slot(11)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal unsafe static extern Boolean wglQueryPbufferARB(IntPtr hPbuffer, int iAttribute, [Out] int* piValue);
-        [Slot(12)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal static extern Boolean wglBindTexImageARB(IntPtr hPbuffer, int iBuffer);
-        [Slot(13)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal static extern Boolean wglReleaseTexImageARB(IntPtr hPbuffer, int iBuffer);
-        [Slot(14)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal unsafe static extern Boolean wglSetPbufferAttribARB(IntPtr hPbuffer, int* piAttribList);
-        [Slot(15)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal static extern IntPtr wglGetExtensionsStringEXT();
-        [Slot(16)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal static extern Boolean wglSwapIntervalEXT(int interval);
-        [Slot(17)]
-        [DllImport(Library, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        internal static extern int wglGetSwapIntervalEXT();
     }
 }
