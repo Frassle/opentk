@@ -725,11 +725,18 @@ namespace Bind
 
                             sw.Unindent();
                             sw.WriteLine("}");
+                            sw.WriteLine("else");
+                            sw.WriteLine("{");
+                            sw.Indent();
+                            sw.WriteLine("Silk.Cil.Ldc_I4(0);");
+                            sw.WriteLine("Silk.Cil.Conv_U();");
+                            sw.WriteLine("Silk.Cil.StoreByName(\"{0}\");", pinned_elem);
+                            sw.Unindent();
+                            sw.WriteLine("}");
                         }
                         else
                         {
                             sw.WriteLine("Silk.Cil.LoadByName(\"{0}\");", pinned_elem);
-                            sw.WriteLine("Silk.Cil.Conv_I();");
                         }
                     }
                     else
