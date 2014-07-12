@@ -717,7 +717,7 @@ namespace Bind
                                     sw.WriteLine("Silk.Cil.Ldc_I4(0);");
                                 }
 
-                                string method = string.Format("{0}& {1}::Address({2})", element_type, array_type, string.Join(",", Enumerable.Repeat("System.Int32", parameter.Array).ToArray()));
+                                string method = string.Format("{0}::Address({1})", array_type, string.Join(",", Enumerable.Repeat("System.Int32", parameter.Array).ToArray()));
 
                                 sw.WriteLine("Silk.Cil.Call(\"{0}\");", method);
                                 sw.WriteLine("Silk.Cil.StoreByName(\"{0}\");", pinned_elem);
