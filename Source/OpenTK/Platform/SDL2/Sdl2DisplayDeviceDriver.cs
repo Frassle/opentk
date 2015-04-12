@@ -65,7 +65,7 @@ namespace OpenTK.Platform.SDL2
                     current_mode.RefreshRate);
 
                 var device = new DisplayDevice(
-                    current_resolution, d == 0, mode_list, TranslateBounds(bounds), d);
+                    d == 0, current_resolution, mode_list, d);
 
                 AvailableDevices.Add(device);
                 if (d == 0)
@@ -92,16 +92,33 @@ namespace OpenTK.Platform.SDL2
 
         #region DisplayDeviceBase Members
 
-        public override bool TryChangeResolution(DisplayDevice device, DisplayResolution resolution)
+        public sealed override bool TryChangeResolution(DisplayDevice device, DisplayResolution resolution)
         {
             Sdl2Factory.UseFullscreenDesktop = false;
             return true;
         }
 
-        public override bool TryRestoreResolution(DisplayDevice device)
+        public sealed override bool TryRestoreResolution(DisplayDevice device)
         {
             Sdl2Factory.UseFullscreenDesktop = true;
             return true;
+        }
+
+        public sealed override DisplayResolution GetResolution(DisplayDevice device)
+        {
+            int d = (int)device.id;
+
+            Rect bounds;
+            SDL.GetDisplayBounds(d, out bounds);
+
+            DisplayMode current_mode;
+            SDL.GetCurrentDisplayMode(d, out current_mode);
+
+            return new DisplayResolution(
+                bounds.X, bounds.Y,
+                current_mode.Width, current_mode.Height,
+                TranslateFormat(current_mode.Format),
+                current_mode.RefreshRate);
         }
 
         #endregion

@@ -114,8 +114,8 @@ namespace OpenTK.Platform.MacOS
                     
                     Debug.Print("Display {0} bounds: {1}", i, newRect);
                     
-                    DisplayDevice opentk_dev = new DisplayDevice(opentk_dev_current_res,
-                        primary, opentk_dev_available_res, newRect, currentDisplay);
+                    DisplayDevice opentk_dev = new DisplayDevice(
+                        primary, opentk_dev_current_res, opentk_dev_available_res, currentDisplay);
 
                     AvailableDevices.Add(opentk_dev);
 
@@ -127,11 +127,6 @@ namespace OpenTK.Platform.MacOS
             }
         }
 
-        static internal IntPtr HandleTo(DisplayDevice displayDevice)
-        {
-            return (IntPtr)displayDevice.Id;
-        }
-
         #region IDisplayDeviceDriver Members
 
         Dictionary<IntPtr, IntPtr> storedModes = new Dictionary<IntPtr, IntPtr>();
@@ -139,7 +134,7 @@ namespace OpenTK.Platform.MacOS
 
         public sealed override bool TryChangeResolution(DisplayDevice device, DisplayResolution resolution)
         {
-            IntPtr display = HandleTo(device);
+            IntPtr display = (IntPtr)device.id;
             IntPtr currentModePtr = CG.DisplayCurrentMode(display);
             
             if (storedModes.ContainsKey(display) == false)
@@ -179,7 +174,7 @@ namespace OpenTK.Platform.MacOS
 
         public sealed override bool TryRestoreResolution(DisplayDevice device)
         {
-            IntPtr display = HandleTo(device);
+            IntPtr display = (IntPtr)device.id;
             
             if (storedModes.ContainsKey(display))
             {
@@ -193,6 +188,41 @@ namespace OpenTK.Platform.MacOS
             }
             
             return false;
+        }
+
+        public sealed override DisplayResolution GetResolution(DisplayDevice device)
+        {
+            IntPtr display = (IntPtr)device.id;
+
+            IntPtr displayModesPtr = CG.DisplayAvailableModes(display);
+            CFArray displayModes = new CFArray(displayModesPtr);
+
+            DisplayResolution opentk_dev_current_res = null;
+            IntPtr currentModePtr = CG.DisplayCurrentMode(display);
+            CFDictionary currentMode = new CFDictionary(currentModePtr);
+
+            for (int j = 0; j < displayModes.Count; j++)
+            {
+                CFDictionary dict = new CFDictionary(displayModes[j]);
+
+                int width = (int)dict.GetNumberValue("Width");
+                int height = (int)dict.GetNumberValue("Height");
+                int bpp = (int)dict.GetNumberValue("BitsPerPixel");
+                double freq = dict.GetNumberValue("RefreshRate");
+                bool current = currentMode.Ref == dict.Ref;
+
+                if (current)
+                {
+                    opentk_dev_current_res = new DisplayResolution(0, 0, width, height, bpp, (float)freq);
+                    break;
+                }
+            }
+
+            HIRect bounds = CG.DisplayBounds(display);
+
+            return new DisplayResolution((int)bounds.Origin.X, (int)bounds.Origin.Y, 
+                opentk_dev_current_res.Width, opentk_dev_current_res.Height, 
+                opentk_dev_current_res.BitsPerPixel, opentk_dev_current_res.RefreshRate);
         }
 
         #endregion

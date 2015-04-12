@@ -46,17 +46,12 @@ namespace OpenTK
         #region Fields
 
         bool primary;
-        Rectangle bounds;
-        DisplayResolution current_resolution = new DisplayResolution();
         DisplayResolution original_resolution;
-        List<DisplayResolution> available_resolutions = new List<DisplayResolution>();
+        List<DisplayResolution> available_resolutions;
         IList<DisplayResolution> available_resolutions_readonly;
+
+        internal object id; // A platform-specific id for this monitor
         
-        internal object Id; // A platform-specific id for this monitor
-
-        static readonly object display_lock = new object();
-        static DisplayDevice primary_display;
-
         static Platform.IDisplayDeviceDriver implementation;
 
         #endregion
@@ -67,30 +62,42 @@ namespace OpenTK
         {
             implementation = Platform.Factory.Default.CreateDisplayDeviceDriver();
         }
-
-        internal DisplayDevice()
-        {
-            available_resolutions_readonly = available_resolutions.AsReadOnly();
-        }
-
-        internal DisplayDevice(DisplayResolution currentResolution, bool primary,
-            IEnumerable<DisplayResolution> availableResolutions, Rectangle bounds,
+        
+        internal DisplayDevice(bool primary, 
+            DisplayResolution originalResolution, 
+            IEnumerable<DisplayResolution> availableResolutions, 
             object id)
-            : this()
         {
-            // Todo: Consolidate current resolution with bounds? Can they fall out of sync right now?
-            this.current_resolution = currentResolution;
-            IsPrimary = primary;
-            this.available_resolutions.AddRange(availableResolutions);
-            #pragma warning disable 612,618
-            this.bounds = bounds == Rectangle.Empty ? currentResolution.Bounds : bounds;
-            #pragma warning restore 612,618
-            this.Id = id;
+            this.primary = primary;
+            this.original_resolution = originalResolution;
+            this.available_resolutions = new List<DisplayResolution>(availableResolutions);
+            this.available_resolutions_readonly = available_resolutions.AsReadOnly();
+
+            this.id = id;
         }
 
         #endregion
 
         #region --- Public Methods ---
+
+        /// <summary>
+        /// Gets the current resolution of this instance.
+        /// </summary>
+        public DisplayResolution CurrentResolution
+        {
+            get
+            {
+                return implementation.GetResolution(this);
+            }
+            set
+            {
+                if (!implementation.TryChangeResolution(this, value))
+                {
+                    throw new Graphics.GraphicsModeException(
+                        String.Format("Device {0}: Failed to change resolution to {1}.", this, value));
+                }
+            }
+        }
 
         #region public Rectangle Bounds
 
@@ -99,13 +106,7 @@ namespace OpenTK
         /// </summary>
         public Rectangle Bounds
         {
-            get { return bounds; }
-            internal set
-            {
-                bounds = value;
-                current_resolution.Height = bounds.Height;
-                current_resolution.Width = bounds.Width;
-            }
+            get { return CurrentResolution.Bounds; }
         }
 
         #endregion
@@ -113,14 +114,14 @@ namespace OpenTK
         #region public int Width
 
         /// <summary>Gets a System.Int32 that contains the width of this display in pixels.</summary>
-        public int Width { get { return current_resolution.Width; } }
+        public int Width { get { return CurrentResolution.Width; } }
 
         #endregion
 
         #region public int Height
 
         /// <summary>Gets a System.Int32 that contains the height of this display in pixels.</summary>
-        public int Height { get { return current_resolution.Height; } }
+        public int Height { get { return CurrentResolution.Height; } }
 
         #endregion
 
@@ -129,8 +130,7 @@ namespace OpenTK
         /// <summary>Gets a System.Int32 that contains number of bits per pixel of this display. Typical values include 8, 16, 24 and 32.</summary>
         public int BitsPerPixel
         {
-            get { return current_resolution.BitsPerPixel; }
-            internal set { current_resolution.BitsPerPixel = value; }
+            get { return CurrentResolution.BitsPerPixel; }
         }
 
         #endregion
@@ -142,8 +142,7 @@ namespace OpenTK
         /// </summary>
         public float RefreshRate
         {
-            get { return current_resolution.RefreshRate; }
-            internal set { current_resolution.RefreshRate = value; }
+            get { return CurrentResolution.RefreshRate; }
         }
 
         #endregion
@@ -154,18 +153,6 @@ namespace OpenTK
         public bool IsPrimary
         {
             get { return primary; }
-            internal set
-            {
-                if (value && primary_display != null && primary_display != this)
-                    primary_display.IsPrimary = false;
-
-                lock (display_lock)
-                {
-                    primary = value;
-                    if (value)
-                        primary_display = this;
-                }
-            }
         }
 
         #endregion
@@ -196,7 +183,7 @@ namespace OpenTK
             if (resolution == null)
                 resolution = FindResolution(width, height, 0, 0);
             if (resolution == null)
-                return current_resolution;
+                return CurrentResolution;
             return resolution;
         }
 
@@ -230,21 +217,14 @@ namespace OpenTK
             if (resolution == null)
                 this.RestoreResolution();
 
-            if (resolution == current_resolution)
+            if (resolution == CurrentResolution)
                 return;
 
-            //effect.FadeOut();
-
-            if (implementation.TryChangeResolution(this, resolution))
+            if (!implementation.TryChangeResolution(this, resolution))
             {
-                if (original_resolution == null)
-                    original_resolution = current_resolution;
-                current_resolution = resolution;
+                throw new Graphics.GraphicsModeException(
+                    String.Format("Device {0}: Failed to change resolution to {1}.", this, resolution));
             }
-            else throw new Graphics.GraphicsModeException(String.Format("Device {0}: Failed to change resolution to {1}.",
-                    this, resolution));
-
-            //effect.FadeIn();
         }
 
         #endregion
@@ -270,19 +250,12 @@ namespace OpenTK
         /// <exception cref="Graphics.GraphicsModeException">Thrown if the original resolution could not be restored.</exception>
         public void RestoreResolution()
         {
-            if (original_resolution != null)
+            if (!implementation.TryRestoreResolution(this))
             {
-                //effect.FadeOut();
-
-                if (implementation.TryRestoreResolution(this))
-                {
-                    current_resolution = original_resolution;
-                    original_resolution = null;
-                }
-                else throw new Graphics.GraphicsModeException(String.Format("Device {0}: Failed to restore resolution.", this));
-
-                //effect.FadeIn();
+                throw new Graphics.GraphicsModeException(
+                    String.Format("Device {0}: Failed to restore resolution.", this));
             }
+
         }
 
         #endregion
@@ -445,121 +418,4 @@ namespace OpenTK
 
         #endregion
     }
-
-    #region --- FadeEffect ---
-#if false
-    class FadeEffect : IDisposable
-    {
-        List<Form> forms = new List<Form>();
-        double opacity_step = 0.04;
-        int sleep_step;
-
-        internal FadeEffect()
-        {
-            foreach (Screen s in Screen.AllScreens)
-            {
-                Form form = new Form();
-                form.ShowInTaskbar = false;
-                form.StartPosition = FormStartPosition.Manual;
-                form.WindowState = FormWindowState.Maximized;
-                form.FormBorderStyle = FormBorderStyle.None;
-                form.TopMost = true;
-
-                form.BackColor = System.Drawing.Color.Black;
-                forms.Add(form);
-            }
-
-            sleep_step = 10 / forms.Count;
-            MoveToStartPositions();
-        }
-
-        void MoveToStartPositions()
-        {
-            int count = 0;
-            foreach (Screen s in Screen.AllScreens)
-            {
-            //    forms[count++].Location = new System.Drawing.Point(s.Bounds.X, s.Bounds.Y);
-                //forms[count].Size = new System.Drawing.Size(4096, 4096);
-                count++;
-            }
-        }
-
-        bool FadedOut
-        {
-            get
-            {
-                bool ready = true;
-                foreach (Form form in forms)
-                    ready = ready && form.Opacity >= 1.0;
-
-                return ready;
-            }
-        }
-
-        bool FadedIn
-        {
-            get
-            {
-                bool ready = true;
-                foreach (Form form in forms)
-                    ready = ready && form.Opacity <= 0.0;
-
-                return ready;
-            }
-        }
-
-        internal void FadeOut()
-        {
-            MoveToStartPositions();
-
-            foreach (Form form in forms)
-            {
-                form.Opacity = 0.0;
-                form.Visible = true;
-            }
-
-            while (!FadedOut)
-            {
-                foreach (Form form in forms)
-                {
-                    form.Opacity += opacity_step;
-                    form.Refresh();
-                }
-                Thread.Sleep(sleep_step);
-            }
-        }
-
-        internal void FadeIn()
-        {
-            MoveToStartPositions();
-
-            foreach (Form form in forms)
-                form.Opacity = 1.0;
-
-            while (!FadedIn)
-            {
-                foreach (Form form in forms)
-                {
-                    form.Opacity -= opacity_step;
-                    form.Refresh();
-                }
-                Thread.Sleep(sleep_step);
-            }
-
-            foreach (Form form in forms)
-                form.Visible = false;
-        }
-
-        #region IDisposable Members
-
-        public void Dispose()
-        {
-            foreach (Form form in forms)
-                form.Dispose();
-        }
-
-        #endregion
-    }
-#endif
-    #endregion
 }

@@ -38,6 +38,7 @@ namespace OpenTK.Platform
 
         public abstract bool TryChangeResolution(DisplayDevice device, DisplayResolution resolution);
         public abstract bool TryRestoreResolution(DisplayDevice device);
+        public abstract DisplayResolution GetResolution(DisplayDevice device);
 
         // Gets the DisplayDevice that corresponds to the specified index.
         public virtual DisplayDevice GetDisplay(DisplayIndex index)

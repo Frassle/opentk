@@ -45,10 +45,6 @@ namespace OpenTK.Platform.X11
             new List<Dictionary<DisplayResolution, int>>();
         // Store a mapping between DisplayDevices and their default resolutions.
         readonly Dictionary<DisplayDevice, int> deviceToDefaultResolution = new Dictionary<DisplayDevice, int>();
-        // Store a mapping between DisplayDevices and X11 screens.
-        readonly Dictionary<DisplayDevice, int> deviceToScreen = new Dictionary<DisplayDevice, int>();
-        // Keep the time when the config of each screen was last updated.
-        readonly List<IntPtr> lastConfigUpdate = new List<IntPtr>();
 
         bool xinerama_supported, xrandr_supported, xf86_supported;
         
@@ -63,11 +59,22 @@ namespace OpenTK.Platform.X11
 
         #region Private Methods
 
+        struct XDevice
+        {
+            public bool IsPrimary;
+            public int ScreenIndex;
+            public Rectangle Bounds;
+            public int BitsPerPixel;
+            public float RefreshRate;
+            public int DefaultResolution;
+            public List<DisplayResolution> AvailableResolutions;
+        }
+
         void RefreshDisplayDevices()
         {
             using (new XLock(API.DefaultDisplay))
             {
-                List<DisplayDevice> devices = new List<DisplayDevice>();
+                List<XDevice> devices = new List<XDevice>();
                 xinerama_supported = false;
                 try
                 {
@@ -84,10 +91,10 @@ namespace OpenTK.Platform.X11
                     // Note: this won't work correctly in the case of distinct X servers.
                     for (int i = 0; i < API.ScreenCount; i++)
                     {
-                        DisplayDevice dev = new DisplayDevice();
+                        XDevice dev = new XDevice();
                         dev.IsPrimary = i == Functions.XDefaultScreen(API.DefaultDisplay);
+                        dev.ScreenIndex = i;
                         devices.Add(dev);
-                        deviceToScreen.Add(dev, i);
                     }
                 }
 
@@ -113,21 +120,29 @@ namespace OpenTK.Platform.X11
                 }
 
                 AvailableDevices.Clear();
-                AvailableDevices.AddRange(devices);
-                Primary = FindDefaultDevice(devices);
+
+                foreach (XDevice xdev in devices)
+                {
+                    var resolution = new DisplayResolution(
+                        xdev.Bounds.X, xdev.Bounds.Y,
+                        xdev.Bounds.Width, xdev.Bounds.Height,
+                        xdev.BitsPerPixel, xdev.RefreshRate);
+                    var device = new DisplayDevice(
+                        xdev.IsPrimary, resolution, xdev.AvailableResolutions, xdev.ScreenIndex);
+
+                    deviceToDefaultResolution[device] = xdev.DefaultResolution;
+
+                    AvailableDevices.Add(device);
+
+                    if (device.IsPrimary)
+                    {
+                        Primary = device;
+                    }
+                }
             }
         }
 
-        static DisplayDevice FindDefaultDevice(IEnumerable<DisplayDevice> devices)
-        {
-                foreach (DisplayDevice dev in devices)
-                    if (dev.IsPrimary)
-                        return dev;
-
-            throw new InvalidOperationException("No primary display found. Please file a bug at http://www.opentk.com");
-        }
-
-        bool QueryXinerama(List<DisplayDevice> devices)
+        bool QueryXinerama(List<XDevice> devices)
         {
             // Try to use Xinerama to obtain the geometry of all output devices.
             int event_base, error_base;
@@ -138,7 +153,7 @@ namespace OpenTK.Platform.X11
                 bool first = true;
                 foreach (XineramaScreenInfo screen in screens)
                 {
-                    DisplayDevice dev = new DisplayDevice();
+                    XDevice dev = new XDevice();
                     dev.Bounds = new Rectangle(screen.X, screen.Y, screen.Width, screen.Height);
                     if (first)
                     {
@@ -149,22 +164,19 @@ namespace OpenTK.Platform.X11
                     }
                     devices.Add(dev);
                     // It seems that all X screens are equal to 0 is Xinerama is enabled, at least on Nvidia (verify?)
-                    deviceToScreen.Add(dev, 0 /*screen.ScreenNumber*/);
+                    dev.ScreenIndex = screen.ScreenNumber;
                 }
             }
             return (devices.Count>0);
         }
 
-        bool QueryXRandR(List<DisplayDevice> devices)
+        bool QueryXRandR(List<XDevice> devices)
         {
             // Get available resolutions. Then, for each resolution get all available rates.
-            foreach (DisplayDevice dev in devices)
+            for(int i = 0; i < devices.Count; ++i)
             {
-                int screen = deviceToScreen[dev];
-
-                IntPtr timestamp_of_last_update;
-                Functions.XRRTimes(API.DefaultDisplay, screen, out timestamp_of_last_update);
-                lastConfigUpdate.Add(timestamp_of_last_update);
+                XDevice device = devices[i];
+                int screen = device.ScreenIndex;
 
                 List<DisplayResolution> available_res = new List<DisplayResolution>();
 
@@ -220,7 +232,7 @@ namespace OpenTK.Platform.X11
                 ushort current_rotation;  // Not needed.
                 int current_resolution_index = Functions.XRRConfigCurrentConfiguration(screen_config, out current_rotation);
 
-                if (dev.Bounds == Rectangle.Empty)
+                if (device.Bounds == Rectangle.Empty)
                 {
                     // We have added depths.Length copies of each resolution
                     // Adjust the return value of XRRGetScreenInfo to retrieve the correct resolution
@@ -233,19 +245,20 @@ namespace OpenTK.Platform.X11
                         index = current_resolution_index;
                     }
                     DisplayResolution current_resolution = available_res[index];
-                    dev.Bounds = new Rectangle(0, 0, current_resolution.Width, current_resolution.Height);
+                    device.Bounds = new Rectangle(0, 0, current_resolution.Width, current_resolution.Height);
                 }
-                dev.BitsPerPixel = current_depth;
-                dev.RefreshRate = current_refresh_rate;
-                dev.AvailableResolutions = available_res;
+                device.BitsPerPixel = current_depth;
+                device.RefreshRate = current_refresh_rate;
+                device.DefaultResolution = current_resolution_index;
+                device.AvailableResolutions = available_res;
 
-                deviceToDefaultResolution.Add(dev, current_resolution_index);
+                devices[i] = device;
             }
 
             return true;
         }
 
-        bool QueryXF86(List<DisplayDevice> devices)
+        bool QueryXF86(List<XDevice> devices)
         {
             int major;
             int minor;
@@ -263,7 +276,7 @@ namespace OpenTK.Platform.X11
             int currentScreen = 0;
             Debug.Print("Using XF86 v" + major.ToString() + "." + minor.ToString());
 
-            foreach (DisplayDevice dev in devices)
+            for(int i = 0; i < devices.Count; ++i)
             {
                 int count;
 
@@ -278,12 +291,13 @@ namespace OpenTK.Platform.X11
                 int y;
                 API.XF86VidModeGetViewPort(API.DefaultDisplay, currentScreen, out x, out y);
                 List<DisplayResolution> resolutions = new List<DisplayResolution>();
-                for (int i = 0; i < count; i++)
+                for (int j = 0; j < count; j++)
                 {
-                    Mode = (API.XF86VidModeModeInfo)Marshal.PtrToStructure(array[i], typeof(API.XF86VidModeModeInfo));
+                    Mode = (API.XF86VidModeModeInfo)Marshal.PtrToStructure(array[j], typeof(API.XF86VidModeModeInfo));
                     resolutions.Add(new DisplayResolution(x, y, Mode.hdisplay, Mode.vdisplay, 24, (Mode.dotclock * 1000F) / (Mode.vtotal * Mode.htotal)));
                 }
 
+                XDevice dev = devices[i];
                 dev.AvailableResolutions = resolutions;
                 int pixelClock;
                 API.XF86VidModeModeLine currentMode;
@@ -292,6 +306,7 @@ namespace OpenTK.Platform.X11
                 dev.BitsPerPixel = FindCurrentDepth(currentScreen);
                 dev.RefreshRate = (pixelClock * 1000F) / (currentMode.vtotal * currentMode.htotal);
                 currentScreen++;
+                devices[i] = dev;
             }
             return true;
         }
@@ -344,7 +359,7 @@ namespace OpenTK.Platform.X11
         {
             using (new XLock(API.DefaultDisplay))
             {
-                int screen = deviceToScreen[device];
+                int screen = (int)device.id;
                 IntPtr root = Functions.XRootWindow(API.DefaultDisplay, screen);
                 IntPtr screen_config = Functions.XRRGetScreenInfo(API.DefaultDisplay, root);
 
@@ -390,6 +405,50 @@ namespace OpenTK.Platform.X11
             return false;
         }
 
+        DisplayResolution GetXRandRResolution(DisplayDevice device)
+        {
+            int screen = (int)device.id;
+            IntPtr root = Functions.XRootWindow(API.DefaultDisplay, screen);
+            IntPtr screen_config = Functions.XRRGetScreenInfo(API.DefaultDisplay, root);
+            
+            ushort current_rotation;  // Not needed.
+            int current_resolution_index = Functions.XRRConfigCurrentConfiguration(screen_config, out current_rotation);
+
+            Functions.XRRFreeScreenConfigInfo(screen_config);
+
+            // reverse lookup in the resolution index map
+            foreach(var keyvalue in screenResolutionToIndex[screen])
+            {
+                if(keyvalue.Value == current_resolution_index)
+                {
+                    return keyvalue.Key;
+                }
+            }
+
+            throw new Exception(
+                string.Format("Could not find index {0} in resolution-index map for screen {1}.",
+                current_resolution_index, screen));
+        }
+
+        DisplayResolution GetXF86Resolution(DisplayDevice device)
+        {
+            int screen = (int)device.id;
+
+            int x;
+            int y;
+            API.XF86VidModeGetViewPort(API.DefaultDisplay, screen, out x, out y);
+
+            int pixelClock;
+            API.XF86VidModeModeLine currentMode;
+            API.XF86VidModeGetModeLine(API.DefaultDisplay, screen, out pixelClock, out currentMode);
+            var width = currentMode.hdisplay;
+            var height = (currentMode.vdisplay == 0) ? currentMode.vsyncstart : currentMode.vdisplay;
+            var bitsPerPixel = FindCurrentDepth(screen);
+            var refreshRate = (pixelClock * 1000F) / (currentMode.vtotal * currentMode.htotal);
+
+            return new DisplayResolution(x, y, width, height, bitsPerPixel, refreshRate);
+        }
+
         #endregion
 
         #region IDisplayDeviceDriver Members
@@ -415,6 +474,22 @@ namespace OpenTK.Platform.X11
         public sealed override bool TryRestoreResolution(DisplayDevice device)
         {
             return TryChangeResolution(device, null);
+        }
+
+        public sealed override DisplayResolution GetResolution(DisplayDevice device)
+        {
+            if (xrandr_supported)
+            {
+                return GetXRandRResolution(device);
+            }
+            else if (xf86_supported)
+            {
+                return GetXF86Resolution(device);
+            }
+            else
+            {
+                throw new NotSupportedException("Cannot get device resolution.");
+            }
         }
 
         #endregion

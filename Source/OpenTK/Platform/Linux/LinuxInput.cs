@@ -295,7 +295,7 @@ namespace OpenTK.Platform.Linux
             DisplayDevice display = DisplayDevice.FromPoint(p.X, p.Y) ?? DisplayDevice.Default;
             if (display != null)
             {
-                LinuxDisplay d = (LinuxDisplay)display.Id;
+                LinuxDisplay d = (LinuxDisplay)display.id;
                 Drm.MoveCursor(d.FD, d.Id, p.X, p.Y);
             }
         }

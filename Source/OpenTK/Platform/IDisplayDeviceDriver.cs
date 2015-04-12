@@ -35,6 +35,7 @@ namespace OpenTK.Platform
     {
         bool TryChangeResolution(DisplayDevice device, DisplayResolution resolution);
         bool TryRestoreResolution(DisplayDevice device);
+        DisplayResolution GetResolution(DisplayDevice device);
         DisplayDevice GetDisplay(DisplayIndex displayIndex);
     }
 }

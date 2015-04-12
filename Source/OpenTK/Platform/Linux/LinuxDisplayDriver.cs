@@ -284,20 +284,6 @@ namespace OpenTK.Platform.Linux
             Debug.Print("Current mode: {0}", current.ToString());
         }
 
-        System.Drawing.Rectangle GetBounds(DisplayResolution current)
-        {
-            // Note: since we are not running a display manager, we are free
-            // to choose the display layout for multiple displays ourselves.
-            // We choose the simplest layout: displays are laid out side-by-side
-            // from left to right. Primary display is the first display we encounter.
-            int x = AvailableDevices.Count == 0 ?
-                0 : AvailableDevices[AvailableDevices.Count - 1].Bounds.Right;
-            int y = 0;
-
-            return new System.Drawing.Rectangle(
-                x, y, current.Width, current.Height);
-        }
-
         void UpdateDisplayIndices(LinuxDisplay display, DisplayDevice device)
         {
             if (!DisplayIds.ContainsKey(display.Id))
@@ -340,8 +326,7 @@ namespace OpenTK.Platform.Linux
             GetModes(display, modes, out current);
 
             bool is_primary = AvailableDevices.Count == 0;
-            DisplayDevice device = new DisplayDevice(current, is_primary,
-                modes, GetBounds(current), display);
+            DisplayDevice device = new DisplayDevice(is_primary, current, modes, display);
 
             if (is_primary)
             {
@@ -383,7 +368,7 @@ namespace OpenTK.Platform.Linux
         {
             unsafe
             {
-                LinuxDisplay display = (LinuxDisplay)device.Id;
+                LinuxDisplay display = (LinuxDisplay)device.id;
                 ModeInfo* mode = GetModeInfo(display, resolution);
                 int connector_id = display.pConnector->connector_id;
                 if (mode != null)
@@ -399,13 +384,46 @@ namespace OpenTK.Platform.Linux
         {
             unsafe
             {
-                LinuxDisplay display = (LinuxDisplay)device.Id;
+                LinuxDisplay display = (LinuxDisplay)device.id;
                 ModeInfo mode = display.OriginalMode;
                 int connector_id = display.pConnector->connector_id;
                 return Drm.ModeSetCrtc(FD, display.Id, 0, 0, 0,
                     &connector_id, 1, &mode) == 0;
             }
         }
+        
+        #region GetResolution
+
+        public sealed override DisplayResolution GetResolution(DisplayDevice device)
+        {
+            unsafe
+            {
+                DisplayResolution current;
+                LinuxDisplay display = (LinuxDisplay)device.id;
+
+                if (display.pCrtc->mode_valid != 0)
+                {
+                    ModeInfo cmode = display.pCrtc->mode;
+                    current = GetDisplayResolution(&cmode);
+                }
+                else
+                {
+                    current = GetDisplayResolution(display.pConnector->modes);
+                }
+                Debug.Print("Current mode: {0}", current.ToString());
+
+                // Note: since we are not running a display manager, we are free
+                // to choose the display layout for multiple displays ourselves.
+                // We choose the simplest layout: displays are laid out side-by-side
+                // from left to right. Primary display is the first display we encounter.
+                int x = AvailableDevices.Count == 0 ?
+                    0 : AvailableDevices[AvailableDevices.Count - 1].Bounds.Right;
+                int y = 0;
+
+                return new DisplayResolution(x, y, current.Width, current.Height, current.BitsPerPixel, current.RefreshRate);
+            }
+        }
+        #endregion
 
         #endregion
     }

@@ -25,10 +25,6 @@ namespace OpenTK
 
         #region --- Constructors ---
 
-        internal DisplayResolution() { }
-
-        #region public DisplayResolution(int width, int height, int bitsPerPixel, float refreshRate)
-
         // Creates a new DisplayResolution object for the primary DisplayDevice.
         internal DisplayResolution(int x, int y, int width, int height, int bitsPerPixel, float refreshRate)
         {
@@ -45,40 +41,6 @@ namespace OpenTK
 
         #endregion
 
-        #region public DisplayResolution(int width, int height, int bitsPerPixel, float refreshRate, DisplayDevice device)
-
-#if false
-
-        /// <summary>
-        /// Creates a new DisplayResolution object for the specified DisplayDevice.
-        /// </summary>
-        /// <param name="width">The requested width in pixels.</param>
-        /// <param name="height">The requested height in pixels.</param>
-        /// <param name="bitsPerPixel">The requested bits per pixel in bits.</param>
-        /// <param name="refreshRate">The requested refresh rate in hertz.</param>
-        /// <remarks>OpenTK will select the closest match between all available resolutions on the specified DisplayDevice.</remarks>
-        /// 
-        public DisplayResolution(int width, int height, int bitsPerPixel, float refreshRate, DisplayDevice device)
-        {
-            // Refresh rate may be zero, since this information may not be available on some platforms.
-            if (width <= 0) throw new ArgumentOutOfRangeException("width", "Must be greater than zero.");
-            if (height <= 0) throw new ArgumentOutOfRangeException("height", "Must be greater than zero.");
-            if (bitsPerPixel <= 0) throw new ArgumentOutOfRangeException("bitsPerPixel", "Must be greater than zero.");
-            if (refreshRate < 0) throw new ArgumentOutOfRangeException("refreshRate", "Must be greater than, or equal to zero.");
-            if (device == null) throw new ArgumentNullException("DisplayDevice", "Must be a valid DisplayDevice");
-
-            DisplayResolution res = device.SelectResolution(width, height, bitsPerPixel, refreshRate);
-
-            this.width = res.width;
-            this.height = res.height;
-            this.bits_per_pixel = res.bits_per_pixel;
-            this.refresh_rate = res.refresh_rate;
-        }
-#endif
-        #endregion
-
-        #endregion
-
         #region --- Public Methods ---
 
         #region Bounds
@@ -86,7 +48,6 @@ namespace OpenTK
         /// <summary>
         /// Gets a System.Drawing.Rectangle that contains the bounds of this display device.
         /// </summary>
-        [Obsolete("This property will return invalid results if a monitor changes resolution. Use DisplayDevice.Bounds instead.")]
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         public Rectangle Bounds
         {
