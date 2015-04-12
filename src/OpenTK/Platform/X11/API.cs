@@ -1498,6 +1498,7 @@ XF86VidModeGetGammaRampSize(
                 {
                     return null;
                 }
+
                 rates = new short[count];
                 for (int i = 0; i < count; i++)
                 {
@@ -1522,16 +1523,24 @@ XF86VidModeGetGammaRampSize(
             {
                 int count;
                 int* data = XListDepths(display, screen_number, &count);
-                if (count == 0)
+                if (data == null)
                 {
                     return null;
                 }
+
+                if (count == 0)
+                {
+                    XFree(new IntPtr(data));
+                    return null;
+                }
+
                 int[] depths = new int[count];
                 for (int i = 0; i < count; i++)
                 {
                     depths[i] = *(data + i);
                 }
 
+                XFree(new IntPtr(data));
                 return depths;
             }
         }

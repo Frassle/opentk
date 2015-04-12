@@ -1919,6 +1919,12 @@ namespace OpenTK.Platform.Windows
         internal string DeviceID;
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
         internal string DeviceKey;
+
+        public override string ToString()
+        {
+            return string.Format("size = {0}\nDeviceName = {1}\nDeviceString = {2}\nDeviceId = {3}\nDeviceKey = {4}\nStateFlags = {5}",
+                size, DeviceName, DeviceString, DeviceID, DeviceKey, StateFlags);
+        }
     }
     [StructLayout(LayoutKind.Sequential)]
     internal struct WindowClass
