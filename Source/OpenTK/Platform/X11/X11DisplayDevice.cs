@@ -46,8 +46,8 @@ namespace OpenTK.Platform.X11
         // Store a mapping between DisplayDevices and their default resolutions.
         readonly Dictionary<DisplayDevice, int> deviceToDefaultResolution = new Dictionary<DisplayDevice, int>();
 
-        bool xinerama_supported, xrandr_supported, xf86_supported;
-        
+        bool xrandr_supported, xf86_supported;
+
         #region Constructors
 
         public X11DisplayDevice()
@@ -74,52 +74,41 @@ namespace OpenTK.Platform.X11
         {
             using (new XLock(API.DefaultDisplay))
             {
-                List<XDevice> devices = new List<XDevice>();
-                xinerama_supported = false;
-                try
-                {
-                    xinerama_supported = QueryXinerama(devices);
-                }
-                catch
-                {
-                    Debug.Print("Xinerama query failed.");
-                }
+                Debug.Print("API.ScreenCount = {0}", API.ScreenCount);
 
-                if (!xinerama_supported)
-                {
-                    // We assume that devices are equivalent to the number of available screens.
-                    // Note: this won't work correctly in the case of distinct X servers.
-                    for (int i = 0; i < API.ScreenCount; i++)
-                    {
-                        XDevice dev = new XDevice();
-                        dev.IsPrimary = i == Functions.XDefaultScreen(API.DefaultDisplay);
-                        dev.ScreenIndex = i;
-                        devices.Add(dev);
-                    }
-                }
+                AvailableDevices.Clear();
+                List<XDevice> devices = null;
 
                 try
                 {
-                    xrandr_supported = QueryXRandR(devices);
+                    devices = QueryXRandR();
+                    xrandr_supported = devices != null && devices.Count > 0;
                 }
-                catch { }
+                catch (Exception e)
+                {
+                    Debug.Print("XRandR query failed {0}.", e);
+                }
 
                 if (!xrandr_supported)
                 {
-                    Debug.Print("XRandR query failed, falling back to XF86.");
+                    Debug.Print("XRandR not supported.");
+
                     try
                     {
-                        xf86_supported = QueryXF86(devices);
+                        devices = QueryXF86();
+                        xf86_supported = devices != null && devices.Count > 0;
                     }
-                    catch { }
-
-                    if (!xf86_supported)
+                    catch (Exception e)
                     {
-                        Debug.Print("XF86 query failed, no DisplayDevice support available.");
+                        Debug.Print("XF86 query failed {0}.", e);
                     }
                 }
 
-                AvailableDevices.Clear();
+                if (!xf86_supported)
+                {
+                        Debug.Print("XF86 not supported, no DisplayDevice support available.");
+                        return;
+                }
 
                 foreach (XDevice xdev in devices)
                 {
@@ -142,52 +131,67 @@ namespace OpenTK.Platform.X11
             }
         }
 
-        bool QueryXinerama(List<XDevice> devices)
+        List<XDevice> QueryXRandR()
         {
-            // Try to use Xinerama to obtain the geometry of all output devices.
             int event_base, error_base;
-            if (NativeMethods.XineramaQueryExtension(API.DefaultDisplay, out event_base, out error_base) &&
-                NativeMethods.XineramaIsActive(API.DefaultDisplay))
+            int major, minor;
+
+            try
             {
-                IList<XineramaScreenInfo> screens = NativeMethods.XineramaQueryScreens(API.DefaultDisplay);
-                bool first = true;
-                foreach (XineramaScreenInfo screen in screens)
+                if (!API.XRRQueryExtension(API.DefaultDisplay, out event_base, out error_base))
                 {
-                    XDevice dev = new XDevice();
-                    dev.Bounds = new Rectangle(screen.X, screen.Y, screen.Width, screen.Height);
-                    if (first)
-                    {
-                        // We consider the first device returned by Xinerama as the primary one.
-                        // Makes sense conceptually, but is there a way to verify this?
-                        dev.IsPrimary = true;
-                        first = false;
-                    }
-                    devices.Add(dev);
-                    // It seems that all X screens are equal to 0 is Xinerama is enabled, at least on Nvidia (verify?)
-                    dev.ScreenIndex = screen.ScreenNumber;
+                    Debug.Print("XRRQueryExtension failed");
+                    return null;
+                }
+                else if(!API.XRRQueryVersion(API.DefaultDisplay, out major, out minor))
+                {
+                    Debug.Print("XRRQueryVersion failed");
+                    return null;
                 }
             }
-            return (devices.Count>0);
-        }
+            catch (DllNotFoundException)
+            {
+                Debug.Print("XRandR library not found");
+                return null;
+            }
 
-        bool QueryXRandR(List<XDevice> devices)
-        {
+            Debug.Print("Using XRandR v" + major.ToString() + "." + minor.ToString());
+
+            List<XDevice> devices = new List<XDevice>();
+            // Can query XRandR for each connected X screen
+            for(int currentScreen = 0; currentScreen < API.ScreenCount; ++currentScreen)
+            {
+                var root = Functions.XRootWindow(API.DefaultDisplay, currentScreen);
+                var res = XRRGetScreenResources(API.DefaultDisplay, root);
+
+
             // Get available resolutions. Then, for each resolution get all available rates.
             for(int i = 0; i < devices.Count; ++i)
             {
                 XDevice device = devices[i];
                 int screen = device.ScreenIndex;
 
+                Console.WriteLine("Query XRandR for {0}", screen);
+
                 List<DisplayResolution> available_res = new List<DisplayResolution>();
 
                 // Add info for a new screen.
                 screenResolutionToIndex.Add(new Dictionary<DisplayResolution, int>());
 
+                Console.WriteLine("Get depths for {0}", screen);
                 int[] depths = FindAvailableDepths(screen);
+                string[] depth_strs = new string[depths.Length];
+                for(int j = 0; j < depths.Length; ++j)
+                {
+                    depth_strs[j] = depths[j].ToString();
+                }
+
+                Console.WriteLine("Depths: {0}", String.Join(", ", depth_strs));
 
                 int resolution_count = 0;
                 foreach (XRRScreenSize size in FindAvailableResolutions(screen))
                 {
+                    Console.WriteLine("	Size = ({0}, {1}) ({2}, {3})", size.Width, size.Height, size.MWidth, size.MHeight);
                     if (size.Width == 0 || size.Height == 0)
                     {
                         Debug.Print("[Warning] XRandR returned an invalid resolution ({0}) for display device {1}", size, screen);
@@ -255,10 +259,10 @@ namespace OpenTK.Platform.X11
                 devices[i] = device;
             }
 
-            return true;
+            return devices;
         }
 
-        bool QueryXF86(List<XDevice> devices)
+        List<XDevice> QueryXF86()
         {
             int major;
             int minor;
@@ -266,22 +270,28 @@ namespace OpenTK.Platform.X11
             try
             {
                 if (!API.XF86VidModeQueryVersion(API.DefaultDisplay, out major, out minor))
-                    return false;
+                {
+                    Debug.Print("XF86VidModeQueryVersion failed");
+                    return null;
+                }
             }
             catch (DllNotFoundException)
             {
-                return false;
+                Debug.Print("XF86 library not found");
+                return null;
             }
-            
-            int currentScreen = 0;
+
             Debug.Print("Using XF86 v" + major.ToString() + "." + minor.ToString());
 
-            for(int i = 0; i < devices.Count; ++i)
+            List<XDevice> devices = new List<XDevice>();
+            // We assume that devices are equivalent to the number of available screens.
+            // Note: this won't work correctly in the case of distinct X servers.
+            for(int currentScreen = 0; currentScreen < API.ScreenCount; ++currentScreen)
             {
                 int count;
-
                 IntPtr srcArray;
                 API.XF86VidModeGetAllModeLines(API.DefaultDisplay, currentScreen, out count, out srcArray);
+
                 Debug.Print(count.ToString() + " modes detected on screen " + currentScreen.ToString());
                 IntPtr[] array = new IntPtr[count];
                 Marshal.Copy(srcArray, array, 0, count);
@@ -297,18 +307,20 @@ namespace OpenTK.Platform.X11
                     resolutions.Add(new DisplayResolution(x, y, Mode.hdisplay, Mode.vdisplay, 24, (Mode.dotclock * 1000F) / (Mode.vtotal * Mode.htotal)));
                 }
 
-                XDevice dev = devices[i];
-                dev.AvailableResolutions = resolutions;
                 int pixelClock;
                 API.XF86VidModeModeLine currentMode;
                 API.XF86VidModeGetModeLine(API.DefaultDisplay, currentScreen, out pixelClock, out currentMode);
+
+                XDevice dev = new XDevice();
+                dev.AvailableResolutions = resolutions;
+                dev.IsPrimary = currentScreen == Functions.XDefaultScreen(API.DefaultDisplay);
                 dev.Bounds = new Rectangle(x, y, currentMode.hdisplay, (currentMode.vdisplay == 0) ? currentMode.vsyncstart : currentMode.vdisplay);
                 dev.BitsPerPixel = FindCurrentDepth(currentScreen);
                 dev.RefreshRate = (pixelClock * 1000F) / (currentMode.vtotal * currentMode.htotal);
-                currentScreen++;
-                devices[i] = dev;
+                dev.ScreenIndex = currentScreen;
+                devices.Add(dev);
             }
-            return true;
+            return devices;
         }
 
         #region static int[] FindAvailableDepths(int screen)
@@ -490,56 +502,6 @@ namespace OpenTK.Platform.X11
             {
                 throw new NotSupportedException("Cannot get device resolution.");
             }
-        }
-
-        #endregion
-
-        #region NativeMethods
-
-        static class NativeMethods
-        {
-            const string Xinerama = "libXinerama";
-
-            [DllImport(Xinerama)]
-            public static extern bool XineramaQueryExtension(IntPtr dpy, out int event_basep, out int error_basep);
-
-            [DllImport(Xinerama)]
-            public static extern int XineramaQueryVersion (IntPtr dpy, out int major_versionp, out int minor_versionp);
-
-            [DllImport(Xinerama)]
-            public static extern bool XineramaIsActive(IntPtr dpy);
-
-            [DllImport(Xinerama)]
-            static extern IntPtr XineramaQueryScreens(IntPtr dpy, out int number);
-
-            public static IList<XineramaScreenInfo> XineramaQueryScreens(IntPtr dpy)
-            {
-                int number;
-                IntPtr screen_ptr = XineramaQueryScreens(dpy, out number);
-                List<XineramaScreenInfo> screens = new List<XineramaScreenInfo>(number);
-
-                unsafe
-                {
-                    XineramaScreenInfo* ptr = (XineramaScreenInfo*)screen_ptr;
-                    while (--number >= 0)
-                    {
-                        screens.Add(*ptr);
-                        ptr++;
-                    }
-                }
-
-                return screens;
-            }
-        }
-
-        [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        struct XineramaScreenInfo
-        {
-            public int ScreenNumber;
-            public short X;
-            public short Y;
-            public short Width;
-            public short Height;
         }
 
         #endregion

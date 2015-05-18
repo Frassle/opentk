@@ -62,14 +62,18 @@ namespace OpenTK.Platform.X11
         private const string _dll_name_vid = "libXxf86vm";
 
         static Display defaultDisplay;
-        static int defaultScreen;
-        static Window rootWindow;
-        static int screenCount;
 
         internal static Display DefaultDisplay { get { return defaultDisplay; } }
-        static int DefaultScreen { get { return defaultScreen; } }
-        //internal static Window RootWindow { get { return rootWindow; } }
-        internal static int ScreenCount { get { return screenCount; } }
+        internal static int ScreenCount
+        {
+            get
+            {
+                using (new XLock(defaultDisplay))
+                {
+                    return Functions.XScreenCount(DefaultDisplay);
+                }
+            }
+        }
         
         internal static object Lock = new object();
 
@@ -85,10 +89,6 @@ namespace OpenTK.Platform.X11
             if (defaultDisplay == IntPtr.Zero)
                 throw new PlatformException("Could not establish connection to the X-Server.");
 
-            using (new XLock(defaultDisplay))
-            {
-                screenCount = Functions.XScreenCount(DefaultDisplay);
-            }
             Debug.Print("Display connection: {0}, Screen count: {1}", DefaultDisplay, ScreenCount);
 
             //AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomain_ProcessExit);
@@ -100,8 +100,6 @@ namespace OpenTK.Platform.X11
             {
                 Functions.XCloseDisplay(defaultDisplay);
                 defaultDisplay = IntPtr.Zero;
-                defaultScreen = 0;
-                rootWindow = IntPtr.Zero;
             }
         }
 
@@ -1543,6 +1541,15 @@ XF86VidModeGetGammaRampSize(
 
         #region Xrandr
 
+        [StructLayout(StructLayout.Sequential)]
+        public struct XRRScreenResources
+        {
+            public Time timestamp;
+            public Time configTimestamp;
+            public int ncrtc;
+            public RRCrtc* crtcs;
+        }
+
         const string XrandrLibrary = "libXrandr.so.2";
 
         [DllImport(XrandrLibrary)]
@@ -1550,6 +1557,9 @@ XF86VidModeGetGammaRampSize(
 
         [DllImport(XrandrLibrary)]
         public static extern Status XRRQueryVersion(Display dpy, ref int major_versionp, ref int minor_versionp);
+
+        [DllImport(XrandrLibrary)]
+        public static extern XRRScreenResources* XRRGetScreenResources(Display dpy, Window window);
 
         [DllImport(XrandrLibrary)]
         public static extern XRRScreenConfiguration XRRGetScreenInfo(Display dpy, Drawable draw);
@@ -1668,6 +1678,13 @@ XF86VidModeGetGammaRampSize(
 
         [DllImport(X11Library)]
         public static extern int XScreenCount(Display display);
+
+        #endregion
+
+        #region XRootWindow
+
+        [DllImport(X11Library)]
+        public static extern Window XRootWindow(Display display, int screen_number);
 
         #endregion
 
