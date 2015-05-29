@@ -564,6 +564,7 @@
     </None>
     <Compile Include="OpenTK\Test\ExternalContext.cs" />
     <Compile Include="OpenTK\Test\PointToClient.cs" />
+    <Compile Include="OpenTK\Test\DisplayDevice.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
