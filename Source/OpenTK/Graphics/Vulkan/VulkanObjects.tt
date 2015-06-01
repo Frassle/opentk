@@ -1,0 +1,191 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+
+#region License
+//
+// The Open Toolkit Library License
+//
+// Copyright (c) 2015 the Open Toolkit library.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights to 
+// use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+// the Software, and to permit persons to whom the Software is furnished to do
+// so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+//
+#endregion
+
+using System;
+
+namespace OpenTK.Graphics.Vulkan
+{
+<# 
+	var VkObject = DefineBase("Object");
+	
+	var VkInstance = DefineDispSubclass("Instance", VkObject);
+	var VkPhysicalDevice = DefineDispSubclass("PhysicalDevice", VkObject);
+	var VkDevice = DefineDispSubclass("Device", VkObject);
+	var VkQueue = DefineDispSubclass("Queue", VkObject);
+	var VkCmdBuffer = DefineDispSubclass("CmdBuffer", VkObject);
+
+	var VkNonDispatchable = DefineNonDispSubclass("NonDispatchable", VkObject);
+	var VkDeviceMemory = DefineNonDispSubclass("DeviceMemory", VkNonDispatchable);
+	var VkBuffer = DefineNonDispSubclass("Buffer", VkNonDispatchable);
+	var VkBufferView = DefineNonDispSubclass("BufferView", VkNonDispatchable);
+	var VkImage = DefineNonDispSubclass("Image", VkNonDispatchable);
+	var VkImageView = DefineNonDispSubclass("ImageView", VkNonDispatchable);
+	var VkColorAttachmentView = DefineNonDispSubclass("ColorAttachmentView", VkNonDispatchable);
+	var VkDepthStencilView = DefineNonDispSubclass("DepthStencilView", VkNonDispatchable);
+	var VkShader = DefineNonDispSubclass("Shader", VkNonDispatchable);
+	var VkPipeline = DefineNonDispSubclass("Pipeline", VkNonDispatchable);
+	var VkPipelineLayout = DefineNonDispSubclass("PipelineLayout", VkNonDispatchable);
+	var VkSampler = DefineNonDispSubclass("Sampler", VkNonDispatchable);
+	var VkDescriptorSet = DefineNonDispSubclass("DescriptorSet", VkNonDispatchable);
+	var VkDescriptorSetLayout = DefineNonDispSubclass("DescriptorSetLayout", VkNonDispatchable);
+	var VkDescriptorPool = DefineNonDispSubclass("DescriptorPool", VkNonDispatchable);
+	var VkDynamicStateObject = DefineNonDispSubclass("DynamicStateObject", VkNonDispatchable);
+	var VkDynamicVpState = DefineNonDispSubclass("DynamicVpState", VkDynamicStateObject);
+	var VkDynamicRsState = DefineNonDispSubclass("DynamicRsState", VkDynamicStateObject);
+	var VkDynamicCbState = DefineNonDispSubclass("DynamicCbState", VkDynamicStateObject);
+	var VkDynamicDsState = DefineNonDispSubclass("DynamicDsState", VkDynamicStateObject);
+	var VkFence = DefineNonDispSubclass("Fence", VkNonDispatchable);
+	var VkSemaphore = DefineNonDispSubclass("Semaphore", VkNonDispatchable);
+	var VkEvent = DefineNonDispSubclass("Event", VkNonDispatchable);
+	var VkQueryPool = DefineNonDispSubclass("QueryPool", VkNonDispatchable);
+	var VkFramebuffer = DefineNonDispSubclass("Framebuffer", VkNonDispatchable);
+	var VkRenderPass = DefineNonDispSubclass("RenderPass", VkNonDispatchable);
+#>
+}
+
+<#+
+
+class VkHandle
+{
+	public string Name { get; set; }
+	public VkHandle Parent { get; set; }
+}
+
+private string SafeName(string name)
+{
+	if (name == "object") {
+		return "obj";
+	} else if (name == "event") {
+		return "evnt";
+	} else {
+		return name;
+	}
+}
+
+private VkHandle DefineBase(string name)
+{
+#>
+	public struct <#= name #>
+	{
+		internal Int64 Handle;
+
+		public <#= name #>(Int64 handle)
+		{
+			Handle = handle;
+		}
+	}
+<#+
+	var handle = new VkHandle();
+	handle.Name = name;
+	handle.Parent = null;
+	return handle;
+}
+
+private VkHandle DefineDispSubclass(string name, VkHandle baseClass)
+{
+#>
+	public struct <#= name #>
+	{
+		internal IntPtr Handle;
+
+		public <#= name #>(IntPtr handle)
+		{
+			Handle = handle;
+		}
+<#+
+	var baseCls = baseClass;
+	var objName = SafeName(name.Substring(2).ToLower());
+	while(baseCls != null) {
+		var baseObjName = SafeName(baseCls.Name.Substring(2).ToLower());
+#>
+		public static implicit operator <#= baseCls.Name #>(<#= name #> <#= objName #>)
+		{
+			return new <#= baseCls.Name #>(<#= objName #>.Handle.ToInt64());
+		}
+		
+		public static explicit operator <#= name #>(<#= baseCls.Name #> <#= baseObjName #>)
+		{
+			return new <#= name #>(new IntPtr(<#= baseObjName #>.Handle));
+		}
+<#+
+		baseCls = baseCls.Parent;
+	}
+#>
+	}
+<#+
+	var handle = new VkHandle();
+	handle.Name = name;
+	handle.Parent = baseClass;
+	return handle;
+}
+
+private VkHandle DefineNonDispSubclass(string name, VkHandle baseClass)
+{
+#>
+	public struct <#= name #>
+	{
+		internal Int64 Handle;
+
+		public <#= name #>(Int64 handle)
+		{
+			Handle = handle;
+		}
+<#+
+	var baseCls = baseClass;
+	var objName = SafeName(name.Substring(2).ToLower());
+	while(baseCls != null) {
+		var baseObjName = SafeName(baseCls.Name.Substring(2).ToLower());
+#>
+		public static implicit operator <#= baseCls.Name #>(<#= name #> <#= objName #>)
+		{
+			return new <#= baseCls.Name #>(<#= objName #>.Handle);
+		}
+		
+		public static explicit operator <#= name #>(<#= baseCls.Name #> <#= baseObjName #>)
+		{
+			return new <#= name #>(<#= baseObjName #>.Handle);
+		}
+<#+
+		baseCls = baseCls.Parent;
+	}
+#>
+	
+	}
+<#+
+	var handle = new VkHandle();
+	handle.Name = name;
+	handle.Parent = baseClass;
+	return handle;
+}
+#>

@@ -138,6 +138,14 @@
     </Compile>
     <Compile Include="DisplayIndex.cs" />
     <Compile Include="Graphics\GraphicsModeComparer.cs" />
+    <Compile Include="Graphics\Vulkan\Vulkan.cs" />
+    <Compile Include="Graphics\Vulkan\VulkanEnum.cs" />
+    <Compile Include="Graphics\Vulkan\VulkanObjects.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VulkanObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Graphics\Vulkan\VulkanStructs.cs" />
     <Compile Include="Input\GamePadThumbSticks.cs" />
     <Compile Include="Input\GamePadTriggers.cs" />
     <Compile Include="Input\GamePadType.cs" />
@@ -829,6 +837,10 @@
     <Compile Include="Platform\Linux\Bindings\Evdev.cs" />
     <Compile Include="Platform\Linux\DefaultCursor.cs" />
     <Compile Include="Platform\Linux\Bindings\Kms.cs" />
+    <None Include="Graphics\Vulkan\VulkanObjects.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VulkanObjects.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -837,7 +849,9 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Target Name="AfterBuild">
     <Exec Command="$(OutputPath)..\..\Tools\Debug\Rewrite.exe $(OutputPath)OpenTK.dll ..\..\OpenTK.snk -debug" Condition="$(OS) == 'Windows_NT' and $(Configuration) == 'Debug'" />
     <Exec Command="$(OutputPath)..\..\Tools\Release\Rewrite.exe $(OutputPath)OpenTK.dll ..\..\OpenTK.snk" Condition="$(OS) == 'Windows_NT' and $(Configuration) != 'Debug'" />
