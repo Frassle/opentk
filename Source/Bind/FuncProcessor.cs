@@ -268,6 +268,10 @@ namespace Bind
             Bind.Structures.Enum @enum;
             string s;
 
+            // Remove const
+            var constRegex = new Regex(@"\bconst\b");
+            type.CurrentType = constRegex.Replace(type.CurrentType, "");
+            
             category = enum_processor.TranslateEnumName(category);
 
             // Try to find out if it is an enum. If the type exists in the normal GLEnums list, use this.
