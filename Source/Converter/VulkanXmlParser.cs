@@ -69,6 +69,62 @@ namespace OpenTK.Convert
             }
         }
 
+        private string ParseType(XElement type, out string name)
+        {
+            // Vulkan members are of the following general C format:
+            // <member>CODE[<type>TYPENAME</type>]CODE <name>NAME</name>CODE</member>
+            // Examples:
+            // <member>const <type>char</type>* <name>values</name></member>
+            // <member><type>char</type> <name>values[4]</name></member>
+            // <member><type>char</type> <name>values</name>[<enum>VK_MAX_EXTENSION_NAME</enum>]</member>
+            //
+            // We want to translate this to an OpenTK suitable type declaration
+            // TODO: For now we just copy the complete C declaration
+
+            var nameNode = type.Element("name");
+            name = null;
+
+            var nameRegex = new System.Text.RegularExpressions.Regex(@"(?<name>[^\[\]]+)(?<array>\[[^\[\]]+\])?");
+
+            string code = "";
+            foreach (var node in type.Nodes())
+            {
+                if (node == nameNode)
+                {
+                    var match = nameRegex.Match(nameNode.Value);
+                    name = TrimName(match.Groups["name"].Value);
+
+                    code += match.Groups["array"].Value;
+                }
+                else if (node.NodeType == System.Xml.XmlNodeType.Whitespace ||
+                        node.NodeType == System.Xml.XmlNodeType.SignificantWhitespace)
+                {
+                    code += " ";
+                }
+                else if (node.NodeType == System.Xml.XmlNodeType.Text)
+                {
+                    code += (node as XText).Value;
+                }
+                else if (node.NodeType == System.Xml.XmlNodeType.Element)
+                {
+                    code += (node as XElement).Value;
+                }
+            }
+
+            if (name == null)
+            {
+                throw new Exception("name should not be null");
+            }
+
+            code = code.Trim();
+            code = code.Replace('\t', ' ');
+            while (code.Contains("  "))
+            {
+                code = code.Replace("  ", " ");
+            }
+            return code;
+        }
+
         private XElement ParseStruct(XElement structType)
         {
             var name = structType.Attribute("name");
@@ -80,41 +136,12 @@ namespace OpenTK.Convert
 
             foreach (var member in structType.Elements("member"))
             {
-                var memberName = member.Element("name").Value;
-
-                // Vulkan members are of the following general C format:
-                // <member>CODE[<type>TYPENAME</type>]CODE <name>NAME</name>CODE</member>
-                // Examples:
-                // <member>const <type>char</type>* <name>values</name></member>
-                // <member><type>char</type> <name>values[4]</name></member>
-                // <member><type>char</type> <name>values</name>[<enum>VK_MAX_EXTENSION_NAME</enum>]</member>
-                //
-                // We want to translate this to an OpenTK suitable type declaration
-                // TODO: For now we just copy the complete C declaration
-
-                string code = "";
-                foreach (var node in member.Nodes())
-                {
-                    if (node.NodeType == System.Xml.XmlNodeType.Whitespace ||
-                        node.NodeType == System.Xml.XmlNodeType.SignificantWhitespace)
-                    {
-                        code += " ";
-                    }
-                    else if (node.NodeType == System.Xml.XmlNodeType.Text)
-                    {
-                        code += (node as XText).Value;
-                    }
-                    else if (node.NodeType == System.Xml.XmlNodeType.Element)
-                    {
-                        code += (node as XElement).Value;
-                    }
-                }
-
-                XElement memberType = new XElement("type", code);
+                string memberName;
+                var memberType = ParseType(member, out memberName);                
 
                 xstruct.Add(new XElement("member",
                     new XAttribute("name", memberName),
-                    memberType));
+                    new XAttribute("type", memberType)));
             }
 
             return xstruct;
@@ -139,9 +166,25 @@ namespace OpenTK.Convert
 
         private IEnumerable<XElement> ParseCommands(XDocument input)
         {
-            if (false)
+            var commands = input.Root.Elements("commands").Elements("command");
+
+            foreach (var command in commands)
             {
-                yield return null;
+                var proto = command.Element("proto");
+                string protoName;
+                var protoType = ParseType(proto, out protoName);
+
+                var function = new XElement("function",
+                    new XAttribute("name", protoName),
+                    new XElement("returns", new XAttribute("type", protoType)));
+
+                foreach (var param in proto.Elements("param"))
+                {
+                    function.Add(new XElement("param",
+                        new XAttribute("name", param.Element("name").Value)));
+                }
+
+                yield return function;
             }
         }
     }
