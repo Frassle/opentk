@@ -81,7 +81,6 @@ namespace OpenTK.Convert
             // We want to translate this to an OpenTK suitable type declaration
             // TODO: For now we just copy the complete C declaration
 
-            var nameNode = type.Element("name");
             name = null;
 
             var nameRegex = new System.Text.RegularExpressions.Regex(@"(?<name>[^\[\]]+)(?<array>\[[^\[\]]+\])?");
@@ -89,14 +88,7 @@ namespace OpenTK.Convert
             string code = "";
             foreach (var node in type.Nodes())
             {
-                if (node == nameNode)
-                {
-                    var match = nameRegex.Match(nameNode.Value);
-                    name = TrimName(match.Groups["name"].Value);
-
-                    code += match.Groups["array"].Value;
-                }
-                else if (node.NodeType == System.Xml.XmlNodeType.Whitespace ||
+                if (node.NodeType == System.Xml.XmlNodeType.Whitespace ||
                         node.NodeType == System.Xml.XmlNodeType.SignificantWhitespace)
                 {
                     code += " ";
@@ -107,7 +99,18 @@ namespace OpenTK.Convert
                 }
                 else if (node.NodeType == System.Xml.XmlNodeType.Element)
                 {
-                    code += (node as XElement).Value;
+                    var element = (node as XElement);
+                    if (element.Name == "name")
+                    {
+                        var match = nameRegex.Match(element.Value);
+                        name = TrimName(match.Groups["name"].Value);
+
+                        code += match.Groups["array"].Value;
+                    }
+                    else if (element.Name == "type")
+                    {
+                        code += TrimName(element.Value);
+                    }
                 }
             }
 
