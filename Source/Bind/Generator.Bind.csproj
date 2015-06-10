@@ -176,6 +176,7 @@
     <Compile Include="ES\ESGenerator.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="VK\VK10Generator.cs" />
     <Compile Include="XmlSpecReader.cs" />
     <None Include="..\..\OpenTK.snk">
       <Link>OpenTK.snk</Link>
@@ -290,5 +291,11 @@
   </ProjectExtensions>
   <ItemGroup>
     <Folder Include="Specifications\Docs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Specifications\VK\overrides.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Specifications\VK\signatures.xml" />
   </ItemGroup>
 </Project>

@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using Bind.CL;
 using Bind.ES;
 using Bind.GL2;
+using Bind.VK;
 
 namespace Bind
 {
@@ -31,6 +32,7 @@ namespace Bind
         ES30,
         ES31,
         CL10,
+        VK10,
     }
 
     static class MainClass
@@ -158,6 +160,7 @@ namespace Bind
                         Generators.Add(new ES2Generator(Settings));
                         Generators.Add(new ES3Generator(Settings));
                         Generators.Add(new ES31Generator(Settings));
+                        Generators.Add(new VK10Generator(Settings));
                         break;
 
                     case GeneratorMode.GL2:
@@ -191,6 +194,10 @@ namespace Bind
 
                     case GeneratorMode.CL10:
                         Generators.Add(new CLGenerator(Settings));
+                        break;
+
+                    case GeneratorMode.VK10:
+                        Generators.Add(new VK10Generator(Settings));
                         break;
                     
                     default:
@@ -271,6 +278,11 @@ namespace Bind
                 case "cl":
                 case "cl10":
                     mode = GeneratorMode.CL10;
+                    break;
+
+                case "vk":
+                case "vk10":
+                    mode = GeneratorMode.VK10;
                     break;
 
                 default:
