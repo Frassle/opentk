@@ -154,3 +154,7 @@ cl_program_build_info, ProgramBuildInfo
 cl_program_info, ProgramInfo
 cl_sampler_info, SamplerInfo
 cl_work_group_info, WorkGroupInfo
+
+# Vulkan types
+
+uint32_t, uint
