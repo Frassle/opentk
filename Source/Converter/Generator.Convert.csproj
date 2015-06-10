@@ -132,6 +132,7 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="VulkanXmlParser.cs" />
     <None Include="..\..\OpenTK.snk">
       <Link>OpenTK.snk</Link>
     </None>

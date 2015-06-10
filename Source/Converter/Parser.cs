@@ -82,5 +82,21 @@ namespace OpenTK.Convert
 
             return Parse(contents);
         }
+
+        protected string EnumPrefix { get { return Prefix.ToUpper() + "_"; } }
+        protected string FuncPrefix { get { return Prefix; } }
+        protected string TypePrefix { get { return Prefix.Substring(0, 1).ToUpper() + Prefix.Substring(1).ToLower(); } }
+
+        protected string TrimName(string name)
+        {
+            if (name.StartsWith(EnumPrefix))
+                return name.Remove(0, EnumPrefix.Length);
+            else if (name.StartsWith(FuncPrefix))
+                return name.Remove(0, FuncPrefix.Length);
+            else if (name.StartsWith(TypePrefix))
+                return name.Remove(0, TypePrefix.Length);
+            else
+                return name;
+        }
     }
 }

@@ -68,6 +68,7 @@ namespace OpenTK.Convert
             {
                 bool showHelp = false;
                 string prefix = "gl";
+                string type = "gl";
                 string version = null;
                 string path = null;
                 OptionSet opts = new OptionSet
@@ -75,6 +76,8 @@ namespace OpenTK.Convert
                     { "p=", "The {PREFIX} to remove from parsed functions and constants.  " +
                         "Defaults to \"" + prefix + "\".",
                         v => prefix = v },
+                    { "t:", "The {TYPE} of the specification being parsed.",
+                        t => type = t },
                     { "v:", "The {VERSION} of the specification being parsed.",
                         v => version = v },
                     { "o:", "The {PATH} to the output file.",
@@ -101,7 +104,20 @@ namespace OpenTK.Convert
                     return;
                 }
 
-                Parser parser = new GLXmlParser { Prefix = prefix, Version = version };
+                Parser parser;
+                if (type == "gl")
+                {
+                    parser = new GLXmlParser { Prefix = prefix, Version = version };
+                }
+                else if (type == "vulkan")
+                {
+                    parser = new VulkanXmlParser { Prefix = prefix, Version = version };
+                }
+                else
+                {
+                    Console.WriteLine("Unknown specification type {0}.", type);
+                    return;
+                }
 
                 var sigs = headers.Select(h => parser.Parse(h)).ToList();
 
