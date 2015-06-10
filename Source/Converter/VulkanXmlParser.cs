@@ -10,7 +10,7 @@ namespace OpenTK.Convert
     {
         public override IEnumerable<XElement> Parse(string[] lines)
         {
-            var input = XDocument.Parse(String.Join(" ", lines));
+            var input = XDocument.Parse(String.Join(" ", lines), LoadOptions.PreserveWhitespace);
 
             var vulkan = new XElement("api",
                 new XAttribute("name", "vulkan"),
@@ -18,8 +18,7 @@ namespace OpenTK.Convert
 
             foreach (var e in ParseEnums(input).Concat(
                 ParseTypes(input)).Concat(
-                ParseStructs(input)).Concat(
-                ParseFunctions(input)))
+                ParseCommands(input)))
             {
                 vulkan.Add(e);
             }
@@ -70,23 +69,75 @@ namespace OpenTK.Convert
             }
         }
 
+        private XElement ParseStruct(XElement structType)
+        {
+            var name = structType.Attribute("name");
+            var union = structType.Attribute("category").Value == "union";
+
+            var xstruct = new XElement("struct",
+                new XAttribute("name", TrimName(name.Value)),
+                new XAttribute("union", union));
+
+            foreach (var member in structType.Elements("member"))
+            {
+                var memberName = member.Element("name").Value;
+
+                // Vulkan members are of the following general C format:
+                // <member>CODE[<type>TYPENAME</type>]CODE <name>NAME</name>CODE</member>
+                // Examples:
+                // <member>const <type>char</type>* <name>values</name></member>
+                // <member><type>char</type> <name>values[4]</name></member>
+                // <member><type>char</type> <name>values</name>[<enum>VK_MAX_EXTENSION_NAME</enum>]</member>
+                //
+                // We want to translate this to an OpenTK suitable type declaration
+                // TODO: For now we just copy the complete C declaration
+
+                string code = "";
+                foreach (var node in member.Nodes())
+                {
+                    if (node.NodeType == System.Xml.XmlNodeType.Whitespace ||
+                        node.NodeType == System.Xml.XmlNodeType.SignificantWhitespace)
+                    {
+                        code += " ";
+                    }
+                    else if (node.NodeType == System.Xml.XmlNodeType.Text)
+                    {
+                        code += (node as XText).Value;
+                    }
+                    else if (node.NodeType == System.Xml.XmlNodeType.Element)
+                    {
+                        code += (node as XElement).Value;
+                    }
+                }
+
+                XElement memberType = new XElement("type", code);
+
+                xstruct.Add(new XElement("member",
+                    new XAttribute("name", memberName),
+                    memberType));
+            }
+
+            return xstruct;
+        }
+
         private IEnumerable<XElement> ParseTypes(XDocument input)
         {
-            if (false)
+            var types = input.Root.Elements("types").Elements("type");
+            foreach (var type in types)
             {
-                yield return null;
+                var category = type.Attribute("category");
+
+                if (category != null)
+                {
+                    if (category.Value == "struct" || category.Value == "union")
+                    {
+                        yield return ParseStruct(type);
+                    }
+                }
             }
         }
 
-        private IEnumerable<XElement> ParseStructs(XDocument input)
-        {
-            if (false)
-            {
-                yield return null;
-            }
-        }
-
-        private IEnumerable<XElement> ParseFunctions(XDocument input)
+        private IEnumerable<XElement> ParseCommands(XDocument input)
         {
             if (false)
             {
