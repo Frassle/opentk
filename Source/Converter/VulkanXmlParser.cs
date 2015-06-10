@@ -176,6 +176,7 @@ namespace OpenTK.Convert
 
                 var function = new XElement("function",
                     new XAttribute("name", protoName),
+                    new XAttribute("extension", "vulkan"), // TODO: Should be worked out from feature element
                     new XElement("returns", new XAttribute("type", protoType)));
 
                 foreach (var param in command.Elements("param"))
