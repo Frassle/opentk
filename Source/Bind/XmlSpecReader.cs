@@ -361,7 +361,8 @@ namespace Bind
                     // It seems that all flag collections contain "Mask" in their names.
                     // This looks like a heuristic, but it holds 100% in practice
                     // (checked all enums to make sure).
-                    e.IsFlagCollection = e.Name.ToLower().Contains("mask");
+                    e.IsFlagCollection = e.Name.ToLower().Contains("mask") ||
+                        node.GetAttribute("flags", String.Empty) == "true";
 
                     foreach (XPathNavigator param in node.SelectChildren(XPathNodeType.Element))
                     {
