@@ -178,10 +178,13 @@ namespace OpenTK.Convert
                     new XAttribute("name", protoName),
                     new XElement("returns", new XAttribute("type", protoType)));
 
-                foreach (var param in proto.Elements("param"))
+                foreach (var param in command.Elements("param"))
                 {
+                    string paramName;
+                    var paramType = ParseType(param, out paramName);
                     function.Add(new XElement("param",
-                        new XAttribute("name", param.Element("name").Value)));
+                        new XAttribute("name", paramName),
+                        new XAttribute("type", paramType)));
                 }
 
                 yield return function;
