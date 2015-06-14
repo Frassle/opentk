@@ -118,6 +118,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="StructProcessor.cs" />
     <Compile Include="CSharpSpecWriter.cs" />
     <Compile Include="FuncProcessor.cs" />
     <Compile Include="GL2\GL4Generator.cs" />
@@ -137,6 +138,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="EnumProcessor.cs" />
+    <Compile Include="Structures\Struct.cs" />
     <Compile Include="Utilities.cs">
       <SubType>Code</SubType>
     </Compile>

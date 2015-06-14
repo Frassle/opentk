@@ -122,6 +122,40 @@ namespace Bind
             }
         }
 
+        public void ReadStructs(string file, StructCollection structs, string apiname, string apiversions)
+        {
+            var specs = new XPathDocument(file);
+
+            // The pre-GL4.4 spec format does not distinguish between
+            // different apinames (it is assumed that different APIs
+            // are stored in distinct signature.xml files).
+            // To maintain compatibility, we detect the version of the
+            // signatures.xml file and ignore apiname if it is version 1.
+            var specversion = GetSpecVersion(specs);
+            if (specversion == "1")
+            {
+                apiname = null;
+            }
+
+            foreach (var apiversion in apiversions.Split('|'))
+            {
+                string xpath_add, xpath_delete;
+                GetSignaturePaths(apiname, apiversion, out xpath_add, out xpath_delete);
+
+                // First, read all enum definitions from spec and override file.
+                // Afterwards, read all token/enum overrides from overrides file.
+                foreach (XPathNavigator nav in specs.CreateNavigator().Select(xpath_delete))
+                {
+                    foreach (XPathNavigator node in nav.SelectChildren("struct", String.Empty))
+                        structs.Remove(node.GetAttribute("name", String.Empty));
+                }
+                foreach (XPathNavigator nav in specs.CreateNavigator().Select(xpath_add))
+                {
+                    structs.AddRange(ReadStructs(nav));
+                }
+            }
+        }
+
         public Dictionary<string, string> ReadTypeMap(string file)
         {
             using (var sr = new StreamReader(file))
@@ -466,6 +500,21 @@ restart:
 
             Utilities.Merge(enums, all);
             return enums;
+        }
+
+        StructCollection ReadStructs(XPathNavigator nav)
+        {
+            StructCollection structs = new StructCollection();
+
+            foreach (XPathNavigator node in nav.SelectChildren("struct", String.Empty))
+            {
+                structs.Add(new Struct()
+                {
+                    Name = node.GetAttribute("name", String.Empty)
+                });
+            }
+
+            return structs;
         }
 
         #endregion

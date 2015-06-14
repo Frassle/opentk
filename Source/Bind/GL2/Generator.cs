@@ -81,6 +81,7 @@ namespace Bind.GL2
 
             Delegates = new DelegateCollection();
             Enums = new EnumCollection();
+            Structs = new StructCollection();
             Wrappers = new FunctionCollection();
 
             SpecReader = new XmlSpecReader(Settings);
@@ -113,6 +114,7 @@ namespace Bind.GL2
 
         public DelegateCollection Delegates { get; private set; }
         public EnumCollection Enums { get; private set; }
+        public StructCollection Structs { get; private set; }
         public FunctionCollection Wrappers { get; private set; }
         public IDictionary<string, string> GLTypes { get; private set; }
         public IDictionary<string, string> CSTypes { get; private set; }
@@ -138,13 +140,21 @@ namespace Bind.GL2
                 SpecReader.ReadDelegates(file, Delegates, Profile, Version);
             }
 
+            SpecReader.ReadStructs(Path.Combine(Settings.InputPath, glSpec), Structs, Profile, Version);
+            foreach (var file in overrides)
+            {
+                SpecReader.ReadStructs(file, Structs, Profile, Version);
+            }
+
             var enum_processor = new EnumProcessor(this, overrides);
             var func_processor = new FuncProcessor(this, overrides);
+            var struct_processor = new StructProcessor(this, overrides);
             var doc_processor = new DocProcessor(this);
 
             Enums = enum_processor.Process(Enums, Profile);
             Wrappers = func_processor.Process(enum_processor, doc_processor,
                 Delegates, Enums, Profile, Version);
+            Structs = struct_processor.Process(enum_processor, doc_processor, Structs, Enums, Profile, Version);
         }
 
         #endregion

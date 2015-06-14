@@ -14,6 +14,7 @@ namespace Bind
     {
         void ReadDelegates(string file, DelegateCollection delegates, string apiname, string apiversion);
         void ReadEnums(string file, EnumCollection enums, string apiname, string apiversion);
+        void ReadStructs(string file, StructCollection structs, string apiname, string apiversion);
         Dictionary<string, string> ReadTypeMap(string file);
         Dictionary<string, string> ReadCSTypeMap(string file);
     }

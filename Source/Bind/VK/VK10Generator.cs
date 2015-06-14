@@ -23,6 +23,7 @@ namespace Bind.VK
             Settings.DefaultDelegatesFile = "VKDelegates.cs";
             Settings.DefaultEnumsFile = "VKEnums.cs";
             Settings.DefaultWrappersFile = "VK.cs";
+            Settings.DefaultStructsFile = "VKStructures.cs";
             Settings.DefaultDocPath = Path.Combine(
                 Settings.DefaultDocPath, "VK");
             Settings.DefaultOutputPath = Path.Combine(

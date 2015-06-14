@@ -13,6 +13,7 @@ namespace Bind
     {
         DelegateCollection Delegates { get; }
         EnumCollection Enums { get; }
+        StructCollection Structs { get; }
         FunctionCollection Wrappers { get; }
         Settings Settings { get; }
 

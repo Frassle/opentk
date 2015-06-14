@@ -49,7 +49,7 @@ namespace Bind
         public void WriteBindings(IBind generator)
         {
             Generator = generator;
-            WriteBindings(generator.Delegates, generator.Wrappers, generator.Enums);
+            WriteBindings(generator.Delegates, generator.Wrappers, generator.Enums, generator.Structs);
         }
 
         #endregion
@@ -69,7 +69,7 @@ namespace Bind
 
         #region WriteBindings
 
-        void WriteBindings(DelegateCollection delegates, FunctionCollection wrappers, EnumCollection enums)
+        void WriteBindings(DelegateCollection delegates, FunctionCollection wrappers, EnumCollection enums, StructCollection structs)
         {
             Console.WriteLine("Writing bindings to {0}", Settings.OutputPath);
             if (!Directory.Exists(Settings.OutputPath))
@@ -77,6 +77,7 @@ namespace Bind
 
             string temp_enums_file = Path.GetTempFileName();
             string temp_wrappers_file = Path.GetTempFileName();
+            string temp_structs_file = Path.GetTempFileName();
 
             // Enums
             using (BindStreamWriter sw = new BindStreamWriter(temp_enums_file))
@@ -129,18 +130,64 @@ namespace Bind
                 sw.WriteLine("}");
             }
 
+            if (structs.Count != 0)
+            {
+                // Structures
+                using (BindStreamWriter sw = new BindStreamWriter(temp_structs_file))
+                {
+                    WriteLicense(sw);
+                    sw.WriteLine("namespace {0}", Settings.OutputNamespace);
+                    sw.WriteLine("{");
+                    sw.Indent();
+
+                    sw.WriteLine("using System;");
+                    sw.WriteLine("using System.Text;");
+                    sw.WriteLine("using System.Runtime.InteropServices;");
+
+                    WriteStructures(sw, structs, enums, Generator.CSTypes);
+
+                    sw.Unindent();
+                    sw.WriteLine("}");
+                }
+            }
+
             string output_enums = Path.Combine(Settings.OutputPath, Settings.EnumsFile);
             string output_delegates = Path.Combine(Settings.OutputPath, Settings.DelegatesFile);
             string output_core = Path.Combine(Settings.OutputPath, Settings.ImportsFile);
             string output_wrappers = Path.Combine(Settings.OutputPath, Settings.WrappersFile);
+            string output_structs = Path.Combine(Settings.OutputPath, Settings.StructsFile);
 
             if (File.Exists(output_enums)) File.Delete(output_enums);
             if (File.Exists(output_delegates)) File.Delete(output_delegates);
             if (File.Exists(output_core)) File.Delete(output_core);
             if (File.Exists(output_wrappers)) File.Delete(output_wrappers);
+            if (File.Exists(output_structs)) File.Delete(output_structs);
 
             File.Move(temp_enums_file, output_enums);
             File.Move(temp_wrappers_file, output_wrappers);
+            if (structs.Count != 0)
+            {
+                File.Move(temp_structs_file, output_structs);
+            }
+        }
+
+        #endregion
+
+        #region WriteStructures
+
+        private void WriteStructures(BindStreamWriter sw, 
+            StructCollection structs, EnumCollection enums, 
+            IDictionary<string, string> dictionary)
+        {
+            Trace.WriteLine(String.Format("Writing structures to:\t{0}", Settings.OutputNamespace));
+
+            foreach (var structure in structs.Values)
+            {
+                sw.WriteLine();
+                sw.WriteLine("public struct {0}", structure.Name);
+                sw.WriteLine("{");
+                sw.WriteLine("}");
+            }
         }
 
         #endregion

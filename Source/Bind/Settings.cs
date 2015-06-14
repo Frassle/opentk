@@ -32,11 +32,12 @@ namespace Bind
         public string DefaultDelegatesFile = "Delegates.cs";
         public string DefaultEnumsFile = "Enums.cs";
         public string DefaultWrappersFile = "GL.cs";
+        public string DefaultStructsFile = "Structures.cs";
         public Legacy DefaultCompatibility = Legacy.NoDropMultipleTokens;
 
         string inputPath, outputPath, outputNamespace, docPath, fallbackDocPath, licenseFile,
             languageTypeMapFile, keywordEscapeCharacter, importsFile, delegatesFile, enumsFile,
-            wrappersFile;
+            wrappersFile, structsFile;
         Nullable<Legacy> compatibility;
         public string InputPath { get { return inputPath ?? DefaultInputPath; } set { inputPath = value; } }
         public string OutputPath { get { return outputPath ?? DefaultOutputPath; } set { outputPath = value; } }
@@ -51,6 +52,7 @@ namespace Bind
         public string DelegatesFile { get { return delegatesFile ?? DefaultDelegatesFile; } set { delegatesFile = value; } }
         public string EnumsFile { get { return enumsFile ?? DefaultEnumsFile; } set { enumsFile = value; } }
         public string WrappersFile { get { return wrappersFile ?? DefaultWrappersFile; } set { wrappersFile = value; } }
+        public string StructsFile { get { return structsFile ?? DefaultStructsFile; } set { structsFile = value; } }
         public Legacy Compatibility { get { return compatibility ?? DefaultCompatibility; } set { compatibility = value; } }
 
         public string GLClass = "GL";        // Needed by Glu for the AuxEnumsClass. Can be set through -gl:"xxx".
