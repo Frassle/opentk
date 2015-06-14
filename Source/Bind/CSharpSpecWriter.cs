@@ -176,8 +176,8 @@ namespace Bind
         #region WriteStructures
 
         private void WriteStructures(BindStreamWriter sw, 
-            StructCollection structs, EnumCollection enums, 
-            IDictionary<string, string> dictionary)
+            StructCollection structs, EnumCollection enums,
+            IDictionary<string, string> CSTypes)
         {
             Trace.WriteLine(String.Format("Writing structures to:\t{0}", Settings.OutputNamespace));
 
@@ -196,8 +196,26 @@ namespace Bind
                 sw.WriteLine(")]");
                 sw.WriteLine("public struct {0}", structure.Name);
                 sw.WriteLine("{");
+                sw.Indent();
+                foreach (var member in structure.Members)
+                {
+                    WriteStructMember(sw, enums, CSTypes, structure.IsUnion, member);
+                }
+                sw.Unindent();
                 sw.WriteLine("}");
             }
+        }
+
+        private void WriteStructMember(BindStreamWriter sw, 
+            EnumCollection enums, IDictionary<string, string> CSTypes, 
+            bool isUnion, Parameter member)
+        {
+            if (isUnion)
+            {
+                sw.WriteLine("[FieldOffset(0)]");
+            }
+
+            sw.WriteLine("{0} {1};", member.CurrentType, member.Name);
         }
 
         #endregion

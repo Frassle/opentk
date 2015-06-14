@@ -508,10 +508,21 @@ restart:
 
             foreach (XPathNavigator node in nav.SelectChildren("struct", String.Empty))
             {
-                structs.Add(new Struct(node.GetAttribute("union", String.Empty) == "true")
+                var structure = new Struct(node.GetAttribute("union", String.Empty) == "true")
                 {
                     Name = node.GetAttribute("name", String.Empty)
-                });
+                };
+
+                foreach (XPathNavigator param in node.SelectChildren("member", String.Empty))
+                {
+                    structure.Add(new Parameter()
+                    {
+                        Name = param.GetAttribute("name", String.Empty),
+                        CurrentType = param.GetAttribute("type", String.Empty),
+                    });
+                }
+                
+                structs.Add(structure);
             }
 
             return structs;
