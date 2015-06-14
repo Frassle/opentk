@@ -508,7 +508,7 @@ restart:
 
             foreach (XPathNavigator node in nav.SelectChildren("struct", String.Empty))
             {
-                structs.Add(new Struct()
+                structs.Add(new Struct(node.GetAttribute("union", String.Empty) == "true")
                 {
                     Name = node.GetAttribute("name", String.Empty)
                 });

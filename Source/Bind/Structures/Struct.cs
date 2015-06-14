@@ -10,15 +10,22 @@ namespace Bind.Structures
     class Struct
     {
         string _name;
+        bool _isUnion;
 
-        public Struct()
+        public Struct(bool isUnion)
         {
+            _isUnion = isUnion;
         }
 
         public string Name
         {
             get { return _name ?? ""; }
             set { _name = value; }
+        }
+
+        public bool IsUnion
+        {
+            get { return _isUnion; }
         }
 
         ParameterCollection _members_collection = new ParameterCollection();

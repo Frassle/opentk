@@ -184,6 +184,16 @@ namespace Bind
             foreach (var structure in structs.Values)
             {
                 sw.WriteLine();
+                sw.Write("[StructLayout(LayoutKind.");
+                if (structure.IsUnion)
+                {
+                    sw.Write("Explicit");
+                }
+                else
+                {
+                    sw.Write("Sequential");
+                }
+                sw.WriteLine(")]");
                 sw.WriteLine("public struct {0}", structure.Name);
                 sw.WriteLine("{");
                 sw.WriteLine("}");
