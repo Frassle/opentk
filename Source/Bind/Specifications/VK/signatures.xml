@@ -1,0 +1,2542 @@
+<?xml version="1.0" encoding="utf-8"?>
+<signatures version="2">
+  <add name="vulkan" version="1.0">
+    <enum name="AttachmentLoadOp" flags="false">
+      <token name="ATTACHMENT_LOAD_OP_LOAD" value="0" />
+      <token name="ATTACHMENT_LOAD_OP_CLEAR" value="1" />
+      <token name="ATTACHMENT_LOAD_OP_DONT_CARE" value="2" />
+    </enum>
+    <enum name="AttachmentStoreOp" flags="false">
+      <token name="ATTACHMENT_STORE_OP_STORE" value="0" />
+      <token name="ATTACHMENT_STORE_OP_DONT_CARE" value="1" />
+    </enum>
+    <enum name="AttachmentViewCreateFlagBits" flags="true">
+      <token name="ATTACHMENT_VIEW_CREATE_READ_ONLY_DEPTH_BIT" value="0x1" />
+      <token name="ATTACHMENT_VIEW_CREATE_READ_ONLY_STENCIL_BIT" value="0x2" />
+    </enum>
+    <enum name="Blend" flags="false">
+      <token name="BLEND_ZERO" value="0" />
+      <token name="BLEND_ONE" value="1" />
+      <token name="BLEND_SRC_COLOR" value="2" />
+      <token name="BLEND_ONE_MINUS_SRC_COLOR" value="3" />
+      <token name="BLEND_DEST_COLOR" value="4" />
+      <token name="BLEND_ONE_MINUS_DEST_COLOR" value="5" />
+      <token name="BLEND_SRC_ALPHA" value="6" />
+      <token name="BLEND_ONE_MINUS_SRC_ALPHA" value="7" />
+      <token name="BLEND_DEST_ALPHA" value="8" />
+      <token name="BLEND_ONE_MINUS_DEST_ALPHA" value="9" />
+      <token name="BLEND_CONSTANT_COLOR" value="10" />
+      <token name="BLEND_ONE_MINUS_CONSTANT_COLOR" value="11" />
+      <token name="BLEND_CONSTANT_ALPHA" value="12" />
+      <token name="BLEND_ONE_MINUS_CONSTANT_ALPHA" value="13" />
+      <token name="BLEND_SRC_ALPHA_SATURATE" value="14" />
+      <token name="BLEND_SRC1_COLOR" value="15" />
+      <token name="BLEND_ONE_MINUS_SRC1_COLOR" value="16" />
+      <token name="BLEND_SRC1_ALPHA" value="17" />
+      <token name="BLEND_ONE_MINUS_SRC1_ALPHA" value="18" />
+    </enum>
+    <enum name="BlendOp" flags="false">
+      <token name="BLEND_OP_ADD" value="0" />
+      <token name="BLEND_OP_SUBTRACT" value="1" />
+      <token name="BLEND_OP_REVERSE_SUBTRACT" value="2" />
+      <token name="BLEND_OP_MIN" value="3" />
+      <token name="BLEND_OP_MAX" value="4" />
+    </enum>
+    <enum name="BorderColor" flags="false">
+      <token name="BORDER_COLOR_FLOAT_TRANSPARENT_BLACK" value="0" />
+      <token name="BORDER_COLOR_INT_TRANSPARENT_BLACK" value="1" />
+      <token name="BORDER_COLOR_FLOAT_OPAQUE_BLACK" value="2" />
+      <token name="BORDER_COLOR_INT_OPAQUE_BLACK" value="3" />
+      <token name="BORDER_COLOR_FLOAT_OPAQUE_WHITE" value="4" />
+      <token name="BORDER_COLOR_INT_OPAQUE_WHITE" value="5" />
+    </enum>
+    <enum name="BufferCreateFlagBits" flags="true">
+      <token name="BUFFER_CREATE_SPARSE_BIT" value="0x1" />
+      <token name="BUFFER_CREATE_SPARSE_RESIDENCY_BIT" value="0x2" />
+      <token name="BUFFER_CREATE_SPARSE_ALIASED_BIT" value="0x4" />
+    </enum>
+    <enum name="BufferUsageFlagBits" flags="true">
+      <token name="BUFFER_USAGE_GENERAL" value="0" />
+      <token name="BUFFER_USAGE_TRANSFER_SOURCE_BIT" value="0x1" />
+      <token name="BUFFER_USAGE_TRANSFER_DESTINATION_BIT" value="0x2" />
+      <token name="BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT" value="0x4" />
+      <token name="BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT" value="0x8" />
+      <token name="BUFFER_USAGE_UNIFORM_BUFFER_BIT" value="0x10" />
+      <token name="BUFFER_USAGE_STORAGE_BUFFER_BIT" value="0x20" />
+      <token name="BUFFER_USAGE_INDEX_BUFFER_BIT" value="0x40" />
+      <token name="BUFFER_USAGE_VERTEX_BUFFER_BIT" value="0x80" />
+      <token name="BUFFER_USAGE_INDIRECT_BUFFER_BIT" value="0x100" />
+    </enum>
+    <enum name="BufferViewType" flags="false">
+      <token name="BUFFER_VIEW_TYPE_RAW" value="0" />
+      <token name="BUFFER_VIEW_TYPE_FORMATTED" value="1" />
+    </enum>
+    <enum name="ChannelFlagBits" flags="true">
+      <token name="CHANNEL_R_BIT" value="0x1" />
+      <token name="CHANNEL_G_BIT" value="0x2" />
+      <token name="CHANNEL_B_BIT" value="0x4" />
+      <token name="CHANNEL_A_BIT" value="0x8" />
+    </enum>
+    <enum name="ChannelSwizzle" flags="false">
+      <token name="CHANNEL_SWIZZLE_ZERO" value="0" />
+      <token name="CHANNEL_SWIZZLE_ONE" value="1" />
+      <token name="CHANNEL_SWIZZLE_R" value="2" />
+      <token name="CHANNEL_SWIZZLE_G" value="3" />
+      <token name="CHANNEL_SWIZZLE_B" value="4" />
+      <token name="CHANNEL_SWIZZLE_A" value="5" />
+    </enum>
+    <enum name="CmdBufferLevel" flags="false">
+      <token name="CMD_BUFFER_LEVEL_PRIMARY" value="0" />
+      <token name="CMD_BUFFER_LEVEL_SECONDARY" value="1" />
+    </enum>
+    <enum name="CmdBufferOptimizeFlagBits" flags="true">
+      <token name="CMD_BUFFER_OPTIMIZE_SMALL_BATCH_BIT" value="0x1" />
+      <token name="CMD_BUFFER_OPTIMIZE_PIPELINE_SWITCH_BIT" value="0x2" />
+      <token name="CMD_BUFFER_OPTIMIZE_ONE_TIME_SUBMIT_BIT" value="0x4" />
+      <token name="CMD_BUFFER_OPTIMIZE_DESCRIPTOR_SET_SWITCH_BIT" value="0x8" />
+      <token name="CMD_BUFFER_OPTIMIZE_NO_SIMULTANEOUS_USE_BIT" value="0x10" />
+    </enum>
+    <enum name="CmdBufferResetFlagBits" flags="true">
+      <token name="CMD_BUFFER_RESET_RELEASE_RESOURCES" value="0x1" />
+    </enum>
+    <enum name="CmdPoolCreateFlagBits" flags="true">
+      <token name="CMD_POOL_CREATE_TRANSIENT_BIT" value="0x1" />
+      <token name="CMD_POOL_CREATE_RESET_COMMAND_BUFFER_BIT" value="0x2" />
+    </enum>
+    <enum name="CmdPoolResetFlagBits" flags="true">
+      <token name="CMD_POOL_RESET_RELEASE_RESOURCES" value="0x1" />
+    </enum>
+    <enum name="CompareOp" flags="false">
+      <token name="COMPARE_OP_NEVER" value="0" />
+      <token name="COMPARE_OP_LESS" value="1" />
+      <token name="COMPARE_OP_EQUAL" value="2" />
+      <token name="COMPARE_OP_LESS_EQUAL" value="3" />
+      <token name="COMPARE_OP_GREATER" value="4" />
+      <token name="COMPARE_OP_NOT_EQUAL" value="5" />
+      <token name="COMPARE_OP_GREATER_EQUAL" value="6" />
+      <token name="COMPARE_OP_ALWAYS" value="7" />
+    </enum>
+    <enum name="CullMode" flags="false">
+      <token name="CULL_MODE_NONE" value="0" />
+      <token name="CULL_MODE_FRONT" value="1" />
+      <token name="CULL_MODE_BACK" value="2" />
+      <token name="CULL_MODE_FRONT_AND_BACK" value="3" />
+    </enum>
+    <enum name="DescriptorPoolUsage" flags="false">
+      <token name="DESCRIPTOR_POOL_USAGE_ONE_SHOT" value="0" />
+      <token name="DESCRIPTOR_POOL_USAGE_DYNAMIC" value="1" />
+    </enum>
+    <enum name="DescriptorSetUsage" flags="false">
+      <token name="DESCRIPTOR_SET_USAGE_ONE_SHOT" value="0" />
+      <token name="DESCRIPTOR_SET_USAGE_STATIC" value="1" />
+    </enum>
+    <enum name="DescriptorType" flags="false">
+      <token name="DESCRIPTOR_TYPE_SAMPLER" value="0" />
+      <token name="DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER" value="1" />
+      <token name="DESCRIPTOR_TYPE_SAMPLED_IMAGE" value="2" />
+      <token name="DESCRIPTOR_TYPE_STORAGE_IMAGE" value="3" />
+      <token name="DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER" value="4" />
+      <token name="DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER" value="5" />
+      <token name="DESCRIPTOR_TYPE_UNIFORM_BUFFER" value="6" />
+      <token name="DESCRIPTOR_TYPE_STORAGE_BUFFER" value="7" />
+      <token name="DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC" value="8" />
+      <token name="DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC" value="9" />
+      <token name="DESCRIPTOR_TYPE_INPUT_ATTACHMENT" value="10" />
+    </enum>
+    <enum name="DeviceCreateFlagBits" flags="true">
+      <token name="DEVICE_CREATE_VALIDATION_BIT" value="0x1" />
+    </enum>
+    <enum name="FenceCreateFlagBits" flags="true">
+      <token name="FENCE_CREATE_SIGNALED_BIT" value="0x1" />
+    </enum>
+    <enum name="FillMode" flags="false">
+      <token name="FILL_MODE_POINTS" value="0" />
+      <token name="FILL_MODE_WIREFRAME" value="1" />
+      <token name="FILL_MODE_SOLID" value="2" />
+    </enum>
+    <enum name="Format" flags="false">
+      <token name="FORMAT_UNDEFINED" value="0" />
+      <token name="FORMAT_R4G4_UNORM" value="1" />
+      <token name="FORMAT_R4G4_USCALED" value="2" />
+      <token name="FORMAT_R4G4B4A4_UNORM" value="3" />
+      <token name="FORMAT_R4G4B4A4_USCALED" value="4" />
+      <token name="FORMAT_R5G6B5_UNORM" value="5" />
+      <token name="FORMAT_R5G6B5_USCALED" value="6" />
+      <token name="FORMAT_R5G5B5A1_UNORM" value="7" />
+      <token name="FORMAT_R5G5B5A1_USCALED" value="8" />
+      <token name="FORMAT_R8_UNORM" value="9" />
+      <token name="FORMAT_R8_SNORM" value="10" />
+      <token name="FORMAT_R8_USCALED" value="11" />
+      <token name="FORMAT_R8_SSCALED" value="12" />
+      <token name="FORMAT_R8_UINT" value="13" />
+      <token name="FORMAT_R8_SINT" value="14" />
+      <token name="FORMAT_R8_SRGB" value="15" />
+      <token name="FORMAT_R8G8_UNORM" value="16" />
+      <token name="FORMAT_R8G8_SNORM" value="17" />
+      <token name="FORMAT_R8G8_USCALED" value="18" />
+      <token name="FORMAT_R8G8_SSCALED" value="19" />
+      <token name="FORMAT_R8G8_UINT" value="20" />
+      <token name="FORMAT_R8G8_SINT" value="21" />
+      <token name="FORMAT_R8G8_SRGB" value="22" />
+      <token name="FORMAT_R8G8B8_UNORM" value="23" />
+      <token name="FORMAT_R8G8B8_SNORM" value="24" />
+      <token name="FORMAT_R8G8B8_USCALED" value="25" />
+      <token name="FORMAT_R8G8B8_SSCALED" value="26" />
+      <token name="FORMAT_R8G8B8_UINT" value="27" />
+      <token name="FORMAT_R8G8B8_SINT" value="28" />
+      <token name="FORMAT_R8G8B8_SRGB" value="29" />
+      <token name="FORMAT_R8G8B8A8_UNORM" value="30" />
+      <token name="FORMAT_R8G8B8A8_SNORM" value="31" />
+      <token name="FORMAT_R8G8B8A8_USCALED" value="32" />
+      <token name="FORMAT_R8G8B8A8_SSCALED" value="33" />
+      <token name="FORMAT_R8G8B8A8_UINT" value="34" />
+      <token name="FORMAT_R8G8B8A8_SINT" value="35" />
+      <token name="FORMAT_R8G8B8A8_SRGB" value="36" />
+      <token name="FORMAT_R10G10B10A2_UNORM" value="37" />
+      <token name="FORMAT_R10G10B10A2_SNORM" value="38" />
+      <token name="FORMAT_R10G10B10A2_USCALED" value="39" />
+      <token name="FORMAT_R10G10B10A2_SSCALED" value="40" />
+      <token name="FORMAT_R10G10B10A2_UINT" value="41" />
+      <token name="FORMAT_R10G10B10A2_SINT" value="42" />
+      <token name="FORMAT_R16_UNORM" value="43" />
+      <token name="FORMAT_R16_SNORM" value="44" />
+      <token name="FORMAT_R16_USCALED" value="45" />
+      <token name="FORMAT_R16_SSCALED" value="46" />
+      <token name="FORMAT_R16_UINT" value="47" />
+      <token name="FORMAT_R16_SINT" value="48" />
+      <token name="FORMAT_R16_SFLOAT" value="49" />
+      <token name="FORMAT_R16G16_UNORM" value="50" />
+      <token name="FORMAT_R16G16_SNORM" value="51" />
+      <token name="FORMAT_R16G16_USCALED" value="52" />
+      <token name="FORMAT_R16G16_SSCALED" value="53" />
+      <token name="FORMAT_R16G16_UINT" value="54" />
+      <token name="FORMAT_R16G16_SINT" value="55" />
+      <token name="FORMAT_R16G16_SFLOAT" value="56" />
+      <token name="FORMAT_R16G16B16_UNORM" value="57" />
+      <token name="FORMAT_R16G16B16_SNORM" value="58" />
+      <token name="FORMAT_R16G16B16_USCALED" value="59" />
+      <token name="FORMAT_R16G16B16_SSCALED" value="60" />
+      <token name="FORMAT_R16G16B16_UINT" value="61" />
+      <token name="FORMAT_R16G16B16_SINT" value="62" />
+      <token name="FORMAT_R16G16B16_SFLOAT" value="63" />
+      <token name="FORMAT_R16G16B16A16_UNORM" value="64" />
+      <token name="FORMAT_R16G16B16A16_SNORM" value="65" />
+      <token name="FORMAT_R16G16B16A16_USCALED" value="66" />
+      <token name="FORMAT_R16G16B16A16_SSCALED" value="67" />
+      <token name="FORMAT_R16G16B16A16_UINT" value="68" />
+      <token name="FORMAT_R16G16B16A16_SINT" value="69" />
+      <token name="FORMAT_R16G16B16A16_SFLOAT" value="70" />
+      <token name="FORMAT_R32_UINT" value="71" />
+      <token name="FORMAT_R32_SINT" value="72" />
+      <token name="FORMAT_R32_SFLOAT" value="73" />
+      <token name="FORMAT_R32G32_UINT" value="74" />
+      <token name="FORMAT_R32G32_SINT" value="75" />
+      <token name="FORMAT_R32G32_SFLOAT" value="76" />
+      <token name="FORMAT_R32G32B32_UINT" value="77" />
+      <token name="FORMAT_R32G32B32_SINT" value="78" />
+      <token name="FORMAT_R32G32B32_SFLOAT" value="79" />
+      <token name="FORMAT_R32G32B32A32_UINT" value="80" />
+      <token name="FORMAT_R32G32B32A32_SINT" value="81" />
+      <token name="FORMAT_R32G32B32A32_SFLOAT" value="82" />
+      <token name="FORMAT_R64_SFLOAT" value="83" />
+      <token name="FORMAT_R64G64_SFLOAT" value="84" />
+      <token name="FORMAT_R64G64B64_SFLOAT" value="85" />
+      <token name="FORMAT_R64G64B64A64_SFLOAT" value="86" />
+      <token name="FORMAT_R11G11B10_UFLOAT" value="87" />
+      <token name="FORMAT_R9G9B9E5_UFLOAT" value="88" />
+      <token name="FORMAT_D16_UNORM" value="89" />
+      <token name="FORMAT_D24_UNORM" value="90" />
+      <token name="FORMAT_D32_SFLOAT" value="91" />
+      <token name="FORMAT_S8_UINT" value="92" />
+      <token name="FORMAT_D16_UNORM_S8_UINT" value="93" />
+      <token name="FORMAT_D24_UNORM_S8_UINT" value="94" />
+      <token name="FORMAT_D32_SFLOAT_S8_UINT" value="95" />
+      <token name="FORMAT_BC1_RGB_UNORM" value="96" />
+      <token name="FORMAT_BC1_RGB_SRGB" value="97" />
+      <token name="FORMAT_BC1_RGBA_UNORM" value="98" />
+      <token name="FORMAT_BC1_RGBA_SRGB" value="99" />
+      <token name="FORMAT_BC2_UNORM" value="100" />
+      <token name="FORMAT_BC2_SRGB" value="101" />
+      <token name="FORMAT_BC3_UNORM" value="102" />
+      <token name="FORMAT_BC3_SRGB" value="103" />
+      <token name="FORMAT_BC4_UNORM" value="104" />
+      <token name="FORMAT_BC4_SNORM" value="105" />
+      <token name="FORMAT_BC5_UNORM" value="106" />
+      <token name="FORMAT_BC5_SNORM" value="107" />
+      <token name="FORMAT_BC6H_UFLOAT" value="108" />
+      <token name="FORMAT_BC6H_SFLOAT" value="109" />
+      <token name="FORMAT_BC7_UNORM" value="110" />
+      <token name="FORMAT_BC7_SRGB" value="111" />
+      <token name="FORMAT_ETC2_R8G8B8_UNORM" value="112" />
+      <token name="FORMAT_ETC2_R8G8B8_SRGB" value="113" />
+      <token name="FORMAT_ETC2_R8G8B8A1_UNORM" value="114" />
+      <token name="FORMAT_ETC2_R8G8B8A1_SRGB" value="115" />
+      <token name="FORMAT_ETC2_R8G8B8A8_UNORM" value="116" />
+      <token name="FORMAT_ETC2_R8G8B8A8_SRGB" value="117" />
+      <token name="FORMAT_EAC_R11_UNORM" value="118" />
+      <token name="FORMAT_EAC_R11_SNORM" value="119" />
+      <token name="FORMAT_EAC_R11G11_UNORM" value="120" />
+      <token name="FORMAT_EAC_R11G11_SNORM" value="121" />
+      <token name="FORMAT_ASTC_4x4_UNORM" value="122" />
+      <token name="FORMAT_ASTC_4x4_SRGB" value="123" />
+      <token name="FORMAT_ASTC_5x4_UNORM" value="124" />
+      <token name="FORMAT_ASTC_5x4_SRGB" value="125" />
+      <token name="FORMAT_ASTC_5x5_UNORM" value="126" />
+      <token name="FORMAT_ASTC_5x5_SRGB" value="127" />
+      <token name="FORMAT_ASTC_6x5_UNORM" value="128" />
+      <token name="FORMAT_ASTC_6x5_SRGB" value="129" />
+      <token name="FORMAT_ASTC_6x6_UNORM" value="130" />
+      <token name="FORMAT_ASTC_6x6_SRGB" value="131" />
+      <token name="FORMAT_ASTC_8x5_UNORM" value="132" />
+      <token name="FORMAT_ASTC_8x5_SRGB" value="133" />
+      <token name="FORMAT_ASTC_8x6_UNORM" value="134" />
+      <token name="FORMAT_ASTC_8x6_SRGB" value="135" />
+      <token name="FORMAT_ASTC_8x8_UNORM" value="136" />
+      <token name="FORMAT_ASTC_8x8_SRGB" value="137" />
+      <token name="FORMAT_ASTC_10x5_UNORM" value="138" />
+      <token name="FORMAT_ASTC_10x5_SRGB" value="139" />
+      <token name="FORMAT_ASTC_10x6_UNORM" value="140" />
+      <token name="FORMAT_ASTC_10x6_SRGB" value="141" />
+      <token name="FORMAT_ASTC_10x8_UNORM" value="142" />
+      <token name="FORMAT_ASTC_10x8_SRGB" value="143" />
+      <token name="FORMAT_ASTC_10x10_UNORM" value="144" />
+      <token name="FORMAT_ASTC_10x10_SRGB" value="145" />
+      <token name="FORMAT_ASTC_12x10_UNORM" value="146" />
+      <token name="FORMAT_ASTC_12x10_SRGB" value="147" />
+      <token name="FORMAT_ASTC_12x12_UNORM" value="148" />
+      <token name="FORMAT_ASTC_12x12_SRGB" value="149" />
+      <token name="FORMAT_B4G4R4A4_UNORM" value="150" />
+      <token name="FORMAT_B5G5R5A1_UNORM" value="151" />
+      <token name="FORMAT_B5G6R5_UNORM" value="152" />
+      <token name="FORMAT_B5G6R5_USCALED" value="153" />
+      <token name="FORMAT_B8G8R8_UNORM" value="154" />
+      <token name="FORMAT_B8G8R8_SNORM" value="155" />
+      <token name="FORMAT_B8G8R8_USCALED" value="156" />
+      <token name="FORMAT_B8G8R8_SSCALED" value="157" />
+      <token name="FORMAT_B8G8R8_UINT" value="158" />
+      <token name="FORMAT_B8G8R8_SINT" value="159" />
+      <token name="FORMAT_B8G8R8_SRGB" value="160" />
+      <token name="FORMAT_B8G8R8A8_UNORM" value="161" />
+      <token name="FORMAT_B8G8R8A8_SNORM" value="162" />
+      <token name="FORMAT_B8G8R8A8_USCALED" value="163" />
+      <token name="FORMAT_B8G8R8A8_SSCALED" value="164" />
+      <token name="FORMAT_B8G8R8A8_UINT" value="165" />
+      <token name="FORMAT_B8G8R8A8_SINT" value="166" />
+      <token name="FORMAT_B8G8R8A8_SRGB" value="167" />
+      <token name="FORMAT_B10G10R10A2_UNORM" value="168" />
+      <token name="FORMAT_B10G10R10A2_SNORM" value="169" />
+      <token name="FORMAT_B10G10R10A2_USCALED" value="170" />
+      <token name="FORMAT_B10G10R10A2_SSCALED" value="171" />
+      <token name="FORMAT_B10G10R10A2_UINT" value="172" />
+      <token name="FORMAT_B10G10R10A2_SINT" value="173" />
+    </enum>
+    <enum name="FormatFeatureFlagBits" flags="true">
+      <token name="FORMAT_FEATURE_SAMPLED_IMAGE_BIT" value="0x1" />
+      <token name="FORMAT_FEATURE_STORAGE_IMAGE_BIT" value="0x2" />
+      <token name="FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT" value="0x4" />
+      <token name="FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT" value="0x8" />
+      <token name="FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT" value="0x10" />
+      <token name="FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT" value="0x20" />
+      <token name="FORMAT_FEATURE_VERTEX_BUFFER_BIT" value="0x40" />
+      <token name="FORMAT_FEATURE_COLOR_ATTACHMENT_BIT" value="0x80" />
+      <token name="FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT" value="0x100" />
+      <token name="FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT" value="0x200" />
+      <token name="FORMAT_FEATURE_CONVERSION_BIT" value="0x400" />
+    </enum>
+    <enum name="FrontFace" flags="false">
+      <token name="FRONT_FACE_CCW" value="0" />
+      <token name="FRONT_FACE_CW" value="1" />
+    </enum>
+    <enum name="ImageAspect" flags="false">
+      <token name="IMAGE_ASPECT_COLOR" value="0" />
+      <token name="IMAGE_ASPECT_DEPTH" value="1" />
+      <token name="IMAGE_ASPECT_STENCIL" value="2" />
+      <token name="IMAGE_ASPECT_METADATA" value="3" />
+    </enum>
+    <enum name="ImageAspectFlagBits" flags="true">
+      <token name="IMAGE_ASPECT_COLOR_BIT" value="0x1" />
+      <token name="IMAGE_ASPECT_DEPTH_BIT" value="0x2" />
+      <token name="IMAGE_ASPECT_STENCIL_BIT" value="0x4" />
+      <token name="IMAGE_ASPECT_METADATA_BIT" value="0x8" />
+    </enum>
+    <enum name="ImageCreateFlagBits" flags="true">
+      <token name="IMAGE_CREATE_SPARSE_BIT" value="0x1" />
+      <token name="IMAGE_CREATE_SPARSE_RESIDENCY_BIT" value="0x2" />
+      <token name="IMAGE_CREATE_SPARSE_ALIASED_BIT" value="0x4" />
+      <token name="IMAGE_CREATE_INVARIANT_DATA_BIT" value="0x8" />
+      <token name="IMAGE_CREATE_MUTABLE_FORMAT_BIT" value="0x10" />
+      <token name="IMAGE_CREATE_CUBE_COMPATIBLE_BIT" value="0x20" />
+    </enum>
+    <enum name="ImageLayout" flags="false">
+      <token name="IMAGE_LAYOUT_UNDEFINED" value="0" />
+      <token name="IMAGE_LAYOUT_GENERAL" value="1" />
+      <token name="IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL" value="2" />
+      <token name="IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL" value="3" />
+      <token name="IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL" value="4" />
+      <token name="IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL" value="5" />
+      <token name="IMAGE_LAYOUT_TRANSFER_SOURCE_OPTIMAL" value="6" />
+      <token name="IMAGE_LAYOUT_TRANSFER_DESTINATION_OPTIMAL" value="7" />
+    </enum>
+    <enum name="ImageTiling" flags="false">
+      <token name="IMAGE_TILING_LINEAR" value="0" />
+      <token name="IMAGE_TILING_OPTIMAL" value="1" />
+    </enum>
+    <enum name="ImageType" flags="false">
+      <token name="IMAGE_TYPE_1D" value="0" />
+      <token name="IMAGE_TYPE_2D" value="1" />
+      <token name="IMAGE_TYPE_3D" value="2" />
+    </enum>
+    <enum name="ImageUsageFlagBits" flags="true">
+      <token name="IMAGE_USAGE_GENERAL" value="0" />
+      <token name="IMAGE_USAGE_TRANSFER_SOURCE_BIT" value="0x1" />
+      <token name="IMAGE_USAGE_TRANSFER_DESTINATION_BIT" value="0x2" />
+      <token name="IMAGE_USAGE_SAMPLED_BIT" value="0x4" />
+      <token name="IMAGE_USAGE_STORAGE_BIT" value="0x8" />
+      <token name="IMAGE_USAGE_COLOR_ATTACHMENT_BIT" value="0x10" />
+      <token name="IMAGE_USAGE_DEPTH_STENCIL_BIT" value="0x20" />
+      <token name="IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT" value="0x40" />
+      <token name="IMAGE_USAGE_INPUT_ATTACHMENT_BIT" value="0x80" />
+    </enum>
+    <enum name="ImageViewType" flags="false">
+      <token name="IMAGE_VIEW_TYPE_1D" value="0" />
+      <token name="IMAGE_VIEW_TYPE_2D" value="1" />
+      <token name="IMAGE_VIEW_TYPE_3D" value="2" />
+      <token name="IMAGE_VIEW_TYPE_CUBE" value="3" />
+      <token name="IMAGE_VIEW_TYPE_1D_ARRAY" value="4" />
+      <token name="IMAGE_VIEW_TYPE_2D_ARRAY" value="5" />
+      <token name="IMAGE_VIEW_TYPE_CUBE_ARRAY" value="6" />
+    </enum>
+    <enum name="IndexType" flags="false">
+      <token name="INDEX_TYPE_UINT16" value="0" />
+      <token name="INDEX_TYPE_UINT32" value="1" />
+    </enum>
+    <enum name="LogicOp" flags="false">
+      <token name="LOGIC_OP_CLEAR" value="0" />
+      <token name="LOGIC_OP_AND" value="1" />
+      <token name="LOGIC_OP_AND_REVERSE" value="2" />
+      <token name="LOGIC_OP_COPY" value="3" />
+      <token name="LOGIC_OP_AND_INVERTED" value="4" />
+      <token name="LOGIC_OP_NOOP" value="5" />
+      <token name="LOGIC_OP_XOR" value="6" />
+      <token name="LOGIC_OP_OR" value="7" />
+      <token name="LOGIC_OP_NOR" value="8" />
+      <token name="LOGIC_OP_EQUIV" value="9" />
+      <token name="LOGIC_OP_INVERT" value="10" />
+      <token name="LOGIC_OP_OR_REVERSE" value="11" />
+      <token name="LOGIC_OP_COPY_INVERTED" value="12" />
+      <token name="LOGIC_OP_OR_INVERTED" value="13" />
+      <token name="LOGIC_OP_NAND" value="14" />
+      <token name="LOGIC_OP_SET" value="15" />
+    </enum>
+    <enum name="MemoryHeapFlagBits" flags="true">
+      <token name="MEMORY_HEAP_HOST_LOCAL" value="0x1" />
+    </enum>
+    <enum name="MemoryInputFlagBits" flags="true">
+      <token name="MEMORY_INPUT_HOST_READ_BIT" value="0x1" />
+      <token name="MEMORY_INPUT_INDIRECT_COMMAND_BIT" value="0x2" />
+      <token name="MEMORY_INPUT_INDEX_FETCH_BIT" value="0x4" />
+      <token name="MEMORY_INPUT_VERTEX_ATTRIBUTE_FETCH_BIT" value="0x8" />
+      <token name="MEMORY_INPUT_UNIFORM_READ_BIT" value="0x10" />
+      <token name="MEMORY_INPUT_SHADER_READ_BIT" value="0x20" />
+      <token name="MEMORY_INPUT_COLOR_ATTACHMENT_BIT" value="0x40" />
+      <token name="MEMORY_INPUT_DEPTH_STENCIL_ATTACHMENT_BIT" value="0x80" />
+      <token name="MEMORY_INPUT_INPUT_ATTACHMENT_BIT" value="0x100" />
+      <token name="MEMORY_INPUT_TRANSFER_BIT" value="0x200" />
+    </enum>
+    <enum name="MemoryOutputFlagBits" flags="true">
+      <token name="MEMORY_OUTPUT_HOST_WRITE_BIT" value="0x1" />
+      <token name="MEMORY_OUTPUT_SHADER_WRITE_BIT" value="0x2" />
+      <token name="MEMORY_OUTPUT_COLOR_ATTACHMENT_BIT" value="0x4" />
+      <token name="MEMORY_OUTPUT_DEPTH_STENCIL_ATTACHMENT_BIT" value="0x8" />
+      <token name="MEMORY_OUTPUT_TRANSFER_BIT" value="0x10" />
+    </enum>
+    <enum name="MemoryPropertyFlagBits" flags="true">
+      <token name="MEMORY_PROPERTY_DEVICE_ONLY" value="0" />
+      <token name="MEMORY_PROPERTY_HOST_VISIBLE_BIT" value="0x1" />
+      <token name="MEMORY_PROPERTY_HOST_NON_COHERENT_BIT" value="0x2" />
+      <token name="MEMORY_PROPERTY_HOST_UNCACHED_BIT" value="0x4" />
+      <token name="MEMORY_PROPERTY_HOST_WRITE_COMBINED_BIT" value="0x8" />
+      <token name="MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT" value="0x10" />
+    </enum>
+    <enum name="PhysicalDeviceType" flags="false">
+      <token name="PHYSICAL_DEVICE_TYPE_OTHER" value="0" />
+      <token name="PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU" value="1" />
+      <token name="PHYSICAL_DEVICE_TYPE_DISCRETE_GPU" value="2" />
+      <token name="PHYSICAL_DEVICE_TYPE_VIRTUAL_GPU" value="3" />
+      <token name="PHYSICAL_DEVICE_TYPE_CPU" value="4" />
+    </enum>
+    <enum name="PipelineBindPoint" flags="false">
+      <token name="PIPELINE_BIND_POINT_COMPUTE" value="0" />
+      <token name="PIPELINE_BIND_POINT_GRAPHICS" value="1" />
+    </enum>
+    <enum name="PipelineCreateFlagBits" flags="true">
+      <token name="PIPELINE_CREATE_DISABLE_OPTIMIZATION_BIT" value="0x1" />
+      <token name="PIPELINE_CREATE_ALLOW_DERIVATIVES_BIT" value="0x2" />
+      <token name="PIPELINE_CREATE_DERIVATIVE_BIT" value="0x4" />
+    </enum>
+    <enum name="PipelineStageFlagBits" flags="true">
+      <token name="PIPELINE_STAGE_TOP_OF_PIPE_BIT" value="0x1" />
+      <token name="PIPELINE_STAGE_DRAW_INDIRECT_BIT" value="0x2" />
+      <token name="PIPELINE_STAGE_VERTEX_INPUT_BIT" value="0x4" />
+      <token name="PIPELINE_STAGE_VERTEX_SHADER_BIT" value="0x8" />
+      <token name="PIPELINE_STAGE_TESS_CONTROL_SHADER_BIT" value="0x10" />
+      <token name="PIPELINE_STAGE_TESS_EVALUATION_SHADER_BIT" value="0x20" />
+      <token name="PIPELINE_STAGE_GEOMETRY_SHADER_BIT" value="0x40" />
+      <token name="PIPELINE_STAGE_FRAGMENT_SHADER_BIT" value="0x80" />
+      <token name="PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT" value="0x100" />
+      <token name="PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT" value="0x200" />
+      <token name="PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT" value="0x400" />
+      <token name="PIPELINE_STAGE_COMPUTE_SHADER_BIT" value="0x800" />
+      <token name="PIPELINE_STAGE_TRANSFER_BIT" value="0x1000" />
+      <token name="PIPELINE_STAGE_TRANSITION_BIT" value="0x2000" />
+      <token name="PIPELINE_STAGE_HOST_BIT" value="0x4000" />
+      <token name="PIPELINE_STAGE_ALL_GRAPHICS" value="0x000007FF" />
+      <token name="PIPELINE_STAGE_ALL_GPU_COMMANDS" value="0x00003FFF" />
+    </enum>
+    <enum name="PrimitiveTopology" flags="false">
+      <token name="PRIMITIVE_TOPOLOGY_POINT_LIST" value="0" />
+      <token name="PRIMITIVE_TOPOLOGY_LINE_LIST" value="1" />
+      <token name="PRIMITIVE_TOPOLOGY_LINE_STRIP" value="2" />
+      <token name="PRIMITIVE_TOPOLOGY_TRIANGLE_LIST" value="3" />
+      <token name="PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP" value="4" />
+      <token name="PRIMITIVE_TOPOLOGY_TRIANGLE_FAN" value="5" />
+      <token name="PRIMITIVE_TOPOLOGY_LINE_LIST_ADJ" value="6" />
+      <token name="PRIMITIVE_TOPOLOGY_LINE_STRIP_ADJ" value="7" />
+      <token name="PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_ADJ" value="8" />
+      <token name="PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_ADJ" value="9" />
+      <token name="PRIMITIVE_TOPOLOGY_PATCH" value="10" />
+    </enum>
+    <enum name="QueryControlFlagBits" flags="true">
+      <token name="QUERY_CONTROL_CONSERVATIVE_BIT" value="0x1" />
+    </enum>
+    <enum name="QueryPipelineStatisticFlagBits" flags="true">
+      <token name="QUERY_PIPELINE_STATISTIC_IA_VERTICES_BIT" value="0x1" />
+      <token name="QUERY_PIPELINE_STATISTIC_IA_PRIMITIVES_BIT" value="0x2" />
+      <token name="QUERY_PIPELINE_STATISTIC_VS_INVOCATIONS_BIT" value="0x4" />
+      <token name="QUERY_PIPELINE_STATISTIC_GS_INVOCATIONS_BIT" value="0x8" />
+      <token name="QUERY_PIPELINE_STATISTIC_GS_PRIMITIVES_BIT" value="0x10" />
+      <token name="QUERY_PIPELINE_STATISTIC_C_INVOCATIONS_BIT" value="0x20" />
+      <token name="QUERY_PIPELINE_STATISTIC_C_PRIMITIVES_BIT" value="0x40" />
+      <token name="QUERY_PIPELINE_STATISTIC_FS_INVOCATIONS_BIT" value="0x80" />
+      <token name="QUERY_PIPELINE_STATISTIC_TCS_PATCHES_BIT" value="0x100" />
+      <token name="QUERY_PIPELINE_STATISTIC_TES_INVOCATIONS_BIT" value="0x200" />
+      <token name="QUERY_PIPELINE_STATISTIC_CS_INVOCATIONS_BIT" value="0x400" />
+    </enum>
+    <enum name="QueryResultFlagBits" flags="true">
+      <token name="QUERY_RESULT_DEFAULT" value="0" />
+      <token name="QUERY_RESULT_64_BIT" value="0x1" />
+      <token name="QUERY_RESULT_WAIT_BIT" value="0x2" />
+      <token name="QUERY_RESULT_WITH_AVAILABILITY_BIT" value="0x4" />
+      <token name="QUERY_RESULT_PARTIAL_BIT" value="0x8" />
+    </enum>
+    <enum name="QueryType" flags="false">
+      <token name="QUERY_TYPE_OCCLUSION" value="0" />
+      <token name="QUERY_TYPE_PIPELINE_STATISTICS" value="1" />
+    </enum>
+    <enum name="QueueFlagBits" flags="true">
+      <token name="QUEUE_GRAPHICS_BIT" value="0x1" />
+      <token name="QUEUE_COMPUTE_BIT" value="0x2" />
+      <token name="QUEUE_DMA_BIT" value="0x4" />
+      <token name="QUEUE_SPARSE_MEMMGR_BIT" value="0x8" />
+      <token name="QUEUE_EXTENDED_BIT" value="0x40000000" />
+    </enum>
+    <enum name="RenderPassContents" flags="false">
+      <token name="RENDER_PASS_CONTENTS_INLINE" value="0" />
+      <token name="RENDER_PASS_CONTENTS_SECONDARY_CMD_BUFFERS" value="1" />
+    </enum>
+    <enum name="Result" flags="false">
+      <token name="SUCCESS" value="0" />
+      <token name="UNSUPPORTED" value="1" />
+      <token name="NOT_READY" value="2" />
+      <token name="TIMEOUT" value="3" />
+      <token name="EVENT_SET" value="4" />
+      <token name="EVENT_RESET" value="5" />
+      <token name="INCOMPLETE" value="6" />
+      <token name="ERROR_UNKNOWN" value="-1" />
+      <token name="ERROR_UNAVAILABLE" value="-2" />
+      <token name="ERROR_INITIALIZATION_FAILED" value="-3" />
+      <token name="ERROR_OUT_OF_HOST_MEMORY" value="-4" />
+      <token name="ERROR_OUT_OF_DEVICE_MEMORY" value="-5" />
+      <token name="ERROR_DEVICE_ALREADY_CREATED" value="-6" />
+      <token name="ERROR_DEVICE_LOST" value="-7" />
+      <token name="ERROR_INVALID_POINTER" value="-8" />
+      <token name="ERROR_INVALID_VALUE" value="-9" />
+      <token name="ERROR_INVALID_HANDLE" value="-10" />
+      <token name="ERROR_INVALID_ORDINAL" value="-11" />
+      <token name="ERROR_INVALID_MEMORY_SIZE" value="-12" />
+      <token name="ERROR_INVALID_EXTENSION" value="-13" />
+      <token name="ERROR_INVALID_FLAGS" value="-14" />
+      <token name="ERROR_INVALID_ALIGNMENT" value="-15" />
+      <token name="ERROR_INVALID_FORMAT" value="-16" />
+      <token name="ERROR_INVALID_IMAGE" value="-17" />
+      <token name="ERROR_INVALID_DESCRIPTOR_SET_DATA" value="-18" />
+      <token name="ERROR_INVALID_QUEUE_TYPE" value="-19" />
+      <token name="ERROR_UNSUPPORTED_SHADER_IL_VERSION" value="-20" />
+      <token name="ERROR_BAD_SHADER_CODE" value="-21" />
+      <token name="ERROR_BAD_PIPELINE_DATA" value="-22" />
+      <token name="ERROR_NOT_MAPPABLE" value="-23" />
+      <token name="ERROR_MEMORY_MAP_FAILED" value="-24" />
+      <token name="ERROR_MEMORY_UNMAP_FAILED" value="-25" />
+      <token name="ERROR_INCOMPATIBLE_DEVICE" value="-26" />
+      <token name="ERROR_INCOMPATIBLE_DRIVER" value="-27" />
+      <token name="ERROR_INCOMPLETE_COMMAND_BUFFER" value="-28" />
+      <token name="ERROR_BUILDING_COMMAND_BUFFER" value="-29" />
+      <token name="ERROR_MEMORY_NOT_BOUND" value="-30" />
+      <token name="ERROR_INCOMPATIBLE_QUEUE" value="-31" />
+      <token name="ERROR_INVALID_LAYER" value="-32" />
+    </enum>
+    <enum name="ShaderStage" flags="false">
+      <token name="SHADER_STAGE_VERTEX" value="0" />
+      <token name="SHADER_STAGE_TESS_CONTROL" value="1" />
+      <token name="SHADER_STAGE_TESS_EVALUATION" value="2" />
+      <token name="SHADER_STAGE_GEOMETRY" value="3" />
+      <token name="SHADER_STAGE_FRAGMENT" value="4" />
+      <token name="SHADER_STAGE_COMPUTE" value="5" />
+    </enum>
+    <enum name="ShaderStageFlagBits" flags="true">
+      <token name="SHADER_STAGE_VERTEX_BIT" value="0x1" />
+      <token name="SHADER_STAGE_TESS_CONTROL_BIT" value="0x2" />
+      <token name="SHADER_STAGE_TESS_EVALUATION_BIT" value="0x4" />
+      <token name="SHADER_STAGE_GEOMETRY_BIT" value="0x8" />
+      <token name="SHADER_STAGE_FRAGMENT_BIT" value="0x10" />
+      <token name="SHADER_STAGE_COMPUTE_BIT" value="0x20" />
+      <token name="SHADER_STAGE_ALL" value="0x7FFFFFFF" />
+    </enum>
+    <enum name="SharingMode" flags="false">
+      <token name="SHARING_MODE_EXCLUSIVE" value="0" />
+      <token name="SHARING_MODE_CONCURRENT" value="1" />
+    </enum>
+    <enum name="SparseImageFormatFlagBits" flags="true">
+      <token name="SPARSE_IMAGE_FMT_SINGLE_MIPTAIL_BIT" value="0x1" />
+      <token name="SPARSE_IMAGE_FMT_ALIGNED_MIP_SIZE_BIT" value="0x2" />
+      <token name="SPARSE_IMAGE_FMT_NONSTD_BLOCK_SIZE_BIT" value="0x4" />
+    </enum>
+    <enum name="SparseMemoryBindFlagBits" flags="true">
+      <token name="SPARSE_MEMORY_BIND_REPLICATE_64KIB_BLOCK_BIT" value="0x1" />
+    </enum>
+    <enum name="StencilOp" flags="false">
+      <token name="STENCIL_OP_KEEP" value="0" />
+      <token name="STENCIL_OP_ZERO" value="1" />
+      <token name="STENCIL_OP_REPLACE" value="2" />
+      <token name="STENCIL_OP_INC_CLAMP" value="3" />
+      <token name="STENCIL_OP_DEC_CLAMP" value="4" />
+      <token name="STENCIL_OP_INVERT" value="5" />
+      <token name="STENCIL_OP_INC_WRAP" value="6" />
+      <token name="STENCIL_OP_DEC_WRAP" value="7" />
+    </enum>
+    <enum name="StructureType" flags="false">
+      <token name="STRUCTURE_TYPE_APPLICATION_INFO" value="0" />
+      <token name="STRUCTURE_TYPE_DEVICE_CREATE_INFO" value="1" />
+      <token name="STRUCTURE_TYPE_MEMORY_ALLOC_INFO" value="2" />
+      <token name="STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO" value="3" />
+      <token name="STRUCTURE_TYPE_ATTACHMENT_VIEW_CREATE_INFO" value="4" />
+      <token name="STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO" value="5" />
+      <token name="STRUCTURE_TYPE_SHADER_CREATE_INFO" value="6" />
+      <token name="STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO" value="7" />
+      <token name="STRUCTURE_TYPE_SAMPLER_CREATE_INFO" value="8" />
+      <token name="STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO" value="9" />
+      <token name="STRUCTURE_TYPE_DYNAMIC_VIEWPORT_STATE_CREATE_INFO" value="10" />
+      <token name="STRUCTURE_TYPE_DYNAMIC_RASTER_STATE_CREATE_INFO" value="11" />
+      <token name="STRUCTURE_TYPE_DYNAMIC_COLOR_BLEND_STATE_CREATE_INFO" value="12" />
+      <token name="STRUCTURE_TYPE_DYNAMIC_DEPTH_STENCIL_STATE_CREATE_INFO" value="13" />
+      <token name="STRUCTURE_TYPE_CMD_BUFFER_CREATE_INFO" value="14" />
+      <token name="STRUCTURE_TYPE_EVENT_CREATE_INFO" value="15" />
+      <token name="STRUCTURE_TYPE_FENCE_CREATE_INFO" value="16" />
+      <token name="STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO" value="17" />
+      <token name="STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO" value="18" />
+      <token name="STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO" value="19" />
+      <token name="STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO" value="20" />
+      <token name="STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO" value="21" />
+      <token name="STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO" value="22" />
+      <token name="STRUCTURE_TYPE_PIPELINE_TESSELLATION_STATE_CREATE_INFO" value="23" />
+      <token name="STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO" value="24" />
+      <token name="STRUCTURE_TYPE_PIPELINE_RASTER_STATE_CREATE_INFO" value="25" />
+      <token name="STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO" value="26" />
+      <token name="STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO" value="27" />
+      <token name="STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO" value="28" />
+      <token name="STRUCTURE_TYPE_IMAGE_CREATE_INFO" value="29" />
+      <token name="STRUCTURE_TYPE_BUFFER_CREATE_INFO" value="30" />
+      <token name="STRUCTURE_TYPE_BUFFER_VIEW_CREATE_INFO" value="31" />
+      <token name="STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO" value="32" />
+      <token name="STRUCTURE_TYPE_CMD_BUFFER_BEGIN_INFO" value="33" />
+      <token name="STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO" value="34" />
+      <token name="STRUCTURE_TYPE_MEMORY_BARRIER" value="35" />
+      <token name="STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER" value="36" />
+      <token name="STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER" value="37" />
+      <token name="STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO" value="38" />
+      <token name="STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET" value="39" />
+      <token name="STRUCTURE_TYPE_COPY_DESCRIPTOR_SET" value="40" />
+      <token name="STRUCTURE_TYPE_INSTANCE_CREATE_INFO" value="41" />
+      <token name="STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO" value="42" />
+      <token name="STRUCTURE_TYPE_MAPPED_MEMORY_RANGE" value="43" />
+      <token name="STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO" value="44" />
+      <token name="STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION" value="45" />
+      <token name="STRUCTURE_TYPE_SUBPASS_DESCRIPTION" value="46" />
+      <token name="STRUCTURE_TYPE_SUBPASS_DEPENDENCY" value="47" />
+      <token name="STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO" value="48" />
+      <token name="STRUCTURE_TYPE_CMD_POOL_CREATE_INFO" value="49" />
+    </enum>
+    <enum name="SubpassDescriptionFlagBits" flags="true">
+      <token name="SUBPASS_DESCRIPTION_NO_OVERDRAW_BIT" value="0x1" />
+    </enum>
+    <enum name="SystemAllocType" flags="false">
+      <token name="SYSTEM_ALLOC_TYPE_API_OBJECT" value="0" />
+      <token name="SYSTEM_ALLOC_TYPE_INTERNAL" value="1" />
+      <token name="SYSTEM_ALLOC_TYPE_INTERNAL_TEMP" value="2" />
+      <token name="SYSTEM_ALLOC_TYPE_INTERNAL_SHADER" value="3" />
+      <token name="SYSTEM_ALLOC_TYPE_DEBUG" value="4" />
+    </enum>
+    <enum name="TexAddress" flags="false">
+      <token name="TEX_ADDRESS_WRAP" value="0" />
+      <token name="TEX_ADDRESS_MIRROR" value="1" />
+      <token name="TEX_ADDRESS_CLAMP" value="2" />
+      <token name="TEX_ADDRESS_MIRROR_ONCE" value="3" />
+      <token name="TEX_ADDRESS_CLAMP_BORDER" value="4" />
+    </enum>
+    <enum name="TexFilter" flags="false">
+      <token name="TEX_FILTER_NEAREST" value="0" />
+      <token name="TEX_FILTER_LINEAR" value="1" />
+    </enum>
+    <enum name="TexMipmapMode" flags="false">
+      <token name="TEX_MIPMAP_MODE_BASE" value="0" />
+      <token name="TEX_MIPMAP_MODE_NEAREST" value="1" />
+      <token name="TEX_MIPMAP_MODE_LINEAR" value="2" />
+    </enum>
+    <enum name="TimestampType" flags="false">
+      <token name="TIMESTAMP_TYPE_TOP" value="0" />
+      <token name="TIMESTAMP_TYPE_BOTTOM" value="1" />
+    </enum>
+    <enum name="VertexInputStepRate" flags="false">
+      <token name="VERTEX_INPUT_STEP_RATE_VERTEX" value="0" />
+      <token name="VERTEX_INPUT_STEP_RATE_INSTANCE" value="1" />
+    </enum>
+    <function name="AllocDescriptorSets" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="descriptorPool" type="DescriptorPool" />
+      <param name="setUsage" type="DescriptorSetUsage" />
+      <param name="count" type="uint32_t" />
+      <param name="pSetLayouts" type="const DescriptorSetLayout*" />
+      <param name="pDescriptorSets" type="DescriptorSet*" />
+    </function>
+    <function name="AllocMemory" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pAllocInfo" type="const MemoryAllocInfo*" />
+      <param name="pMem" type="DeviceMemory*" />
+    </function>
+    <function name="BeginCommandBuffer" extension="vulkan">
+      <returns type="Result" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="pBeginInfo" type="const CmdBufferBeginInfo*" />
+    </function>
+    <function name="BindBufferMemory" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="buffer" type="Buffer" />
+      <param name="mem" type="DeviceMemory" />
+      <param name="memOffset" type="DeviceSize" />
+    </function>
+    <function name="BindImageMemory" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="image" type="Image" />
+      <param name="mem" type="DeviceMemory" />
+      <param name="memOffset" type="DeviceSize" />
+    </function>
+    <function name="CmdBeginQuery" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="queryPool" type="QueryPool" />
+      <param name="slot" type="uint32_t" />
+      <param name="flags" type="QueryControlFlags" />
+    </function>
+    <function name="CmdBeginRenderPass" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="pRenderPassBegin" type="const RenderPassBeginInfo*" />
+      <param name="contents" type="RenderPassContents" />
+    </function>
+    <function name="CmdBindDescriptorSets" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="pipelineBindPoint" type="PipelineBindPoint" />
+      <param name="layout" type="PipelineLayout" />
+      <param name="firstSet" type="uint32_t" />
+      <param name="setCount" type="uint32_t" />
+      <param name="pDescriptorSets" type="const DescriptorSet*" />
+      <param name="dynamicOffsetCount" type="uint32_t" />
+      <param name="pDynamicOffsets" type="const uint32_t*" />
+    </function>
+    <function name="CmdBindDynamicColorBlendState" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="dynamicColorBlendState" type="DynamicColorBlendState" />
+    </function>
+    <function name="CmdBindDynamicDepthStencilState" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="dynamicDepthStencilState" type="DynamicDepthStencilState" />
+    </function>
+    <function name="CmdBindDynamicRasterState" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="dynamicRasterState" type="DynamicRasterState" />
+    </function>
+    <function name="CmdBindDynamicViewportState" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="dynamicViewportState" type="DynamicViewportState" />
+    </function>
+    <function name="CmdBindIndexBuffer" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="buffer" type="Buffer" />
+      <param name="offset" type="DeviceSize" />
+      <param name="indexType" type="IndexType" />
+    </function>
+    <function name="CmdBindPipeline" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="pipelineBindPoint" type="PipelineBindPoint" />
+      <param name="pipeline" type="Pipeline" />
+    </function>
+    <function name="CmdBindVertexBuffers" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="startBinding" type="uint32_t" />
+      <param name="bindingCount" type="uint32_t" />
+      <param name="pBuffers" type="const Buffer*" />
+      <param name="pOffsets" type="const DeviceSize*" />
+    </function>
+    <function name="CmdBlitImage" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="srcImage" type="Image" />
+      <param name="srcImageLayout" type="ImageLayout" />
+      <param name="destImage" type="Image" />
+      <param name="destImageLayout" type="ImageLayout" />
+      <param name="regionCount" type="uint32_t" />
+      <param name="pRegions" type="const ImageBlit*" />
+      <param name="filter" type="TexFilter" />
+    </function>
+    <function name="CmdClearColorAttachment" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="colorAttachment" type="uint32_t" />
+      <param name="imageLayout" type="ImageLayout" />
+      <param name="pColor" type="const ClearColorValue*" />
+      <param name="rectCount" type="uint32_t" />
+      <param name="pRects" type="const Rect3D*" />
+    </function>
+    <function name="CmdClearColorImage" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="image" type="Image" />
+      <param name="imageLayout" type="ImageLayout" />
+      <param name="pColor" type="const ClearColorValue*" />
+      <param name="rangeCount" type="uint32_t" />
+      <param name="pRanges" type="const ImageSubresourceRange*" />
+    </function>
+    <function name="CmdClearDepthStencilAttachment" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="imageAspectMask" type="ImageAspectFlags" />
+      <param name="imageLayout" type="ImageLayout" />
+      <param name="depth" type="float" />
+      <param name="stencil" type="uint32_t" />
+      <param name="rectCount" type="uint32_t" />
+      <param name="pRects" type="const Rect3D*" />
+    </function>
+    <function name="CmdClearDepthStencilImage" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="image" type="Image" />
+      <param name="imageLayout" type="ImageLayout" />
+      <param name="depth" type="float" />
+      <param name="stencil" type="uint32_t" />
+      <param name="rangeCount" type="uint32_t" />
+      <param name="pRanges" type="const ImageSubresourceRange*" />
+    </function>
+    <function name="CmdCopyBuffer" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="srcBuffer" type="Buffer" />
+      <param name="destBuffer" type="Buffer" />
+      <param name="regionCount" type="uint32_t" />
+      <param name="pRegions" type="const BufferCopy*" />
+    </function>
+    <function name="CmdCopyBufferToImage" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="srcBuffer" type="Buffer" />
+      <param name="destImage" type="Image" />
+      <param name="destImageLayout" type="ImageLayout" />
+      <param name="regionCount" type="uint32_t" />
+      <param name="pRegions" type="const BufferImageCopy*" />
+    </function>
+    <function name="CmdCopyImage" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="srcImage" type="Image" />
+      <param name="srcImageLayout" type="ImageLayout" />
+      <param name="destImage" type="Image" />
+      <param name="destImageLayout" type="ImageLayout" />
+      <param name="regionCount" type="uint32_t" />
+      <param name="pRegions" type="const ImageCopy*" />
+    </function>
+    <function name="CmdCopyImageToBuffer" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="srcImage" type="Image" />
+      <param name="srcImageLayout" type="ImageLayout" />
+      <param name="destBuffer" type="Buffer" />
+      <param name="regionCount" type="uint32_t" />
+      <param name="pRegions" type="const BufferImageCopy*" />
+    </function>
+    <function name="CmdCopyQueryPoolResults" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="queryPool" type="QueryPool" />
+      <param name="startQuery" type="uint32_t" />
+      <param name="queryCount" type="uint32_t" />
+      <param name="destBuffer" type="Buffer" />
+      <param name="destOffset" type="DeviceSize" />
+      <param name="destStride" type="DeviceSize" />
+      <param name="flags" type="QueryResultFlags" />
+    </function>
+    <function name="CmdDispatch" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="x" type="uint32_t" />
+      <param name="y" type="uint32_t" />
+      <param name="z" type="uint32_t" />
+    </function>
+    <function name="CmdDispatchIndirect" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="buffer" type="Buffer" />
+      <param name="offset" type="DeviceSize" />
+    </function>
+    <function name="CmdDraw" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="firstVertex" type="uint32_t" />
+      <param name="vertexCount" type="uint32_t" />
+      <param name="firstInstance" type="uint32_t" />
+      <param name="instanceCount" type="uint32_t" />
+    </function>
+    <function name="CmdDrawIndexed" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="firstIndex" type="uint32_t" />
+      <param name="indexCount" type="uint32_t" />
+      <param name="vertexOffset" type="int32_t" />
+      <param name="firstInstance" type="uint32_t" />
+      <param name="instanceCount" type="uint32_t" />
+    </function>
+    <function name="CmdDrawIndexedIndirect" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="buffer" type="Buffer" />
+      <param name="offset" type="DeviceSize" />
+      <param name="count" type="uint32_t" />
+      <param name="stride" type="uint32_t" />
+    </function>
+    <function name="CmdDrawIndirect" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="buffer" type="Buffer" />
+      <param name="offset" type="DeviceSize" />
+      <param name="count" type="uint32_t" />
+      <param name="stride" type="uint32_t" />
+    </function>
+    <function name="CmdEndQuery" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="queryPool" type="QueryPool" />
+      <param name="slot" type="uint32_t" />
+    </function>
+    <function name="CmdEndRenderPass" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+    </function>
+    <function name="CmdExecuteCommands" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="cmdBuffersCount" type="uint32_t" />
+      <param name="pCmdBuffers" type="const CmdBuffer*" />
+    </function>
+    <function name="CmdFillBuffer" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="destBuffer" type="Buffer" />
+      <param name="destOffset" type="DeviceSize" />
+      <param name="fillSize" type="DeviceSize" />
+      <param name="data" type="uint32_t" />
+    </function>
+    <function name="CmdNextSubpass" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="contents" type="RenderPassContents" />
+    </function>
+    <function name="CmdPipelineBarrier" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="srcStageMask" type="PipelineStageFlags" />
+      <param name="destStageMask" type="PipelineStageFlags" />
+      <param name="byRegion" type="Bool32" />
+      <param name="memBarrierCount" type="uint32_t" />
+      <param name="ppMemBarriers" type="const void* const*" />
+    </function>
+    <function name="CmdPushConstants" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="layout" type="PipelineLayout" />
+      <param name="stageFlags" type="ShaderStageFlags" />
+      <param name="start" type="uint32_t" />
+      <param name="length" type="uint32_t" />
+      <param name="values" type="const void*" />
+    </function>
+    <function name="CmdResetEvent" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="event" type="Event" />
+      <param name="stageMask" type="PipelineStageFlags" />
+    </function>
+    <function name="CmdResetQueryPool" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="queryPool" type="QueryPool" />
+      <param name="startQuery" type="uint32_t" />
+      <param name="queryCount" type="uint32_t" />
+    </function>
+    <function name="CmdResolveImage" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="srcImage" type="Image" />
+      <param name="srcImageLayout" type="ImageLayout" />
+      <param name="destImage" type="Image" />
+      <param name="destImageLayout" type="ImageLayout" />
+      <param name="regionCount" type="uint32_t" />
+      <param name="pRegions" type="const ImageResolve*" />
+    </function>
+    <function name="CmdSetEvent" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="event" type="Event" />
+      <param name="stageMask" type="PipelineStageFlags" />
+    </function>
+    <function name="CmdUpdateBuffer" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="destBuffer" type="Buffer" />
+      <param name="destOffset" type="DeviceSize" />
+      <param name="dataSize" type="DeviceSize" />
+      <param name="pData" type="const uint32_t*" />
+    </function>
+    <function name="CmdWaitEvents" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="eventCount" type="uint32_t" />
+      <param name="pEvents" type="const Event*" />
+      <param name="srcStageMask" type="PipelineStageFlags" />
+      <param name="destStageMask" type="PipelineStageFlags" />
+      <param name="memBarrierCount" type="uint32_t" />
+      <param name="ppMemBarriers" type="const void* const*" />
+    </function>
+    <function name="CmdWriteTimestamp" extension="vulkan">
+      <returns type="void" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="timestampType" type="TimestampType" />
+      <param name="destBuffer" type="Buffer" />
+      <param name="destOffset" type="DeviceSize" />
+    </function>
+    <function name="CreateAttachmentView" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const AttachmentViewCreateInfo*" />
+      <param name="pView" type="AttachmentView*" />
+    </function>
+    <function name="CreateBuffer" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const BufferCreateInfo*" />
+      <param name="pBuffer" type="Buffer*" />
+    </function>
+    <function name="CreateBufferView" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const BufferViewCreateInfo*" />
+      <param name="pView" type="BufferView*" />
+    </function>
+    <function name="CreateCommandBuffer" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const CmdBufferCreateInfo*" />
+      <param name="pCmdBuffer" type="CmdBuffer*" />
+    </function>
+    <function name="CreateCommandPool" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const CmdPoolCreateInfo*" />
+      <param name="pCmdPool" type="CmdPool*" />
+    </function>
+    <function name="CreateComputePipelines" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pipelineCache" type="PipelineCache" />
+      <param name="count" type="uint32_t" />
+      <param name="pCreateInfos" type="const ComputePipelineCreateInfo*" />
+      <param name="pPipelines" type="Pipeline*" />
+    </function>
+    <function name="CreateDescriptorPool" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="poolUsage" type="DescriptorPoolUsage" />
+      <param name="maxSets" type="uint32_t" />
+      <param name="pCreateInfo" type="const DescriptorPoolCreateInfo*" />
+      <param name="pDescriptorPool" type="DescriptorPool*" />
+    </function>
+    <function name="CreateDescriptorSetLayout" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const DescriptorSetLayoutCreateInfo*" />
+      <param name="pSetLayout" type="DescriptorSetLayout*" />
+    </function>
+    <function name="CreateDevice" extension="vulkan">
+      <returns type="Result" />
+      <param name="physicalDevice" type="PhysicalDevice" />
+      <param name="pCreateInfo" type="const DeviceCreateInfo*" />
+      <param name="pDevice" type="Device*" />
+    </function>
+    <function name="CreateDynamicColorBlendState" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const DynamicColorBlendStateCreateInfo*" />
+      <param name="pState" type="DynamicColorBlendState*" />
+    </function>
+    <function name="CreateDynamicDepthStencilState" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const DynamicDepthStencilStateCreateInfo*" />
+      <param name="pState" type="DynamicDepthStencilState*" />
+    </function>
+    <function name="CreateDynamicRasterState" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const DynamicRasterStateCreateInfo*" />
+      <param name="pState" type="DynamicRasterState*" />
+    </function>
+    <function name="CreateDynamicViewportState" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const DynamicViewportStateCreateInfo*" />
+      <param name="pState" type="DynamicViewportState*" />
+    </function>
+    <function name="CreateEvent" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const EventCreateInfo*" />
+      <param name="pEvent" type="Event*" />
+    </function>
+    <function name="CreateFence" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const FenceCreateInfo*" />
+      <param name="pFence" type="Fence*" />
+    </function>
+    <function name="CreateFramebuffer" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const FramebufferCreateInfo*" />
+      <param name="pFramebuffer" type="Framebuffer*" />
+    </function>
+    <function name="CreateGraphicsPipelines" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pipelineCache" type="PipelineCache" />
+      <param name="count" type="uint32_t" />
+      <param name="pCreateInfos" type="const GraphicsPipelineCreateInfo*" />
+      <param name="pPipelines" type="Pipeline*" />
+    </function>
+    <function name="CreateImage" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const ImageCreateInfo*" />
+      <param name="pImage" type="Image*" />
+    </function>
+    <function name="CreateImageView" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const ImageViewCreateInfo*" />
+      <param name="pView" type="ImageView*" />
+    </function>
+    <function name="CreateInstance" extension="vulkan">
+      <returns type="Result" />
+      <param name="pCreateInfo" type="const InstanceCreateInfo*" />
+      <param name="pInstance" type="Instance*" />
+    </function>
+    <function name="CreatePipelineCache" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const PipelineCacheCreateInfo*" />
+      <param name="pPipelineCache" type="PipelineCache*" />
+    </function>
+    <function name="CreatePipelineLayout" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const PipelineLayoutCreateInfo*" />
+      <param name="pPipelineLayout" type="PipelineLayout*" />
+    </function>
+    <function name="CreateQueryPool" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const QueryPoolCreateInfo*" />
+      <param name="pQueryPool" type="QueryPool*" />
+    </function>
+    <function name="CreateRenderPass" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const RenderPassCreateInfo*" />
+      <param name="pRenderPass" type="RenderPass*" />
+    </function>
+    <function name="CreateSampler" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const SamplerCreateInfo*" />
+      <param name="pSampler" type="Sampler*" />
+    </function>
+    <function name="CreateSemaphore" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const SemaphoreCreateInfo*" />
+      <param name="pSemaphore" type="Semaphore*" />
+    </function>
+    <function name="CreateShader" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const ShaderCreateInfo*" />
+      <param name="pShader" type="Shader*" />
+    </function>
+    <function name="CreateShaderModule" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pCreateInfo" type="const ShaderModuleCreateInfo*" />
+      <param name="pShaderModule" type="ShaderModule*" />
+    </function>
+    <function name="DestroyAttachmentView" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="attachmentView" type="AttachmentView" />
+    </function>
+    <function name="DestroyBuffer" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="buffer" type="Buffer" />
+    </function>
+    <function name="DestroyBufferView" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="bufferView" type="BufferView" />
+    </function>
+    <function name="DestroyCommandBuffer" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="commandBuffer" type="CmdBuffer" />
+    </function>
+    <function name="DestroyCommandPool" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="cmdPool" type="CmdPool" />
+    </function>
+    <function name="DestroyDescriptorPool" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="descriptorPool" type="DescriptorPool" />
+    </function>
+    <function name="DestroyDescriptorSetLayout" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="descriptorSetLayout" type="DescriptorSetLayout" />
+    </function>
+    <function name="DestroyDevice" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+    </function>
+    <function name="DestroyDynamicColorBlendState" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="dynamicColorBlendState" type="DynamicColorBlendState" />
+    </function>
+    <function name="DestroyDynamicDepthStencilState" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="dynamicDepthStencilState" type="DynamicDepthStencilState" />
+    </function>
+    <function name="DestroyDynamicRasterState" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="dynamicRasterState" type="DynamicRasterState" />
+    </function>
+    <function name="DestroyDynamicViewportState" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="dynamicViewportState" type="DynamicViewportState" />
+    </function>
+    <function name="DestroyEvent" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="event" type="Event" />
+    </function>
+    <function name="DestroyFence" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="fence" type="Fence" />
+    </function>
+    <function name="DestroyFramebuffer" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="framebuffer" type="Framebuffer" />
+    </function>
+    <function name="DestroyImage" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="image" type="Image" />
+    </function>
+    <function name="DestroyImageView" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="imageView" type="ImageView" />
+    </function>
+    <function name="DestroyInstance" extension="vulkan">
+      <returns type="Result" />
+      <param name="instance" type="Instance" />
+    </function>
+    <function name="DestroyPipeline" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pipeline" type="Pipeline" />
+    </function>
+    <function name="DestroyPipelineCache" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pipelineCache" type="PipelineCache" />
+    </function>
+    <function name="DestroyPipelineLayout" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="pipelineLayout" type="PipelineLayout" />
+    </function>
+    <function name="DestroyQueryPool" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="queryPool" type="QueryPool" />
+    </function>
+    <function name="DestroyRenderPass" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="renderPass" type="RenderPass" />
+    </function>
+    <function name="DestroySampler" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="sampler" type="Sampler" />
+    </function>
+    <function name="DestroySemaphore" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="semaphore" type="Semaphore" />
+    </function>
+    <function name="DestroyShader" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="shader" type="Shader" />
+    </function>
+    <function name="DestroyShaderModule" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="shaderModule" type="ShaderModule" />
+    </function>
+    <function name="DeviceWaitIdle" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+    </function>
+    <function name="EndCommandBuffer" extension="vulkan">
+      <returns type="Result" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+    </function>
+    <function name="EnumeratePhysicalDevices" extension="vulkan">
+      <returns type="Result" />
+      <param name="instance" type="Instance" />
+      <param name="pPhysicalDeviceCount" type="uint32_t*" />
+      <param name="pPhysicalDevices" type="PhysicalDevice*" />
+    </function>
+    <function name="FlushMappedMemoryRanges" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="memRangeCount" type="uint32_t" />
+      <param name="pMemRanges" type="const MappedMemoryRange*" />
+    </function>
+    <function name="FreeDescriptorSets" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="descriptorPool" type="DescriptorPool" />
+      <param name="count" type="uint32_t" />
+      <param name="pDescriptorSets" type="const DescriptorSet*" />
+    </function>
+    <function name="FreeMemory" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="mem" type="DeviceMemory" />
+    </function>
+    <function name="GetBufferMemoryRequirements" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="buffer" type="Buffer" />
+      <param name="pMemoryRequirements" type="MemoryRequirements*" />
+    </function>
+    <function name="GetDeviceMemoryCommitment" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="memory" type="DeviceMemory" />
+      <param name="pCommittedMemoryInBytes" type="DeviceSize*" />
+    </function>
+    <function name="GetDeviceProcAddr" extension="vulkan">
+      <returns type="PFN_vkVoidFunction" />
+      <param name="device" type="Device" />
+      <param name="pName" type="const char*" />
+    </function>
+    <function name="GetDeviceQueue" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="queueFamilyIndex" type="uint32_t" />
+      <param name="queueIndex" type="uint32_t" />
+      <param name="pQueue" type="Queue*" />
+    </function>
+    <function name="GetEventStatus" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="event" type="Event" />
+    </function>
+    <function name="GetFenceStatus" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="fence" type="Fence" />
+    </function>
+    <function name="GetGlobalExtensionProperties" extension="vulkan">
+      <returns type="Result" />
+      <param name="pLayerName" type="const char*" />
+      <param name="pCount" type="uint32_t*" />
+      <param name="pProperties" type="ExtensionProperties*" />
+    </function>
+    <function name="GetGlobalLayerProperties" extension="vulkan">
+      <returns type="Result" />
+      <param name="pCount" type="uint32_t*" />
+      <param name="pProperties" type="LayerProperties*" />
+    </function>
+    <function name="GetImageMemoryRequirements" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="image" type="Image" />
+      <param name="pMemoryRequirements" type="MemoryRequirements*" />
+    </function>
+    <function name="GetImageSparseMemoryRequirements" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="image" type="Image" />
+      <param name="pNumRequirements" type="uint32_t*" />
+      <param name="pSparseMemoryRequirements" type="SparseImageMemoryRequirements*" />
+    </function>
+    <function name="GetImageSubresourceLayout" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="image" type="Image" />
+      <param name="pSubresource" type="const ImageSubresource*" />
+      <param name="pLayout" type="SubresourceLayout*" />
+    </function>
+    <function name="GetInstanceProcAddr" extension="vulkan">
+      <returns type="PFN_vkVoidFunction" />
+      <param name="instance" type="Instance" />
+      <param name="pName" type="const char*" />
+    </function>
+    <function name="GetPhysicalDeviceExtensionProperties" extension="vulkan">
+      <returns type="Result" />
+      <param name="physicalDevice" type="PhysicalDevice" />
+      <param name="pLayerName" type="const char*" />
+      <param name="pCount" type="uint32_t*" />
+      <param name="pProperties" type="ExtensionProperties*" />
+    </function>
+    <function name="GetPhysicalDeviceFeatures" extension="vulkan">
+      <returns type="Result" />
+      <param name="physicalDevice" type="PhysicalDevice" />
+      <param name="pFeatures" type="PhysicalDeviceFeatures*" />
+    </function>
+    <function name="GetPhysicalDeviceFormatProperties" extension="vulkan">
+      <returns type="Result" />
+      <param name="physicalDevice" type="PhysicalDevice" />
+      <param name="format" type="Format" />
+      <param name="pFormatProperties" type="FormatProperties*" />
+    </function>
+    <function name="GetPhysicalDeviceImageFormatProperties" extension="vulkan">
+      <returns type="Result" />
+      <param name="physicalDevice" type="PhysicalDevice" />
+      <param name="format" type="Format" />
+      <param name="type" type="ImageType" />
+      <param name="tiling" type="ImageTiling" />
+      <param name="usage" type="ImageUsageFlags" />
+      <param name="pImageFormatProperties" type="ImageFormatProperties*" />
+    </function>
+    <function name="GetPhysicalDeviceLayerProperties" extension="vulkan">
+      <returns type="Result" />
+      <param name="physicalDevice" type="PhysicalDevice" />
+      <param name="pCount" type="uint32_t*" />
+      <param name="pProperties" type="LayerProperties*" />
+    </function>
+    <function name="GetPhysicalDeviceLimits" extension="vulkan">
+      <returns type="Result" />
+      <param name="physicalDevice" type="PhysicalDevice" />
+      <param name="pLimits" type="PhysicalDeviceLimits*" />
+    </function>
+    <function name="GetPhysicalDeviceMemoryProperties" extension="vulkan">
+      <returns type="Result" />
+      <param name="physicalDevice" type="PhysicalDevice" />
+      <param name="pMemoryProperties" type="PhysicalDeviceMemoryProperties*" />
+    </function>
+    <function name="GetPhysicalDeviceProperties" extension="vulkan">
+      <returns type="Result" />
+      <param name="physicalDevice" type="PhysicalDevice" />
+      <param name="pProperties" type="PhysicalDeviceProperties*" />
+    </function>
+    <function name="GetPhysicalDeviceQueueFamilyProperties" extension="vulkan">
+      <returns type="Result" />
+      <param name="physicalDevice" type="PhysicalDevice" />
+      <param name="pCount" type="uint32_t*" />
+      <param name="pQueueFamilyProperties" type="QueueFamilyProperties*" />
+    </function>
+    <function name="GetPhysicalDeviceSparseImageFormatProperties" extension="vulkan">
+      <returns type="Result" />
+      <param name="physicalDevice" type="PhysicalDevice" />
+      <param name="format" type="Format" />
+      <param name="type" type="ImageType" />
+      <param name="samples" type="uint32_t" />
+      <param name="usage" type="ImageUsageFlags" />
+      <param name="tiling" type="ImageTiling" />
+      <param name="pNumProperties" type="uint32_t*" />
+      <param name="pProperties" type="SparseImageFormatProperties*" />
+    </function>
+    <function name="GetPipelineCacheData" extension="vulkan">
+      <returns type="VkResult" />
+      <param name="device" type="Device" />
+      <param name="pipelineCache" type="PipelineCache" />
+      <param name="pData" type="void*" />
+    </function>
+    <function name="GetPipelineCacheSize" extension="vulkan">
+      <returns type="size_t" />
+      <param name="device" type="Device" />
+      <param name="pipelineCache" type="PipelineCache" />
+    </function>
+    <function name="GetQueryPoolResults" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="queryPool" type="QueryPool" />
+      <param name="startQuery" type="uint32_t" />
+      <param name="queryCount" type="uint32_t" />
+      <param name="pDataSize" type="size_t*" />
+      <param name="pData" type="void*" />
+      <param name="flags" type="QueryResultFlags" />
+    </function>
+    <function name="GetRenderAreaGranularity" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="renderPass" type="RenderPass" />
+      <param name="pGranularity" type="Extent2D*" />
+    </function>
+    <function name="InvalidateMappedMemoryRanges" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="memRangeCount" type="uint32_t" />
+      <param name="pMemRanges" type="const MappedMemoryRange*" />
+    </function>
+    <function name="MapMemory" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="mem" type="DeviceMemory" />
+      <param name="offset" type="DeviceSize" />
+      <param name="size" type="DeviceSize" />
+      <param name="flags" type="MemoryMapFlags" />
+      <param name="ppData" type="void**" />
+    </function>
+    <function name="MergePipelineCaches" extension="vulkan">
+      <returns type="VkResult" />
+      <param name="device" type="Device" />
+      <param name="destCache" type="PipelineCache" />
+      <param name="srcCacheCount" type="uint32_t" />
+      <param name="pSrcCaches" type="const PipelineCache*" />
+    </function>
+    <function name="QueueBindSparseBufferMemory" extension="vulkan">
+      <returns type="Result" />
+      <param name="queue" type="Queue" />
+      <param name="buffer" type="Buffer" />
+      <param name="numBindings" type="uint32_t" />
+      <param name="pBindInfo" type="const SparseMemoryBindInfo*" />
+    </function>
+    <function name="QueueBindSparseImageMemory" extension="vulkan">
+      <returns type="Result" />
+      <param name="queue" type="Queue" />
+      <param name="image" type="Image" />
+      <param name="numBindings" type="uint32_t" />
+      <param name="pBindInfo" type="const SparseImageMemoryBindInfo*" />
+    </function>
+    <function name="QueueBindSparseImageOpaqueMemory" extension="vulkan">
+      <returns type="Result" />
+      <param name="queue" type="Queue" />
+      <param name="image" type="Image" />
+      <param name="numBindings" type="uint32_t" />
+      <param name="pBindInfo" type="const SparseMemoryBindInfo*" />
+    </function>
+    <function name="QueueSignalSemaphore" extension="vulkan">
+      <returns type="Result" />
+      <param name="queue" type="Queue" />
+      <param name="semaphore" type="Semaphore" />
+    </function>
+    <function name="QueueSubmit" extension="vulkan">
+      <returns type="Result" />
+      <param name="queue" type="Queue" />
+      <param name="cmdBufferCount" type="uint32_t" />
+      <param name="pCmdBuffers" type="const CmdBuffer*" />
+      <param name="fence" type="Fence" />
+    </function>
+    <function name="QueueWaitIdle" extension="vulkan">
+      <returns type="Result" />
+      <param name="queue" type="Queue" />
+    </function>
+    <function name="QueueWaitSemaphore" extension="vulkan">
+      <returns type="Result" />
+      <param name="queue" type="Queue" />
+      <param name="semaphore" type="Semaphore" />
+    </function>
+    <function name="ResetCommandBuffer" extension="vulkan">
+      <returns type="Result" />
+      <param name="cmdBuffer" type="CmdBuffer" />
+      <param name="flags" type="CmdBufferResetFlags" />
+    </function>
+    <function name="ResetCommandPool" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="cmdPool" type="CmdPool" />
+      <param name="flags" type="CmdPoolResetFlags" />
+    </function>
+    <function name="ResetDescriptorPool" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="descriptorPool" type="DescriptorPool" />
+    </function>
+    <function name="ResetEvent" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="event" type="Event" />
+    </function>
+    <function name="ResetFences" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="fenceCount" type="uint32_t" />
+      <param name="pFences" type="const Fence*" />
+    </function>
+    <function name="SetEvent" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="event" type="Event" />
+    </function>
+    <function name="UnmapMemory" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="mem" type="DeviceMemory" />
+    </function>
+    <function name="UpdateDescriptorSets" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="writeCount" type="uint32_t" />
+      <param name="pDescriptorWrites" type="const WriteDescriptorSet*" />
+      <param name="copyCount" type="uint32_t" />
+      <param name="pDescriptorCopies" type="const CopyDescriptorSet*" />
+    </function>
+    <function name="WaitForFences" extension="vulkan">
+      <returns type="Result" />
+      <param name="device" type="Device" />
+      <param name="fenceCount" type="uint32_t" />
+      <param name="pFences" type="const Fence*" />
+      <param name="waitAll" type="Bool32" />
+      <param name="timeout" type="uint64_t" />
+    </function>
+    <struct name="AllocCallbacks" union="false">
+      <member name="pUserData" type="void*" />
+      <member name="pfnAlloc" type="PFN_vkAllocFunction" />
+      <member name="pfnFree" type="PFN_vkFreeFunction" />
+    </struct>
+    <struct name="ApplicationInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="pAppName" type="const char*" />
+      <member name="appVersion" type="uint32_t" />
+      <member name="pEngineName" type="const char*" />
+      <member name="engineVersion" type="uint32_t" />
+      <member name="apiVersion" type="uint32_t" />
+    </struct>
+    <struct name="AttachmentDescription" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="format" type="Format" />
+      <member name="samples" type="uint32_t" />
+      <member name="loadOp" type="AttachmentLoadOp" />
+      <member name="storeOp" type="AttachmentStoreOp" />
+      <member name="stencilLoadOp" type="AttachmentLoadOp" />
+      <member name="stencilStoreOp" type="AttachmentStoreOp" />
+      <member name="initialLayout" type="ImageLayout" />
+      <member name="finalLayout" type="ImageLayout" />
+    </struct>
+    <struct name="AttachmentReference" union="false">
+      <member name="attachment" type="uint32_t" />
+      <member name="layout" type="ImageLayout" />
+    </struct>
+    <struct name="AttachmentViewCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="image" type="Image" />
+      <member name="format" type="Format" />
+      <member name="mipLevel" type="uint32_t" />
+      <member name="baseArraySlice" type="uint32_t" />
+      <member name="arraySize" type="uint32_t" />
+      <member name="flags" type="AttachmentViewCreateFlags" />
+    </struct>
+    <struct name="BufferCopy" union="false">
+      <member name="srcOffset" type="DeviceSize" />
+      <member name="destOffset" type="DeviceSize" />
+      <member name="copySize" type="DeviceSize" />
+    </struct>
+    <struct name="BufferCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="size" type="DeviceSize" />
+      <member name="usage" type="BufferUsageFlags" />
+      <member name="flags" type="BufferCreateFlags" />
+      <member name="sharingMode" type="SharingMode" />
+      <member name="queueFamilyCount" type="uint32_t" />
+      <member name="pQueueFamilyIndices" type="const uint32_t*" />
+    </struct>
+    <struct name="BufferImageCopy" union="false">
+      <member name="bufferOffset" type="DeviceSize" />
+      <member name="bufferRowLength" type="uint32_t" />
+      <member name="bufferImageHeight" type="uint32_t" />
+      <member name="imageSubresource" type="ImageSubresource" />
+      <member name="imageOffset" type="Offset3D" />
+      <member name="imageExtent" type="Extent3D" />
+    </struct>
+    <struct name="BufferMemoryBarrier" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="outputMask" type="MemoryOutputFlags" />
+      <member name="inputMask" type="MemoryInputFlags" />
+      <member name="srcQueueFamilyIndex" type="uint32_t" />
+      <member name="destQueueFamilyIndex" type="uint32_t" />
+      <member name="buffer" type="Buffer" />
+      <member name="offset" type="DeviceSize" />
+      <member name="size" type="DeviceSize" />
+    </struct>
+    <struct name="BufferViewCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="buffer" type="Buffer" />
+      <member name="viewType" type="BufferViewType" />
+      <member name="format" type="Format" />
+      <member name="offset" type="DeviceSize" />
+      <member name="range" type="DeviceSize" />
+    </struct>
+    <struct name="ChannelMapping" union="false">
+      <member name="r" type="ChannelSwizzle" />
+      <member name="g" type="ChannelSwizzle" />
+      <member name="b" type="ChannelSwizzle" />
+      <member name="a" type="ChannelSwizzle" />
+    </struct>
+    <struct name="ClearColorValue" union="true">
+      <member name="f32" type="float [4]" />
+      <member name="s32" type="int32_t [4]" />
+      <member name="u32" type="uint32_t [4]" />
+    </struct>
+    <struct name="ClearDepthStencilValue" union="false">
+      <member name="depth" type="float" />
+      <member name="stencil" type="uint32_t" />
+    </struct>
+    <struct name="ClearValue" union="true">
+      <member name="color" type="ClearColorValue" />
+      <member name="ds" type="ClearDepthStencilValue" />
+    </struct>
+    <struct name="CmdBufferBeginInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="flags" type="CmdBufferOptimizeFlags" />
+      <member name="renderPass" type="RenderPass" />
+      <member name="framebuffer" type="Framebuffer" />
+    </struct>
+    <struct name="CmdBufferCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="cmdPool" type="CmdPool" />
+      <member name="level" type="CmdBufferLevel" />
+      <member name="flags" type="CmdBufferCreateFlags" />
+    </struct>
+    <struct name="CmdPoolCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="queueFamilyIndex" type="uint32_t" />
+      <member name="flags" type="CmdPoolCreateFlags" />
+    </struct>
+    <struct name="ComputePipelineCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="cs" type="PipelineShaderStageCreateInfo" />
+      <member name="flags" type="PipelineCreateFlags" />
+      <member name="layout" type="PipelineLayout" />
+      <member name="basePipelineHandle" type="Pipeline" />
+      <member name="basePipelineIndex" type="int32_t" />
+    </struct>
+    <struct name="CopyDescriptorSet" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="srcSet" type="DescriptorSet" />
+      <member name="srcBinding" type="uint32_t" />
+      <member name="srcArrayElement" type="uint32_t" />
+      <member name="destSet" type="DescriptorSet" />
+      <member name="destBinding" type="uint32_t" />
+      <member name="destArrayElement" type="uint32_t" />
+      <member name="count" type="uint32_t" />
+    </struct>
+    <struct name="DescriptorInfo" union="false">
+      <member name="bufferView" type="BufferView" />
+      <member name="sampler" type="Sampler" />
+      <member name="imageView" type="ImageView" />
+      <member name="attachmentView" type="AttachmentView" />
+      <member name="imageLayout" type="ImageLayout" />
+    </struct>
+    <struct name="DescriptorPoolCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="count" type="uint32_t" />
+      <member name="pTypeCount" type="const DescriptorTypeCount*" />
+    </struct>
+    <struct name="DescriptorSetLayoutBinding" union="false">
+      <member name="descriptorType" type="DescriptorType" />
+      <member name="arraySize" type="uint32_t" />
+      <member name="stageFlags" type="ShaderStageFlags" />
+      <member name="pImmutableSamplers" type="const Sampler*" />
+    </struct>
+    <struct name="DescriptorSetLayoutCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="count" type="uint32_t" />
+      <member name="pBinding" type="const DescriptorSetLayoutBinding*" />
+    </struct>
+    <struct name="DescriptorTypeCount" union="false">
+      <member name="type" type="DescriptorType" />
+      <member name="count" type="uint32_t" />
+    </struct>
+    <struct name="DeviceCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="queueRecordCount" type="uint32_t" />
+      <member name="pRequestedQueues" type="const DeviceQueueCreateInfo*" />
+      <member name="layerCount" type="uint32_t" />
+      <member name="ppEnabledLayerNames" type="const char*const*" />
+      <member name="extensionCount" type="uint32_t" />
+      <member name="ppEnabledExtensionNames" type="const char*const*" />
+      <member name="pEnabledFeatures" type="const PhysicalDeviceFeatures*" />
+      <member name="flags" type="DeviceCreateFlags" />
+    </struct>
+    <struct name="DeviceQueueCreateInfo" union="false">
+      <member name="queueFamilyIndex" type="uint32_t" />
+      <member name="queueCount" type="uint32_t" />
+    </struct>
+    <struct name="DispatchIndirectCmd" union="false">
+      <member name="x" type="uint32_t" />
+      <member name="y" type="uint32_t" />
+      <member name="z" type="uint32_t" />
+    </struct>
+    <struct name="DrawIndexedIndirectCmd" union="false">
+      <member name="indexCount" type="uint32_t" />
+      <member name="instanceCount" type="uint32_t" />
+      <member name="firstIndex" type="uint32_t" />
+      <member name="vertexOffset" type="int32_t" />
+      <member name="firstInstance" type="uint32_t" />
+    </struct>
+    <struct name="DrawIndirectCmd" union="false">
+      <member name="vertexCount" type="uint32_t" />
+      <member name="instanceCount" type="uint32_t" />
+      <member name="firstVertex" type="uint32_t" />
+      <member name="firstInstance" type="uint32_t" />
+    </struct>
+    <struct name="DynamicColorBlendStateCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="blendConst" type="float [4]" />
+    </struct>
+    <struct name="DynamicDepthStencilStateCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="minDepthBounds" type="float" />
+      <member name="maxDepthBounds" type="float" />
+      <member name="stencilReadMask" type="uint32_t" />
+      <member name="stencilWriteMask" type="uint32_t" />
+      <member name="stencilFrontRef" type="uint32_t" />
+      <member name="stencilBackRef" type="uint32_t" />
+    </struct>
+    <struct name="DynamicRasterStateCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="depthBias" type="float" />
+      <member name="depthBiasClamp" type="float" />
+      <member name="slopeScaledDepthBias" type="float" />
+      <member name="lineWidth" type="float" />
+    </struct>
+    <struct name="DynamicViewportStateCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="viewportAndScissorCount" type="uint32_t" />
+      <member name="pViewports" type="const Viewport*" />
+      <member name="pScissors" type="const Rect2D*" />
+    </struct>
+    <struct name="EventCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="flags" type="EventCreateFlags" />
+    </struct>
+    <struct name="ExtensionProperties" union="false">
+      <member name="extName" type="char []" />
+      <member name="specVersion" type="uint32_t" />
+    </struct>
+    <struct name="Extent2D" union="false">
+      <member name="width" type="int32_t" />
+      <member name="height" type="int32_t" />
+    </struct>
+    <struct name="Extent3D" union="false">
+      <member name="width" type="int32_t" />
+      <member name="height" type="int32_t" />
+      <member name="depth" type="int32_t" />
+    </struct>
+    <struct name="FenceCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="flags" type="FenceCreateFlags" />
+    </struct>
+    <struct name="FormatProperties" union="false">
+      <member name="linearTilingFeatures" type="FormatFeatureFlags" />
+      <member name="optimalTilingFeatures" type="FormatFeatureFlags" />
+    </struct>
+    <struct name="FramebufferCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="renderPass" type="RenderPass" />
+      <member name="attachmentCount" type="uint32_t" />
+      <member name="pAttachments" type="const AttachmentView*" />
+      <member name="width" type="uint32_t" />
+      <member name="height" type="uint32_t" />
+      <member name="layers" type="uint32_t" />
+    </struct>
+    <struct name="GraphicsPipelineCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="stageCount" type="uint32_t" />
+      <member name="pStages" type="const PipelineShaderStageCreateInfo*" />
+      <member name="pVertexInputState" type="const PipelineVertexInputStateCreateInfo*" />
+      <member name="pInputAssemblyState" type="const PipelineInputAssemblyStateCreateInfo*" />
+      <member name="pTessellationState" type="const PipelineTessellationStateCreateInfo*" />
+      <member name="pViewportState" type="const PipelineViewportStateCreateInfo*" />
+      <member name="pRasterState" type="const PipelineRasterStateCreateInfo*" />
+      <member name="pMultisampleState" type="const PipelineMultisampleStateCreateInfo*" />
+      <member name="pDepthStencilState" type="const PipelineDepthStencilStateCreateInfo*" />
+      <member name="pColorBlendState" type="const PipelineColorBlendStateCreateInfo*" />
+      <member name="flags" type="PipelineCreateFlags" />
+      <member name="layout" type="PipelineLayout" />
+      <member name="renderPass" type="RenderPass" />
+      <member name="subpass" type="uint32_t" />
+      <member name="basePipelineHandle" type="Pipeline" />
+      <member name="basePipelineIndex" type="int32_t" />
+    </struct>
+    <struct name="ImageBlit" union="false">
+      <member name="srcSubresource" type="ImageSubresource" />
+      <member name="srcOffset" type="Offset3D" />
+      <member name="srcExtent" type="Extent3D" />
+      <member name="destSubresource" type="ImageSubresource" />
+      <member name="destOffset" type="Offset3D" />
+      <member name="destExtent" type="Extent3D" />
+    </struct>
+    <struct name="ImageCopy" union="false">
+      <member name="srcSubresource" type="ImageSubresource" />
+      <member name="srcOffset" type="Offset3D" />
+      <member name="destSubresource" type="ImageSubresource" />
+      <member name="destOffset" type="Offset3D" />
+      <member name="extent" type="Extent3D" />
+    </struct>
+    <struct name="ImageCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="imageType" type="ImageType" />
+      <member name="format" type="Format" />
+      <member name="extent" type="Extent3D" />
+      <member name="mipLevels" type="uint32_t" />
+      <member name="arraySize" type="uint32_t" />
+      <member name="samples" type="uint32_t" />
+      <member name="tiling" type="ImageTiling" />
+      <member name="usage" type="ImageUsageFlags" />
+      <member name="flags" type="ImageCreateFlags" />
+      <member name="sharingMode" type="SharingMode" />
+      <member name="queueFamilyCount" type="uint32_t" />
+      <member name="pQueueFamilyIndices" type="const uint32_t*" />
+    </struct>
+    <struct name="ImageFormatProperties" union="false">
+      <member name="maxResourceSize" type="uint64_t" />
+      <member name="maxSamples" type="uint32_t" />
+    </struct>
+    <struct name="ImageMemoryBarrier" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="outputMask" type="MemoryOutputFlags" />
+      <member name="inputMask" type="MemoryInputFlags" />
+      <member name="oldLayout" type="ImageLayout" />
+      <member name="newLayout" type="ImageLayout" />
+      <member name="srcQueueFamilyIndex" type="uint32_t" />
+      <member name="destQueueFamilyIndex" type="uint32_t" />
+      <member name="image" type="Image" />
+      <member name="subresourceRange" type="ImageSubresourceRange" />
+    </struct>
+    <struct name="ImageResolve" union="false">
+      <member name="srcSubresource" type="ImageSubresource" />
+      <member name="srcOffset" type="Offset3D" />
+      <member name="destSubresource" type="ImageSubresource" />
+      <member name="destOffset" type="Offset3D" />
+      <member name="extent" type="Extent3D" />
+    </struct>
+    <struct name="ImageSubresource" union="false">
+      <member name="aspect" type="ImageAspect" />
+      <member name="mipLevel" type="uint32_t" />
+      <member name="arraySlice" type="uint32_t" />
+    </struct>
+    <struct name="ImageSubresourceRange" union="false">
+      <member name="aspect" type="ImageAspect" />
+      <member name="baseMipLevel" type="uint32_t" />
+      <member name="mipLevels" type="uint32_t" />
+      <member name="baseArraySlice" type="uint32_t" />
+      <member name="arraySize" type="uint32_t" />
+    </struct>
+    <struct name="ImageViewCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="image" type="Image" />
+      <member name="viewType" type="ImageViewType" />
+      <member name="format" type="Format" />
+      <member name="channels" type="ChannelMapping" />
+      <member name="subresourceRange" type="ImageSubresourceRange" />
+    </struct>
+    <struct name="InstanceCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="pAppInfo" type="const ApplicationInfo*" />
+      <member name="pAllocCb" type="const AllocCallbacks*" />
+      <member name="layerCount" type="uint32_t" />
+      <member name="ppEnabledLayerNames" type="const char*const*" />
+      <member name="extensionCount" type="uint32_t" />
+      <member name="ppEnabledExtensionNames" type="const char*const*" />
+    </struct>
+    <struct name="LayerProperties" union="false">
+      <member name="layerName" type="char []" />
+      <member name="specVersion" type="uint32_t" />
+      <member name="implVersion" type="uint32_t" />
+      <member name="description" type="char []" />
+    </struct>
+    <struct name="MappedMemoryRange" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="mem" type="DeviceMemory" />
+      <member name="offset" type="DeviceSize" />
+      <member name="size" type="DeviceSize" />
+    </struct>
+    <struct name="MemoryAllocInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="allocationSize" type="DeviceSize" />
+      <member name="memoryTypeIndex" type="uint32_t" />
+    </struct>
+    <struct name="MemoryBarrier" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="outputMask" type="MemoryOutputFlags" />
+      <member name="inputMask" type="MemoryInputFlags" />
+    </struct>
+    <struct name="MemoryHeap" union="false">
+      <member name="size" type="DeviceSize" />
+      <member name="flags" type="MemoryHeapFlags" />
+    </struct>
+    <struct name="MemoryRequirements" union="false">
+      <member name="size" type="DeviceSize" />
+      <member name="alignment" type="DeviceSize" />
+      <member name="memoryTypeBits" type="uint32_t" />
+    </struct>
+    <struct name="MemoryType" union="false">
+      <member name="propertyFlags" type="MemoryPropertyFlags" />
+      <member name="heapIndex" type="uint32_t" />
+    </struct>
+    <struct name="Offset2D" union="false">
+      <member name="x" type="int32_t" />
+      <member name="y" type="int32_t" />
+    </struct>
+    <struct name="Offset3D" union="false">
+      <member name="x" type="int32_t" />
+      <member name="y" type="int32_t" />
+      <member name="z" type="int32_t" />
+    </struct>
+    <struct name="PhysicalDeviceFeatures" union="false">
+      <member name="robustBufferAccess" type="Bool32" />
+      <member name="fullDrawIndexUint32" type="Bool32" />
+      <member name="imageCubeArray" type="Bool32" />
+      <member name="independentBlend" type="Bool32" />
+      <member name="geometryShader" type="Bool32" />
+      <member name="tessellationShader" type="Bool32" />
+      <member name="sampleRateShading" type="Bool32" />
+      <member name="dualSourceBlend" type="Bool32" />
+      <member name="logicOp" type="Bool32" />
+      <member name="instancedDrawIndirect" type="Bool32" />
+      <member name="depthClip" type="Bool32" />
+      <member name="depthBiasClamp" type="Bool32" />
+      <member name="fillModeNonSolid" type="Bool32" />
+      <member name="depthBounds" type="Bool32" />
+      <member name="wideLines" type="Bool32" />
+      <member name="largePoints" type="Bool32" />
+      <member name="textureCompressionETC2" type="Bool32" />
+      <member name="textureCompressionASTC_LDR" type="Bool32" />
+      <member name="textureCompressionBC" type="Bool32" />
+      <member name="pipelineStatisticsQuery" type="Bool32" />
+      <member name="vertexSideEffects" type="Bool32" />
+      <member name="tessellationSideEffects" type="Bool32" />
+      <member name="geometrySideEffects" type="Bool32" />
+      <member name="fragmentSideEffects" type="Bool32" />
+      <member name="shaderTessellationPointSize" type="Bool32" />
+      <member name="shaderGeometryPointSize" type="Bool32" />
+      <member name="shaderTextureGatherExtended" type="Bool32" />
+      <member name="shaderStorageImageExtendedFormats" type="Bool32" />
+      <member name="shaderStorageImageMultisample" type="Bool32" />
+      <member name="shaderStorageBufferArrayConstantIndexing" type="Bool32" />
+      <member name="shaderStorageImageArrayConstantIndexing" type="Bool32" />
+      <member name="shaderUniformBufferArrayDynamicIndexing" type="Bool32" />
+      <member name="shaderSampledImageArrayDynamicIndexing" type="Bool32" />
+      <member name="shaderStorageBufferArrayDynamicIndexing" type="Bool32" />
+      <member name="shaderStorageImageArrayDynamicIndexing" type="Bool32" />
+      <member name="shaderClipDistance" type="Bool32" />
+      <member name="shaderCullDistance" type="Bool32" />
+      <member name="shaderFloat64" type="Bool32" />
+      <member name="shaderInt64" type="Bool32" />
+      <member name="shaderFloat16" type="Bool32" />
+      <member name="shaderInt16" type="Bool32" />
+      <member name="shaderResourceResidency" type="Bool32" />
+      <member name="shaderResourceMinLOD" type="Bool32" />
+      <member name="sparse" type="Bool32" />
+      <member name="sparseResidencyBuffer" type="Bool32" />
+      <member name="sparseResidencyImage2D" type="Bool32" />
+      <member name="sparseResidencyImage3D" type="Bool32" />
+      <member name="sparseResidency2Samples" type="Bool32" />
+      <member name="sparseResidency4Samples" type="Bool32" />
+      <member name="sparseResidency8Samples" type="Bool32" />
+      <member name="sparseResidency16Samples" type="Bool32" />
+      <member name="sparseResidencyStandard2DBlockShape" type="Bool32" />
+      <member name="sparseResidencyStandard2DMSBlockShape" type="Bool32" />
+      <member name="sparseResidencyStandard3DBlockShape" type="Bool32" />
+      <member name="sparseResidencyAlignedMipSize" type="Bool32" />
+      <member name="sparseResidencyNonResident" type="Bool32" />
+      <member name="sparseResidencyNonResidentStrict" type="Bool32" />
+      <member name="sparseResidencyAliased" type="Bool32" />
+    </struct>
+    <struct name="PhysicalDeviceLimits" union="false">
+      <member name="maxImageDimension1D" type="uint32_t" />
+      <member name="maxImageDimension2D" type="uint32_t" />
+      <member name="maxImageDimension3D" type="uint32_t" />
+      <member name="maxImageDimensionCube" type="uint32_t" />
+      <member name="maxImageArrayLayers" type="uint32_t" />
+      <member name="maxTexelBufferSize" type="uint32_t" />
+      <member name="maxUniformBufferSize" type="uint32_t" />
+      <member name="maxStorageBufferSize" type="uint32_t" />
+      <member name="maxPushConstantsSize" type="uint32_t" />
+      <member name="maxMemoryAllocationCount" type="uint32_t" />
+      <member name="bufferImageGranularity" type="DeviceSize" />
+      <member name="maxBoundDescriptorSets" type="uint32_t" />
+      <member name="maxDescriptorSets" type="uint32_t" />
+      <member name="maxPerStageDescriptorSamplers" type="uint32_t" />
+      <member name="maxPerStageDescriptorUniformBuffers" type="uint32_t" />
+      <member name="maxPerStageDescriptorStorageBuffers" type="uint32_t" />
+      <member name="maxPerStageDescriptorSampledImages" type="uint32_t" />
+      <member name="maxPerStageDescriptorStorageImages" type="uint32_t" />
+      <member name="maxDescriptorSetSamplers" type="uint32_t" />
+      <member name="maxDescriptorSetUniformBuffers" type="uint32_t" />
+      <member name="maxDescriptorSetStorageBuffers" type="uint32_t" />
+      <member name="maxDescriptorSetSampledImages" type="uint32_t" />
+      <member name="maxDescriptorSetStorageImages" type="uint32_t" />
+      <member name="maxVertexInputAttributes" type="uint32_t" />
+      <member name="maxVertexInputAttributeOffset" type="uint32_t" />
+      <member name="maxVertexInputBindingStride" type="uint32_t" />
+      <member name="maxVertexOutputComponents" type="uint32_t" />
+      <member name="maxTessGenLevel" type="uint32_t" />
+      <member name="maxTessPatchSize" type="uint32_t" />
+      <member name="maxTessControlPerVertexInputComponents" type="uint32_t" />
+      <member name="maxTessControlPerVertexOutputComponents" type="uint32_t" />
+      <member name="maxTessControlPerPatchOutputComponents" type="uint32_t" />
+      <member name="maxTessControlTotalOutputComponents" type="uint32_t" />
+      <member name="maxTessEvaluationInputComponents" type="uint32_t" />
+      <member name="maxTessEvaluationOutputComponents" type="uint32_t" />
+      <member name="maxGeometryShaderInvocations" type="uint32_t" />
+      <member name="maxGeometryInputComponents" type="uint32_t" />
+      <member name="maxGeometryOutputComponents" type="uint32_t" />
+      <member name="maxGeometryOutputVertices" type="uint32_t" />
+      <member name="maxGeometryTotalOutputComponents" type="uint32_t" />
+      <member name="maxFragmentInputComponents" type="uint32_t" />
+      <member name="maxFragmentOutputBuffers" type="uint32_t" />
+      <member name="maxFragmentDualSourceBuffers" type="uint32_t" />
+      <member name="maxFragmentCombinedOutputResources" type="uint32_t" />
+      <member name="maxComputeSharedMemorySize" type="uint32_t" />
+      <member name="maxComputeWorkGroupCount" type="uint32_t [3]" />
+      <member name="maxComputeWorkGroupInvocations" type="uint32_t" />
+      <member name="maxComputeWorkGroupSize" type="uint32_t [3]" />
+      <member name="subPixelPrecisionBits" type="uint32_t" />
+      <member name="subTexelPrecisionBits" type="uint32_t" />
+      <member name="mipmapPrecisionBits" type="uint32_t" />
+      <member name="maxDrawIndexedIndexValue" type="uint32_t" />
+      <member name="maxDrawIndirectInstanceCount" type="uint32_t" />
+      <member name="primitiveRestartForPatches" type="Bool32" />
+      <member name="maxSamplerLodBias" type="float" />
+      <member name="maxSamplerAnisotropy" type="float" />
+      <member name="maxViewports" type="uint32_t" />
+      <member name="maxDynamicViewportStates" type="uint32_t" />
+      <member name="maxViewportDimensions" type="uint32_t [2]" />
+      <member name="viewportBoundsRange" type="float [2]" />
+      <member name="viewportSubPixelBits" type="uint32_t" />
+      <member name="minMemoryMapAlignment" type="uint32_t" />
+      <member name="minTexelBufferOffsetAlignment" type="uint32_t" />
+      <member name="minUniformBufferOffsetAlignment" type="uint32_t" />
+      <member name="minStorageBufferOffsetAlignment" type="uint32_t" />
+      <member name="minTexelOffset" type="uint32_t" />
+      <member name="maxTexelOffset" type="uint32_t" />
+      <member name="minTexelGatherOffset" type="uint32_t" />
+      <member name="maxTexelGatherOffset" type="uint32_t" />
+      <member name="minInterpolationOffset" type="float" />
+      <member name="maxInterpolationOffset" type="float" />
+      <member name="subPixelInterpolationOffsetBits" type="uint32_t" />
+      <member name="maxFramebufferWidth" type="uint32_t" />
+      <member name="maxFramebufferHeight" type="uint32_t" />
+      <member name="maxFramebufferLayers" type="uint32_t" />
+      <member name="maxFramebufferColorSamples" type="uint32_t" />
+      <member name="maxFramebufferDepthSamples" type="uint32_t" />
+      <member name="maxFramebufferStencilSamples" type="uint32_t" />
+      <member name="maxColorAttachments" type="uint32_t" />
+      <member name="maxSampledImageColorSamples" type="uint32_t" />
+      <member name="maxSampledImageDepthSamples" type="uint32_t" />
+      <member name="maxSampledImageIntegerSamples" type="uint32_t" />
+      <member name="maxStorageImageSamples" type="uint32_t" />
+      <member name="maxSampleMaskWords" type="uint32_t" />
+      <member name="timestampFrequency" type="uint64_t" />
+      <member name="maxClipDistances" type="uint32_t" />
+      <member name="maxCullDistances" type="uint32_t" />
+      <member name="maxCombinedClipAndCullDistances" type="uint32_t" />
+      <member name="pointSizeRange" type="float [2]" />
+      <member name="lineWidthRange" type="float [2]" />
+      <member name="pointSizeGranularity" type="float" />
+      <member name="lineWidthGranularity" type="float" />
+    </struct>
+    <struct name="PhysicalDeviceMemoryProperties" union="false">
+      <member name="memoryTypeCount" type="uint32_t" />
+      <member name="memoryTypes" type="MemoryType []" />
+      <member name="memoryHeapCount" type="uint32_t" />
+      <member name="memoryHeaps" type="MemoryHeap []" />
+    </struct>
+    <struct name="PhysicalDeviceProperties" union="false">
+      <member name="apiVersion" type="uint32_t" />
+      <member name="driverVersion" type="uint32_t" />
+      <member name="vendorId" type="uint32_t" />
+      <member name="deviceId" type="uint32_t" />
+      <member name="deviceType" type="PhysicalDeviceType" />
+      <member name="deviceName" type="char []" />
+      <member name="pipelineCacheUUID" type="uint8_t []" />
+    </struct>
+    <struct name="PipelineCacheCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="initialSize" type="size_t" />
+      <member name="initialData" type="const void*" />
+      <member name="maxSize" type="size_t" />
+    </struct>
+    <struct name="PipelineColorBlendAttachmentState" union="false">
+      <member name="blendEnable" type="Bool32" />
+      <member name="srcBlendColor" type="Blend" />
+      <member name="destBlendColor" type="Blend" />
+      <member name="blendOpColor" type="BlendOp" />
+      <member name="srcBlendAlpha" type="Blend" />
+      <member name="destBlendAlpha" type="Blend" />
+      <member name="blendOpAlpha" type="BlendOp" />
+      <member name="channelWriteMask" type="ChannelFlags" />
+    </struct>
+    <struct name="PipelineColorBlendStateCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="alphaToCoverageEnable" type="Bool32" />
+      <member name="logicOpEnable" type="Bool32" />
+      <member name="logicOp" type="LogicOp" />
+      <member name="attachmentCount" type="uint32_t" />
+      <member name="pAttachments" type="const PipelineColorBlendAttachmentState*" />
+    </struct>
+    <struct name="PipelineDepthStencilStateCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="depthTestEnable" type="Bool32" />
+      <member name="depthWriteEnable" type="Bool32" />
+      <member name="depthCompareOp" type="CompareOp" />
+      <member name="depthBoundsEnable" type="Bool32" />
+      <member name="stencilTestEnable" type="Bool32" />
+      <member name="front" type="StencilOpState" />
+      <member name="back" type="StencilOpState" />
+    </struct>
+    <struct name="PipelineInputAssemblyStateCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="topology" type="PrimitiveTopology" />
+      <member name="primitiveRestartEnable" type="Bool32" />
+    </struct>
+    <struct name="PipelineLayoutCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="descriptorSetCount" type="uint32_t" />
+      <member name="pSetLayouts" type="const DescriptorSetLayout*" />
+      <member name="pushConstantRangeCount" type="uint32_t" />
+      <member name="pPushConstantRanges" type="const PushConstantRange*" />
+    </struct>
+    <struct name="PipelineMultisampleStateCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="rasterSamples" type="uint32_t" />
+      <member name="sampleShadingEnable" type="Bool32" />
+      <member name="minSampleShading" type="float" />
+      <member name="sampleMask" type="SampleMask" />
+    </struct>
+    <struct name="PipelineRasterStateCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="depthClipEnable" type="Bool32" />
+      <member name="rasterizerDiscardEnable" type="Bool32" />
+      <member name="fillMode" type="FillMode" />
+      <member name="cullMode" type="CullMode" />
+      <member name="frontFace" type="FrontFace" />
+    </struct>
+    <struct name="PipelineShaderStageCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="stage" type="ShaderStage" />
+      <member name="shader" type="Shader" />
+      <member name="pSpecializationInfo" type="const SpecializationInfo*" />
+    </struct>
+    <struct name="PipelineTessellationStateCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="patchControlPoints" type="uint32_t" />
+    </struct>
+    <struct name="PipelineVertexInputStateCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="bindingCount" type="uint32_t" />
+      <member name="pVertexBindingDescriptions" type="const VertexInputBindingDescription*" />
+      <member name="attributeCount" type="uint32_t" />
+      <member name="pVertexAttributeDescriptions" type="const VertexInputAttributeDescription*" />
+    </struct>
+    <struct name="PipelineViewportStateCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="viewportCount" type="uint32_t" />
+    </struct>
+    <struct name="PushConstantRange" union="false">
+      <member name="stageFlags" type="ShaderStageFlags" />
+      <member name="start" type="uint32_t" />
+      <member name="length" type="uint32_t" />
+    </struct>
+    <struct name="QueryPoolCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="queryType" type="QueryType" />
+      <member name="slots" type="uint32_t" />
+      <member name="pipelineStatistics" type="QueryPipelineStatisticFlags" />
+    </struct>
+    <struct name="QueueFamilyProperties" union="false">
+      <member name="queueFlags" type="QueueFlags" />
+      <member name="queueCount" type="uint32_t" />
+      <member name="supportsTimestamps" type="Bool32" />
+    </struct>
+    <struct name="Rect2D" union="false">
+      <member name="offset" type="Offset2D" />
+      <member name="extent" type="Extent2D" />
+    </struct>
+    <struct name="Rect3D" union="false">
+      <member name="offset" type="Offset3D" />
+      <member name="extent" type="Extent3D" />
+    </struct>
+    <struct name="RenderPassBeginInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="renderPass" type="RenderPass" />
+      <member name="framebuffer" type="Framebuffer" />
+      <member name="renderArea" type="Rect2D" />
+      <member name="clearValueCount" type="uint32_t" />
+      <member name="pClearValues" type="const ClearValue*" />
+    </struct>
+    <struct name="RenderPassCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="attachmentCount" type="uint32_t" />
+      <member name="pAttachments" type="const AttachmentDescription*" />
+      <member name="subpassCount" type="uint32_t" />
+      <member name="pSubpasses" type="const SubpassDescription*" />
+      <member name="dependencyCount" type="uint32_t" />
+      <member name="pDependencies" type="const SubpassDependency*" />
+    </struct>
+    <struct name="SamplerCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="magFilter" type="TexFilter" />
+      <member name="minFilter" type="TexFilter" />
+      <member name="mipMode" type="TexMipmapMode" />
+      <member name="addressU" type="TexAddress" />
+      <member name="addressV" type="TexAddress" />
+      <member name="addressW" type="TexAddress" />
+      <member name="mipLodBias" type="float" />
+      <member name="maxAnisotropy" type="float" />
+      <member name="compareEnable" type="Bool32" />
+      <member name="compareOp" type="CompareOp" />
+      <member name="minLod" type="float" />
+      <member name="maxLod" type="float" />
+      <member name="borderColor" type="BorderColor" />
+    </struct>
+    <struct name="SemaphoreCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="flags" type="SemaphoreCreateFlags" />
+    </struct>
+    <struct name="ShaderCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="module" type="ShaderModule" />
+      <member name="pName" type="const char*" />
+      <member name="flags" type="ShaderCreateFlags" />
+    </struct>
+    <struct name="ShaderModuleCreateInfo" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="codeSize" type="size_t" />
+      <member name="pCode" type="const void*" />
+      <member name="flags" type="ShaderModuleCreateFlags" />
+    </struct>
+    <struct name="SparseImageFormatProperties" union="false">
+      <member name="aspect" type="ImageAspect" />
+      <member name="imageGranularity" type="Extent3D" />
+      <member name="flags" type="SparseImageFormatFlags" />
+    </struct>
+    <struct name="SparseImageMemoryBindInfo" union="false">
+      <member name="subresource" type="ImageSubresource" />
+      <member name="offset" type="Offset3D" />
+      <member name="extent" type="Extent3D" />
+      <member name="memOffset" type="DeviceSize" />
+      <member name="mem" type="DeviceMemory" />
+      <member name="flags" type="SparseMemoryBindFlags" />
+    </struct>
+    <struct name="SparseImageMemoryRequirements" union="false">
+      <member name="formatProps" type="SparseImageFormatProperties" />
+      <member name="imageMipTailStartLOD" type="uint32_t" />
+      <member name="imageMipTailSize" type="DeviceSize" />
+      <member name="imageMipTailOffset" type="DeviceSize" />
+      <member name="imageMipTailStride" type="DeviceSize" />
+    </struct>
+    <struct name="SparseMemoryBindInfo" union="false">
+      <member name="offset" type="DeviceSize" />
+      <member name="memOffset" type="DeviceSize" />
+      <member name="mem" type="DeviceMemory" />
+      <member name="flags" type="SparseMemoryBindFlags" />
+    </struct>
+    <struct name="SpecializationInfo" union="false">
+      <member name="mapEntryCount" type="uint32_t" />
+      <member name="pMap" type="const SpecializationMapEntry*" />
+      <member name="dataSize" type="size_t" />
+      <member name="pData" type="const void*" />
+    </struct>
+    <struct name="SpecializationMapEntry" union="false">
+      <member name="constantId" type="uint32_t" />
+      <member name="size" type="size_t" />
+      <member name="offset" type="uint32_t" />
+    </struct>
+    <struct name="StencilOpState" union="false">
+      <member name="stencilFailOp" type="StencilOp" />
+      <member name="stencilPassOp" type="StencilOp" />
+      <member name="stencilDepthFailOp" type="StencilOp" />
+      <member name="stencilCompareOp" type="CompareOp" />
+    </struct>
+    <struct name="SubpassDependency" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="srcSubpass" type="uint32_t" />
+      <member name="destSubpass" type="uint32_t" />
+      <member name="srcStageMask" type="PipelineStageFlags" />
+      <member name="destStageMask" type="PipelineStageFlags" />
+      <member name="outputMask" type="MemoryOutputFlags" />
+      <member name="inputMask" type="MemoryInputFlags" />
+      <member name="byRegion" type="Bool32" />
+    </struct>
+    <struct name="SubpassDescription" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="pipelineBindPoint" type="PipelineBindPoint" />
+      <member name="flags" type="SubpassDescriptionFlags" />
+      <member name="inputCount" type="uint32_t" />
+      <member name="pInputAttachments" type="const AttachmentReference*" />
+      <member name="colorCount" type="uint32_t" />
+      <member name="pColorAttachments" type="const AttachmentReference*" />
+      <member name="pResolveAttachments" type="const AttachmentReference*" />
+      <member name="depthStencilAttachment" type="AttachmentReference" />
+      <member name="preserveCount" type="uint32_t" />
+      <member name="pPreserveAttachments" type="const AttachmentReference*" />
+    </struct>
+    <struct name="SubresourceLayout" union="false">
+      <member name="offset" type="DeviceSize" />
+      <member name="size" type="DeviceSize" />
+      <member name="rowPitch" type="DeviceSize" />
+      <member name="depthPitch" type="DeviceSize" />
+    </struct>
+    <struct name="VertexInputAttributeDescription" union="false">
+      <member name="location" type="uint32_t" />
+      <member name="binding" type="uint32_t" />
+      <member name="format" type="Format" />
+      <member name="offsetInBytes" type="uint32_t" />
+    </struct>
+    <struct name="VertexInputBindingDescription" union="false">
+      <member name="binding" type="uint32_t" />
+      <member name="strideInBytes" type="uint32_t" />
+      <member name="stepRate" type="VertexInputStepRate" />
+    </struct>
+    <struct name="Viewport" union="false">
+      <member name="originX" type="float" />
+      <member name="originY" type="float" />
+      <member name="width" type="float" />
+      <member name="height" type="float" />
+      <member name="minDepth" type="float" />
+      <member name="maxDepth" type="float" />
+    </struct>
+    <struct name="WriteDescriptorSet" union="false">
+      <member name="sType" type="StructureType" />
+      <member name="pNext" type="const void*" />
+      <member name="destSet" type="DescriptorSet" />
+      <member name="destBinding" type="uint32_t" />
+      <member name="destArrayElement" type="uint32_t" />
+      <member name="count" type="uint32_t" />
+      <member name="descriptorType" type="DescriptorType" />
+      <member name="pDescriptors" type="const DescriptorInfo*" />
+    </struct>
+  </add>
+</signatures>
