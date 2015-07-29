@@ -1,0 +1,104 @@
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#@ include file="ObjectHelper.t4" #>
+//
+// The Open Toolkit Library License
+//
+// Copyright (c) 2006 - 2015 Stefanos Apostolopoulos for the Open Toolkit Library
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights to 
+// use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+// the Software, and to permit persons to whom the Software is furnished to do
+// so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+//
+
+
+
+namespace OpenTK.Graphics.Vulkan
+{
+    using System;
+    using System.Text;
+    using System.Runtime.InteropServices;
+    <#
+
+    DEFINE_NONDISP_HANDLE("AttachmentView");
+
+    DEFINE_NONDISP_HANDLE("Buffer");
+
+    DEFINE_NONDISP_HANDLE("BufferView");
+
+    DEFINE_HANDLE("CmdBuffer");
+
+    DEFINE_NONDISP_HANDLE("CmdPool");
+
+    DEFINE_NONDISP_HANDLE("DescriptorPool");
+
+    DEFINE_NONDISP_HANDLE("DescriptorSet");
+
+    DEFINE_NONDISP_HANDLE("DescriptorSetLayout");
+
+    DEFINE_HANDLE("Device");
+
+    DEFINE_NONDISP_HANDLE("DeviceMemory");
+
+    DEFINE_NONDISP_HANDLE("DynamicColorBlendState");
+
+    DEFINE_NONDISP_HANDLE("DynamicDepthStencilState");
+
+    DEFINE_NONDISP_HANDLE("DynamicRasterState");
+
+    DEFINE_NONDISP_HANDLE("DynamicViewportState");
+
+    DEFINE_NONDISP_HANDLE("Event");
+
+    DEFINE_NONDISP_HANDLE("Fence");
+
+    DEFINE_NONDISP_HANDLE("Framebuffer");
+
+    DEFINE_NONDISP_HANDLE("Image");
+
+    DEFINE_NONDISP_HANDLE("ImageView");
+
+    DEFINE_HANDLE("Instance");
+
+    DEFINE_HANDLE("PhysicalDevice");
+
+    DEFINE_NONDISP_HANDLE("Pipeline");
+
+    DEFINE_NONDISP_HANDLE("PipelineCache");
+
+    DEFINE_NONDISP_HANDLE("PipelineLayout");
+
+    DEFINE_NONDISP_HANDLE("QueryPool");
+
+    DEFINE_HANDLE("Queue");
+
+    DEFINE_NONDISP_HANDLE("RenderPass");
+
+    DEFINE_NONDISP_HANDLE("Sampler");
+
+    DEFINE_NONDISP_HANDLE("Semaphore");
+
+    DEFINE_NONDISP_HANDLE("Shader");
+
+    DEFINE_NONDISP_HANDLE("ShaderModule");
+    #>
+}

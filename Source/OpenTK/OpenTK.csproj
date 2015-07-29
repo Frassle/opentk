@@ -140,12 +140,12 @@
     <Compile Include="Graphics\GraphicsModeComparer.cs" />
     <Compile Include="Graphics\VK\VK.cs" />
     <Compile Include="Graphics\VK\VKEnums.cs" />
-    <Compile Include="Graphics\VK\VKStructures.cs" />
-    <Compile Include="Graphics\VK\VulkanObjects.cs">
+    <Compile Include="Graphics\VK\VKHandles.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VulkanObjects.tt</DependentUpon>
+      <DependentUpon>VKHandles.tt</DependentUpon>
     </Compile>
+    <Compile Include="Graphics\VK\VKStructures.cs" />
     <Compile Include="Input\GamePadThumbSticks.cs" />
     <Compile Include="Input\GamePadTriggers.cs" />
     <Compile Include="Input\GamePadType.cs" />
@@ -837,10 +837,11 @@
     <Compile Include="Platform\Linux\Bindings\Evdev.cs" />
     <Compile Include="Platform\Linux\DefaultCursor.cs" />
     <Compile Include="Platform\Linux\Bindings\Kms.cs" />
-    <None Include="Graphics\VK\VulkanObjects.tt">
+    <None Include="Graphics\VK\VKHandles.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>VulkanObjects.cs</LastGenOutput>
+      <LastGenOutput>VKHandles.cs</LastGenOutput>
     </None>
+    <None Include="Graphics\VK\ObjectHelper.t4" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

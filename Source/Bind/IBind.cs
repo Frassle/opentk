@@ -14,6 +14,7 @@ namespace Bind
         DelegateCollection Delegates { get; }
         EnumCollection Enums { get; }
         StructCollection Structs { get; }
+        HandleCollection Handles { get; }
         FunctionCollection Wrappers { get; }
         Settings Settings { get; }
 

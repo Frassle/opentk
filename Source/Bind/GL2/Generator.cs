@@ -82,6 +82,7 @@ namespace Bind.GL2
             Delegates = new DelegateCollection();
             Enums = new EnumCollection();
             Structs = new StructCollection();
+            Handles = new HandleCollection();
             Wrappers = new FunctionCollection();
 
             SpecReader = new XmlSpecReader(Settings);
@@ -115,6 +116,7 @@ namespace Bind.GL2
         public DelegateCollection Delegates { get; private set; }
         public EnumCollection Enums { get; private set; }
         public StructCollection Structs { get; private set; }
+        public HandleCollection Handles { get; private set; }
         public FunctionCollection Wrappers { get; private set; }
         public IDictionary<string, string> GLTypes { get; private set; }
         public IDictionary<string, string> CSTypes { get; private set; }
@@ -144,6 +146,12 @@ namespace Bind.GL2
             foreach (var file in overrides)
             {
                 SpecReader.ReadStructs(file, Structs, Profile, Version);
+            }
+
+            SpecReader.ReadHandles(Path.Combine(Settings.InputPath, glSpec), Handles, Profile, Version);
+            foreach (var file in overrides)
+            {
+                SpecReader.ReadHandles(file, Handles, Profile, Version);
             }
 
             var enum_processor = new EnumProcessor(this, overrides);

@@ -1,0 +1,72 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#+
+
+private string SafeName(string name)
+{
+	if (name == "object") {
+		return "obj";
+	} else if (name == "event") {
+		return "evnt";
+	} else {
+		return name;
+	}
+}
+
+void DEFINE_HANDLE(string name)
+{
+#>
+	public struct <#= name #>
+	{
+		internal IntPtr Handle;
+
+		public <#= name #>(IntPtr handle)
+		{
+			Handle = handle;
+		}
+<#+
+	var objName = SafeName(name.ToLower());
+#>
+		public static implicit operator IntPtr(<#= name #> <#= objName #>)
+		{
+			return <#= objName #>.Handle;
+		}
+		
+		public static explicit operator <#= name #>(IntPtr <#= objName #>)
+		{
+			return new <#= name #>(<#= objName #>);
+		}
+	}
+<#+
+}
+
+void DEFINE_NONDISP_HANDLE(string name)
+{
+#>
+	public struct <#= name #>
+	{
+		internal Int64 Handle;
+
+		public <#= name #>(Int64 handle)
+		{
+			Handle = handle;
+		}
+<#+
+	var objName = SafeName(name.ToLower());
+#>
+		public static implicit operator IntPtr(<#= name #> <#= objName #>)
+		{
+			return new IntPtr(<#= objName #>.Handle);
+		}
+		
+		public static explicit operator <#= name #>(IntPtr <#= objName #>)
+		{
+			return new <#= name #>(<#= objName #>.ToInt64());
+		}
+	}
+<#+
+}
+#>

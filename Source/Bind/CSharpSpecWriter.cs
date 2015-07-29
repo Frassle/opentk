@@ -49,7 +49,8 @@ namespace Bind
         public void WriteBindings(IBind generator)
         {
             Generator = generator;
-            WriteBindings(generator.Delegates, generator.Wrappers, generator.Enums, generator.Structs);
+            WriteBindings(generator.Delegates, generator.Wrappers, 
+                generator.Enums, generator.Structs, generator.Handles);
         }
 
         #endregion
@@ -69,7 +70,9 @@ namespace Bind
 
         #region WriteBindings
 
-        void WriteBindings(DelegateCollection delegates, FunctionCollection wrappers, EnumCollection enums, StructCollection structs)
+        void WriteBindings(DelegateCollection delegates, 
+            FunctionCollection wrappers, EnumCollection enums, 
+            StructCollection structs, HandleCollection handles)
         {
             Console.WriteLine("Writing bindings to {0}", Settings.OutputPath);
             if (!Directory.Exists(Settings.OutputPath))
@@ -78,6 +81,7 @@ namespace Bind
             string temp_enums_file = Path.GetTempFileName();
             string temp_wrappers_file = Path.GetTempFileName();
             string temp_structs_file = Path.GetTempFileName();
+            string temp_handles_file = Path.GetTempFileName();
 
             // Enums
             using (BindStreamWriter sw = new BindStreamWriter(temp_enums_file))
@@ -149,6 +153,36 @@ namespace Bind
                     sw.Unindent();
                     sw.WriteLine("}");
                 }
+            } 
+            
+            if (handles.Count != 0)
+            {
+                // Handles
+                using (BindStreamWriter sw = new BindStreamWriter(temp_handles_file))
+                {
+                    sw.WriteLine("<#@ template debug=\"false\" hostspecific=\"false\" language=\"C#\" #>");
+                    sw.WriteLine("<#@ assembly name=\"System.Core\" #>");
+                    sw.WriteLine("<#@ import namespace=\"System.Linq\" #>");
+                    sw.WriteLine("<#@ import namespace=\"System.Text\" #>");
+                    sw.WriteLine("<#@ import namespace=\"System.Collections.Generic\" #>");
+                    sw.WriteLine("<#@ output extension=\".cs\" #>");
+                    sw.WriteLine("<#@ include file=\"ObjectHelper.t4\" #>");
+
+                    WriteLicense(sw);
+                    sw.WriteLine("namespace {0}", Settings.OutputNamespace);
+                    sw.WriteLine("{");
+                    sw.Indent();
+                    sw.WriteLine("using System;");
+                    sw.WriteLine("using System.Text;");
+                    sw.WriteLine("using System.Runtime.InteropServices;");
+
+                    sw.WriteLine("<#");
+                    WriteHandles(sw, handles);
+                    sw.WriteLine("#>");
+
+                    sw.Unindent();
+                    sw.WriteLine("}");
+                }
             }
 
             string output_enums = Path.Combine(Settings.OutputPath, Settings.EnumsFile);
@@ -156,18 +190,39 @@ namespace Bind
             string output_core = Path.Combine(Settings.OutputPath, Settings.ImportsFile);
             string output_wrappers = Path.Combine(Settings.OutputPath, Settings.WrappersFile);
             string output_structs = Path.Combine(Settings.OutputPath, Settings.StructsFile);
+            string output_handles = Path.Combine(Settings.OutputPath, Settings.HandlesFile);
 
             if (File.Exists(output_enums)) File.Delete(output_enums);
             if (File.Exists(output_delegates)) File.Delete(output_delegates);
             if (File.Exists(output_core)) File.Delete(output_core);
             if (File.Exists(output_wrappers)) File.Delete(output_wrappers);
             if (File.Exists(output_structs)) File.Delete(output_structs);
+            if (File.Exists(output_handles)) File.Delete(output_handles);
 
             File.Move(temp_enums_file, output_enums);
             File.Move(temp_wrappers_file, output_wrappers);
             if (structs.Count != 0)
             {
                 File.Move(temp_structs_file, output_structs);
+            }
+            if (handles.Count != 0)
+            {
+                File.Move(temp_handles_file, output_handles);
+            }
+        }
+
+        #endregion
+
+        #region WriteHandles
+
+        private void WriteHandles(BindStreamWriter sw, HandleCollection handles)
+        {
+            Trace.WriteLine(String.Format("Writing handles to:\t{0}", Settings.OutputNamespace));
+
+            foreach (var handle in handles.Values)
+            {
+                sw.WriteLine();
+                sw.WriteLine(handle.Method + "(\"" + handle.Name + "\");");
             }
         }
 
