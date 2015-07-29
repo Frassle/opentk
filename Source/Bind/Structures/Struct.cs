@@ -9,18 +9,18 @@ namespace Bind.Structures
 
     class Struct
     {
-        string _name;
-        bool _isUnion;
+        readonly string _name;
+        readonly bool _isUnion;
 
-        public Struct(bool isUnion)
+        public Struct(string name, bool isUnion = false)
         {
+            _name = name;
             _isUnion = isUnion;
         }
 
         public string Name
         {
             get { return _name ?? ""; }
-            set { _name = value; }
         }
 
         public bool IsUnion
