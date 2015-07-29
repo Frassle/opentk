@@ -252,7 +252,7 @@ namespace Bind
                 bool isUnsafe = false;
                 foreach (var member in structure.Members)
                 {
-                    if (member.Type.Pointer > 0 || member.Type.ElementCount > 0)
+                    if (member.Type.Pointer > 0 || member.Type.Array > 0)
                     {
                         isUnsafe = true;
                         break;
@@ -295,14 +295,11 @@ namespace Bind
 
             if (member.Type.ElementCount == 0 && member.Type.Array > 0)
             {
-                sw.Write("[");
-
-                for (int i = 1; i < member.Type.Array; ++i)
+                // Can't use arrays in structs as they're passed to vulkan
+                for (int i = 0; i < member.Type.Array; ++i)
                 {
-                    sw.Write(",");
+                    sw.Write("*");
                 }
-
-                sw.Write("]");
             }
 
             sw.Write(" " + member.Name);

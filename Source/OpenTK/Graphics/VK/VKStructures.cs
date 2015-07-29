@@ -379,9 +379,9 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct ExtensionProperties
+    public unsafe struct ExtensionProperties
     {
-        char[] extName;
+        char* extName;
         uint specVersion;
     }
 
@@ -567,12 +567,12 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct LayerProperties
+    public unsafe struct LayerProperties
     {
-        char[] layerName;
+        char* layerName;
         uint specVersion;
         uint implVersion;
-        char[] description;
+        char* description;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -801,24 +801,24 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct PhysicalDeviceMemoryProperties
+    public unsafe struct PhysicalDeviceMemoryProperties
     {
         uint memoryTypeCount;
-        MemoryType[] memoryTypes;
+        MemoryType* memoryTypes;
         uint memoryHeapCount;
-        MemoryHeap[] memoryHeaps;
+        MemoryHeap* memoryHeaps;
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct PhysicalDeviceProperties
+    public unsafe struct PhysicalDeviceProperties
     {
         uint apiVersion;
         uint driverVersion;
         uint vendorId;
         uint deviceId;
         PhysicalDeviceType deviceType;
-        char[] deviceName;
-        byte[] pipelineCacheUUID;
+        char* deviceName;
+        byte* pipelineCacheUUID;
     }
 
     [StructLayout(LayoutKind.Sequential)]
