@@ -2374,7 +2374,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum AttachmentViewCreateFlagBits : int
+    public enum AttachmentViewCreateFlags : int
     {
         /// <summary>
         /// Original was GL_ATTACHMENT_VIEW_CREATE_READ_ONLY_DEPTH_BIT = 0x1
@@ -2531,7 +2531,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum BufferCreateFlagBits : int
+    public enum BufferCreateFlags : int
     {
         /// <summary>
         /// Original was GL_BUFFER_CREATE_SPARSE_BIT = 0x1
@@ -2551,7 +2551,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum BufferUsageFlagBits : int
+    public enum BufferUsageFlags : int
     {
         /// <summary>
         /// Original was GL_BUFFER_USAGE_GENERAL = 0
@@ -2614,7 +2614,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum ChannelFlagBits : int
+    public enum ChannelFlags : int
     {
         /// <summary>
         /// Original was GL_CHANNEL_R_BIT = 0x1
@@ -2684,7 +2684,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum CmdBufferOptimizeFlagBits : int
+    public enum CmdBufferOptimizeFlags : int
     {
         /// <summary>
         /// Original was GL_CMD_BUFFER_OPTIMIZE_SMALL_BATCH_BIT = 0x1
@@ -2709,10 +2709,10 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Not used directly.
+    /// Used in GL.ResetCommandBuffer
     /// </summary>
     [Flags]
-    public enum CmdBufferResetFlagBits : int
+    public enum CmdBufferResetFlags : int
     {
         /// <summary>
         /// Original was GL_CMD_BUFFER_RESET_RELEASE_RESOURCES = 0x1
@@ -2724,7 +2724,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum CmdPoolCreateFlagBits : int
+    public enum CmdPoolCreateFlags : int
     {
         /// <summary>
         /// Original was GL_CMD_POOL_CREATE_TRANSIENT_BIT = 0x1
@@ -2737,10 +2737,10 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Not used directly.
+    /// Used in GL.ResetCommandPool
     /// </summary>
     [Flags]
-    public enum CmdPoolResetFlagBits : int
+    public enum CmdPoolResetFlags : int
     {
         /// <summary>
         /// Original was GL_CMD_POOL_RESET_RELEASE_RESOURCES = 0x1
@@ -2811,7 +2811,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Used in GL.Vulkan.CreateDescriptorPool
+    /// Used in GL.CreateDescriptorPool
     /// </summary>
     public enum DescriptorPoolUsage : int
     {
@@ -2826,7 +2826,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Used in GL.Vulkan.AllocDescriptorSets
+    /// Used in GL.AllocDescriptorSets
     /// </summary>
     public enum DescriptorSetUsage : int
     {
@@ -2895,7 +2895,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum DeviceCreateFlagBits : int
+    public enum DeviceCreateFlags : int
     {
         /// <summary>
         /// Original was GL_DEVICE_CREATE_VALIDATION_BIT = 0x1
@@ -2907,7 +2907,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum FenceCreateFlagBits : int
+    public enum FenceCreateFlags : int
     {
         /// <summary>
         /// Original was GL_FENCE_CREATE_SIGNALED_BIT = 0x1
@@ -2935,7 +2935,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Used in GL.Vulkan.GetPhysicalDeviceFormatProperties, GL.Vulkan.GetPhysicalDeviceImageFormatProperties and 1 other function
+    /// Used in GL.GetPhysicalDeviceFormatProperties, GL.GetPhysicalDeviceImageFormatProperties and 1 other function
     /// </summary>
     public enum Format : int
     {
@@ -3641,7 +3641,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum FormatFeatureFlagBits : int
+    public enum FormatFeatureFlags : int
     {
         /// <summary>
         /// Original was GL_FORMAT_FEATURE_SAMPLED_IMAGE_BIT = 0x1
@@ -3728,10 +3728,10 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Not used directly.
+    /// Used in GL.CmdClearDepthStencilAttachment
     /// </summary>
     [Flags]
-    public enum ImageAspectFlagBits : int
+    public enum ImageAspectFlags : int
     {
         /// <summary>
         /// Original was GL_IMAGE_ASPECT_COLOR_BIT = 0x1
@@ -3755,7 +3755,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum ImageCreateFlagBits : int
+    public enum ImageCreateFlags : int
     {
         /// <summary>
         /// Original was GL_IMAGE_CREATE_SPARSE_BIT = 0x1
@@ -3784,7 +3784,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Used in GL.Vulkan.CmdBlitImage, GL.Vulkan.CmdClearColorAttachment and 7 other functions
+    /// Used in GL.CmdBlitImage, GL.CmdClearColorAttachment and 7 other functions
     /// </summary>
     public enum ImageLayout : int
     {
@@ -3823,7 +3823,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Used in GL.Vulkan.GetPhysicalDeviceImageFormatProperties, GL.Vulkan.GetPhysicalDeviceSparseImageFormatProperties
+    /// Used in GL.GetPhysicalDeviceImageFormatProperties, GL.GetPhysicalDeviceSparseImageFormatProperties
     /// </summary>
     public enum ImageTiling : int
     {
@@ -3838,7 +3838,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Used in GL.Vulkan.GetPhysicalDeviceImageFormatProperties, GL.Vulkan.GetPhysicalDeviceSparseImageFormatProperties
+    /// Used in GL.GetPhysicalDeviceImageFormatProperties, GL.GetPhysicalDeviceSparseImageFormatProperties
     /// </summary>
     public enum ImageType : int
     {
@@ -3857,10 +3857,10 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Not used directly.
+    /// Used in GL.GetPhysicalDeviceImageFormatProperties, GL.GetPhysicalDeviceSparseImageFormatProperties
     /// </summary>
     [Flags]
-    public enum ImageUsageFlagBits : int
+    public enum ImageUsageFlags : int
     {
         /// <summary>
         /// Original was GL_IMAGE_USAGE_GENERAL = 0
@@ -3936,7 +3936,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Used in GL.Vulkan.CmdBindIndexBuffer
+    /// Used in GL.CmdBindIndexBuffer
     /// </summary>
     public enum IndexType : int
     {
@@ -4025,7 +4025,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum MemoryHeapFlagBits : int
+    public enum MemoryHeapFlags : int
     {
         /// <summary>
         /// Original was GL_MEMORY_HEAP_HOST_LOCAL = 0x1
@@ -4037,7 +4037,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum MemoryInputFlagBits : int
+    public enum MemoryInputFlags : int
     {
         /// <summary>
         /// Original was GL_MEMORY_INPUT_HOST_READ_BIT = 0x1
@@ -4085,7 +4085,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum MemoryOutputFlagBits : int
+    public enum MemoryOutputFlags : int
     {
         /// <summary>
         /// Original was GL_MEMORY_OUTPUT_HOST_WRITE_BIT = 0x1
@@ -4113,7 +4113,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum MemoryPropertyFlagBits : int
+    public enum MemoryPropertyFlags : int
     {
         /// <summary>
         /// Original was GL_MEMORY_PROPERTY_DEVICE_ONLY = 0
@@ -4169,7 +4169,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Used in GL.Vulkan.CmdBindDescriptorSets, GL.Vulkan.CmdBindPipeline
+    /// Used in GL.CmdBindDescriptorSets, GL.CmdBindPipeline
     /// </summary>
     public enum PipelineBindPoint : int
     {
@@ -4187,7 +4187,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum PipelineCreateFlagBits : int
+    public enum PipelineCreateFlags : int
     {
         /// <summary>
         /// Original was GL_PIPELINE_CREATE_DISABLE_OPTIMIZATION_BIT = 0x1
@@ -4204,10 +4204,10 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Not used directly.
+    /// Used in GL.CmdPipelineBarrier, GL.CmdResetEvent and 2 other functions
     /// </summary>
     [Flags]
-    public enum PipelineStageFlagBits : int
+    public enum PipelineStageFlags : int
     {
         /// <summary>
         /// Original was GL_PIPELINE_STAGE_ALL_GRAPHICS = 0x000007FF
@@ -4331,10 +4331,10 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Not used directly.
+    /// Used in GL.CmdBeginQuery
     /// </summary>
     [Flags]
-    public enum QueryControlFlagBits : int
+    public enum QueryControlFlags : int
     {
         /// <summary>
         /// Original was GL_QUERY_CONTROL_CONSERVATIVE_BIT = 0x1
@@ -4346,7 +4346,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum QueryPipelineStatisticFlagBits : int
+    public enum QueryPipelineStatisticFlags : int
     {
         /// <summary>
         /// Original was GL_QUERY_PIPELINE_STATISTIC_IA_VERTICES_BIT = 0x1
@@ -4395,10 +4395,10 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Not used directly.
+    /// Used in GL.CmdCopyQueryPoolResults, GL.GetQueryPoolResults
     /// </summary>
     [Flags]
-    public enum QueryResultFlagBits : int
+    public enum QueryResultFlags : int
     {
         /// <summary>
         /// Original was GL_QUERY_RESULT_DEFAULT = 0
@@ -4441,7 +4441,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum QueueFlagBits : int
+    public enum QueueFlags : int
     {
         /// <summary>
         /// Original was GL_QUEUE_GRAPHICS_BIT = 0x1
@@ -4466,7 +4466,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Used in GL.Vulkan.CmdBeginRenderPas, GL.Vulkan.CmdNextSubpas
+    /// Used in GL.CmdBeginRenderPas, GL.CmdNextSubpas
     /// </summary>
     public enum RenderPassContents : int
     {
@@ -4675,10 +4675,10 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Not used directly.
+    /// Used in GL.CmdPushConstants
     /// </summary>
     [Flags]
-    public enum ShaderStageFlagBits : int
+    public enum ShaderStageFlags : int
     {
         /// <summary>
         /// Original was GL_SHADER_STAGE_VERTEX_BIT = 0x1
@@ -4729,7 +4729,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum SparseImageFormatFlagBits : int
+    public enum SparseImageFormatFlags : int
     {
         /// <summary>
         /// Original was GL_SPARSE_IMAGE_FMT_SINGLE_MIPTAIL_BIT = 0x1
@@ -4749,7 +4749,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum SparseMemoryBindFlagBits : int
+    public enum SparseMemoryBindFlags : int
     {
         /// <summary>
         /// Original was GL_SPARSE_MEMORY_BIND_REPLICATE_64KIB_BLOCK_BIT = 0x1
@@ -5007,7 +5007,7 @@ namespace OpenTK.Graphics.Vulkan
     /// Not used directly.
     /// </summary>
     [Flags]
-    public enum SubpassDescriptionFlagBits : int
+    public enum SubpassDescriptionFlags : int
     {
         /// <summary>
         /// Original was GL_SUBPASS_DESCRIPTION_NO_OVERDRAW_BIT = 0x1
@@ -5070,7 +5070,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Used in GL.Vulkan.CmdBlitImage
+    /// Used in GL.CmdBlitImage
     /// </summary>
     public enum TexFilter : int
     {
@@ -5104,7 +5104,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
-    /// Used in GL.Vulkan.CmdWriteTimestamp
+    /// Used in GL.CmdWriteTimestamp
     /// </summary>
     public enum TimestampType : int
     {
