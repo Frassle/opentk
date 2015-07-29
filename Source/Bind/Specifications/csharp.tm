@@ -166,3 +166,4 @@ DeviceSize, IntPtr
 PFN_vkAllocFunction, IntPtr
 PFN_vkFreeFunction, IntPtr
 PFN_vkVoidFunction, IntPtr
+SampleMask, uint

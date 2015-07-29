@@ -898,7 +898,7 @@ namespace OpenTK.Graphics.Vulkan
         uint rasterSamples;
         bool sampleShadingEnable;
         Single minSampleShading;
-        SampleMask sampleMask;
+        uint sampleMask;
     }
 
     [StructLayout(LayoutKind.Sequential)]
