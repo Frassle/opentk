@@ -515,12 +515,11 @@ restart:
 
                 foreach (XPathNavigator param in node.SelectChildren("member", String.Empty))
                 {
-                    var parameter = new Parameter()
-                    {
-                        Name = param.GetAttribute("name", String.Empty),
-                    };
-                    parameter.Type.CurrentType = param.GetAttribute("type", String.Empty);
-                    structure.Add(parameter);
+                    var member = new Member(
+                        param.GetAttribute("name", String.Empty),
+                        new Structures.Type());
+                    member.Type.CurrentType = param.GetAttribute("type", String.Empty);
+                    structure.Add(member);
                 }
                 
                 structs.Add(structure);

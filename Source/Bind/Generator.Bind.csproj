@@ -138,6 +138,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="EnumProcessor.cs" />
+    <Compile Include="Structures\Member.cs" />
     <Compile Include="Structures\Struct.cs" />
     <Compile Include="Utilities.cs">
       <SubType>Code</SubType>

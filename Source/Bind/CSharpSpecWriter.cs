@@ -208,7 +208,7 @@ namespace Bind
 
         private void WriteStructMember(BindStreamWriter sw, 
             EnumCollection enums, IDictionary<string, string> CSTypes, 
-            bool isUnion, Parameter member)
+            bool isUnion, Member member)
         {
             if (isUnion)
             {

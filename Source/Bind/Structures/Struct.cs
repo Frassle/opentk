@@ -28,9 +28,9 @@ namespace Bind.Structures
             get { return _isUnion; }
         }
 
-        ParameterCollection _members_collection = new ParameterCollection();
+        MemberCollection _members_collection = new MemberCollection();
 
-        public ParameterCollection Members
+        public MemberCollection Members
         {
             get { return _members_collection; }
         }
@@ -41,7 +41,7 @@ namespace Bind.Structures
             return String.Format("struct {0}", Name);
         }
 
-        public void Add(Parameter member)
+        public void Add(Member member)
         {
             Members.Add(member);
         }
@@ -50,7 +50,7 @@ namespace Bind.Structures
         {
             get
             {
-                return Members.All(p => p.Type.CLSCompliant);
+                return Members.All(m => m.Type.CLSCompliant);
             }
         }
     }
