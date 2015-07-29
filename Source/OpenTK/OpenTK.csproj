@@ -138,6 +138,7 @@
     </Compile>
     <Compile Include="DisplayIndex.cs" />
     <Compile Include="Graphics\GraphicsModeComparer.cs" />
+    <Compile Include="Graphics\VK\Helper.cs" />
     <Compile Include="Graphics\VK\VK.cs" />
     <Compile Include="Graphics\VK\VKEnums.cs" />
     <Compile Include="Graphics\VK\VKHandles.cs">
