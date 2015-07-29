@@ -1532,7 +1532,7 @@
       <param name="pProperties" type="SparseImageFormatProperties*" />
     </function>
     <function name="GetPipelineCacheData" extension="Core">
-      <returns type="VkResult" />
+      <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pipelineCache" type="PipelineCache" />
       <param name="pData" type="void*" />
@@ -1574,7 +1574,7 @@
       <param name="ppData" type="void**" />
     </function>
     <function name="MergePipelineCaches" extension="Core">
-      <returns type="VkResult" />
+      <returns type="Result" />
       <param name="device" type="Device" />
       <param name="destCache" type="PipelineCache" />
       <param name="srcCacheCount" type="uint32_t" />

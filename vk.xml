@@ -2296,13 +2296,13 @@ This file, vk.xml, is the Vulkan API Registry.
             <param><type>VkPipelineCache</type> <name>pipelineCache</name></param>
         </command>
         <command>
-            <proto>VkResult <name>vkGetPipelineCacheData</name></proto>
+            <proto><type>VkResult</type> <name>vkGetPipelineCacheData</name></proto>
             <param><type>VkDevice</type> <name>device</name></param>
             <param><type>VkPipelineCache</type> <name>pipelineCache</name></param>
             <param>void* <name>pData</name></param>
         </command>
         <command>
-            <proto>VkResult <name>vkMergePipelineCaches</name></proto>
+            <proto><type>VkResult</type> <name>vkMergePipelineCaches</name></proto>
             <param><type>VkDevice</type> <name>device</name></param>
             <param><type>VkPipelineCache</type> <name>destCache</name></param>
             <param><type>uint32_t</type> <name>srcCacheCount</name></param>
