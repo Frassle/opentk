@@ -86,6 +86,10 @@ namespace Bind
             // Remove const
             var constRegex = new Regex(@"\bconst\b");
             type.CurrentType = constRegex.Replace(type.CurrentType, "");
+
+            type.CurrentType =
+                Generator.CSTypes.ContainsKey(type.CurrentType) ?
+                Generator.CSTypes[type.CurrentType] : type.CurrentType;
         }
     }
 }
