@@ -215,7 +215,8 @@ namespace Bind
                 sw.WriteLine("[FieldOffset(0)]");
             }
 
-            sw.WriteLine("{0} {1};", member.Type.CurrentType, member.Name);
+            var type = GetDeclarationString(member.Type, Bind.Settings.Legacy.None);
+            sw.WriteLine("{0} {1};", type, member.Name);
         }
 
         #endregion
