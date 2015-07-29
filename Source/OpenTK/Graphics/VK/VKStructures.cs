@@ -45,10 +45,10 @@ namespace OpenTK.Graphics.Vulkan
         StructureType sType;
         void* pNext;
         char* pAppName;
-        uint32_t appVersion;
+        uint appVersion;
         char* pEngineName;
-        uint32_t engineVersion;
-        uint32_t apiVersion;
+        uint engineVersion;
+        uint apiVersion;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -57,7 +57,7 @@ namespace OpenTK.Graphics.Vulkan
         StructureType sType;
         void* pNext;
         Format format;
-        uint32_t samples;
+        uint samples;
         AttachmentLoadOp loadOp;
         AttachmentStoreOp storeOp;
         AttachmentLoadOp stencilLoadOp;
@@ -69,7 +69,7 @@ namespace OpenTK.Graphics.Vulkan
     [StructLayout(LayoutKind.Sequential)]
     public struct AttachmentReference
     {
-        uint32_t attachment;
+        uint attachment;
         ImageLayout layout;
     }
 
@@ -80,18 +80,18 @@ namespace OpenTK.Graphics.Vulkan
         void* pNext;
         Image image;
         Format format;
-        uint32_t mipLevel;
-        uint32_t baseArraySlice;
-        uint32_t arraySize;
+        uint mipLevel;
+        uint baseArraySlice;
+        uint arraySize;
         AttachmentViewCreateFlags flags;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct BufferCopy
     {
-        DeviceSize srcOffset;
-        DeviceSize destOffset;
-        DeviceSize copySize;
+        IntPtr srcOffset;
+        IntPtr destOffset;
+        IntPtr copySize;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -99,20 +99,20 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        DeviceSize size;
+        IntPtr size;
         BufferUsageFlags usage;
         BufferCreateFlags flags;
         SharingMode sharingMode;
-        uint32_t queueFamilyCount;
-        uint32_t* pQueueFamilyIndices;
+        uint queueFamilyCount;
+        uint* pQueueFamilyIndices;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct BufferImageCopy
     {
-        DeviceSize bufferOffset;
-        uint32_t bufferRowLength;
-        uint32_t bufferImageHeight;
+        IntPtr bufferOffset;
+        uint bufferRowLength;
+        uint bufferImageHeight;
         ImageSubresource imageSubresource;
         Offset3D imageOffset;
         Extent3D imageExtent;
@@ -125,11 +125,11 @@ namespace OpenTK.Graphics.Vulkan
         void* pNext;
         MemoryOutputFlags outputMask;
         MemoryInputFlags inputMask;
-        uint32_t srcQueueFamilyIndex;
-        uint32_t destQueueFamilyIndex;
+        uint srcQueueFamilyIndex;
+        uint destQueueFamilyIndex;
         Buffer buffer;
-        DeviceSize offset;
-        DeviceSize size;
+        IntPtr offset;
+        IntPtr size;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -140,8 +140,8 @@ namespace OpenTK.Graphics.Vulkan
         Buffer buffer;
         BufferViewType viewType;
         Format format;
-        DeviceSize offset;
-        DeviceSize range;
+        IntPtr offset;
+        IntPtr range;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -157,18 +157,18 @@ namespace OpenTK.Graphics.Vulkan
     public struct ClearColorValue
     {
         [FieldOffset(0)]
-        float [4] f32;
+        fixed Single f32[4];
         [FieldOffset(0)]
-        int32_t [4] s32;
+        fixed int s32[4];
         [FieldOffset(0)]
-        uint32_t [4] u32;
+        fixed uint u32[4];
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct ClearDepthStencilValue
     {
-        float depth;
-        uint32_t stencil;
+        Single depth;
+        uint stencil;
     }
 
     [StructLayout(LayoutKind.Explicit)]
@@ -205,7 +205,7 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        uint32_t queueFamilyIndex;
+        uint queueFamilyIndex;
         CmdPoolCreateFlags flags;
     }
 
@@ -218,7 +218,7 @@ namespace OpenTK.Graphics.Vulkan
         PipelineCreateFlags flags;
         PipelineLayout layout;
         Pipeline basePipelineHandle;
-        int32_t basePipelineIndex;
+        int basePipelineIndex;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -227,12 +227,12 @@ namespace OpenTK.Graphics.Vulkan
         StructureType sType;
         void* pNext;
         DescriptorSet srcSet;
-        uint32_t srcBinding;
-        uint32_t srcArrayElement;
+        uint srcBinding;
+        uint srcArrayElement;
         DescriptorSet destSet;
-        uint32_t destBinding;
-        uint32_t destArrayElement;
-        uint32_t count;
+        uint destBinding;
+        uint destArrayElement;
+        uint count;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -250,7 +250,7 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        uint32_t count;
+        uint count;
         DescriptorTypeCount* pTypeCount;
     }
 
@@ -258,7 +258,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct DescriptorSetLayoutBinding
     {
         DescriptorType descriptorType;
-        uint32_t arraySize;
+        uint arraySize;
         ShaderStageFlags stageFlags;
         Sampler* pImmutableSamplers;
     }
@@ -268,7 +268,7 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        uint32_t count;
+        uint count;
         DescriptorSetLayoutBinding* pBinding;
     }
 
@@ -276,7 +276,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct DescriptorTypeCount
     {
         DescriptorType type;
-        uint32_t count;
+        uint count;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -284,11 +284,11 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        uint32_t queueRecordCount;
+        uint queueRecordCount;
         DeviceQueueCreateInfo* pRequestedQueues;
-        uint32_t layerCount;
+        uint layerCount;
         char** ppEnabledLayerNames;
-        uint32_t extensionCount;
+        uint extensionCount;
         char** ppEnabledExtensionNames;
         PhysicalDeviceFeatures* pEnabledFeatures;
         DeviceCreateFlags flags;
@@ -297,35 +297,35 @@ namespace OpenTK.Graphics.Vulkan
     [StructLayout(LayoutKind.Sequential)]
     public struct DeviceQueueCreateInfo
     {
-        uint32_t queueFamilyIndex;
-        uint32_t queueCount;
+        uint queueFamilyIndex;
+        uint queueCount;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct DispatchIndirectCmd
     {
-        uint32_t x;
-        uint32_t y;
-        uint32_t z;
+        uint x;
+        uint y;
+        uint z;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct DrawIndexedIndirectCmd
     {
-        uint32_t indexCount;
-        uint32_t instanceCount;
-        uint32_t firstIndex;
-        int32_t vertexOffset;
-        uint32_t firstInstance;
+        uint indexCount;
+        uint instanceCount;
+        uint firstIndex;
+        int vertexOffset;
+        uint firstInstance;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct DrawIndirectCmd
     {
-        uint32_t vertexCount;
-        uint32_t instanceCount;
-        uint32_t firstVertex;
-        uint32_t firstInstance;
+        uint vertexCount;
+        uint instanceCount;
+        uint firstVertex;
+        uint firstInstance;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -333,7 +333,7 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        float [4] blendConst;
+        fixed Single blendConst[4];
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -341,12 +341,12 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        float minDepthBounds;
-        float maxDepthBounds;
-        uint32_t stencilReadMask;
-        uint32_t stencilWriteMask;
-        uint32_t stencilFrontRef;
-        uint32_t stencilBackRef;
+        Single minDepthBounds;
+        Single maxDepthBounds;
+        uint stencilReadMask;
+        uint stencilWriteMask;
+        uint stencilFrontRef;
+        uint stencilBackRef;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -354,10 +354,10 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        float depthBias;
-        float depthBiasClamp;
-        float slopeScaledDepthBias;
-        float lineWidth;
+        Single depthBias;
+        Single depthBiasClamp;
+        Single slopeScaledDepthBias;
+        Single lineWidth;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -365,7 +365,7 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        uint32_t viewportAndScissorCount;
+        uint viewportAndScissorCount;
         Viewport* pViewports;
         Rect2D* pScissors;
     }
@@ -381,23 +381,23 @@ namespace OpenTK.Graphics.Vulkan
     [StructLayout(LayoutKind.Sequential)]
     public struct ExtensionProperties
     {
-        char [] extName;
-        uint32_t specVersion;
+        char[] extName;
+        uint specVersion;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct Extent2D
     {
-        int32_t width;
-        int32_t height;
+        int width;
+        int height;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct Extent3D
     {
-        int32_t width;
-        int32_t height;
-        int32_t depth;
+        int width;
+        int height;
+        int depth;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -421,11 +421,11 @@ namespace OpenTK.Graphics.Vulkan
         StructureType sType;
         void* pNext;
         RenderPass renderPass;
-        uint32_t attachmentCount;
+        uint attachmentCount;
         AttachmentView* pAttachments;
-        uint32_t width;
-        uint32_t height;
-        uint32_t layers;
+        uint width;
+        uint height;
+        uint layers;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -433,7 +433,7 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        uint32_t stageCount;
+        uint stageCount;
         PipelineShaderStageCreateInfo* pStages;
         PipelineVertexInputStateCreateInfo* pVertexInputState;
         PipelineInputAssemblyStateCreateInfo* pInputAssemblyState;
@@ -446,9 +446,9 @@ namespace OpenTK.Graphics.Vulkan
         PipelineCreateFlags flags;
         PipelineLayout layout;
         RenderPass renderPass;
-        uint32_t subpass;
+        uint subpass;
         Pipeline basePipelineHandle;
-        int32_t basePipelineIndex;
+        int basePipelineIndex;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -480,22 +480,22 @@ namespace OpenTK.Graphics.Vulkan
         ImageType imageType;
         Format format;
         Extent3D extent;
-        uint32_t mipLevels;
-        uint32_t arraySize;
-        uint32_t samples;
+        uint mipLevels;
+        uint arraySize;
+        uint samples;
         ImageTiling tiling;
         ImageUsageFlags usage;
         ImageCreateFlags flags;
         SharingMode sharingMode;
-        uint32_t queueFamilyCount;
-        uint32_t* pQueueFamilyIndices;
+        uint queueFamilyCount;
+        uint* pQueueFamilyIndices;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct ImageFormatProperties
     {
-        uint64_t maxResourceSize;
-        uint32_t maxSamples;
+        ulong maxResourceSize;
+        uint maxSamples;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -507,8 +507,8 @@ namespace OpenTK.Graphics.Vulkan
         MemoryInputFlags inputMask;
         ImageLayout oldLayout;
         ImageLayout newLayout;
-        uint32_t srcQueueFamilyIndex;
-        uint32_t destQueueFamilyIndex;
+        uint srcQueueFamilyIndex;
+        uint destQueueFamilyIndex;
         Image image;
         ImageSubresourceRange subresourceRange;
     }
@@ -527,18 +527,18 @@ namespace OpenTK.Graphics.Vulkan
     public struct ImageSubresource
     {
         ImageAspect aspect;
-        uint32_t mipLevel;
-        uint32_t arraySlice;
+        uint mipLevel;
+        uint arraySlice;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct ImageSubresourceRange
     {
         ImageAspect aspect;
-        uint32_t baseMipLevel;
-        uint32_t mipLevels;
-        uint32_t baseArraySlice;
-        uint32_t arraySize;
+        uint baseMipLevel;
+        uint mipLevels;
+        uint baseArraySlice;
+        uint arraySize;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -560,19 +560,19 @@ namespace OpenTK.Graphics.Vulkan
         void* pNext;
         ApplicationInfo* pAppInfo;
         AllocCallbacks* pAllocCb;
-        uint32_t layerCount;
+        uint layerCount;
         char** ppEnabledLayerNames;
-        uint32_t extensionCount;
+        uint extensionCount;
         char** ppEnabledExtensionNames;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct LayerProperties
     {
-        char [] layerName;
-        uint32_t specVersion;
-        uint32_t implVersion;
-        char [] description;
+        char[] layerName;
+        uint specVersion;
+        uint implVersion;
+        char[] description;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -581,8 +581,8 @@ namespace OpenTK.Graphics.Vulkan
         StructureType sType;
         void* pNext;
         DeviceMemory mem;
-        DeviceSize offset;
-        DeviceSize size;
+        IntPtr offset;
+        IntPtr size;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -590,8 +590,8 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        DeviceSize allocationSize;
-        uint32_t memoryTypeIndex;
+        IntPtr allocationSize;
+        uint memoryTypeIndex;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -606,38 +606,38 @@ namespace OpenTK.Graphics.Vulkan
     [StructLayout(LayoutKind.Sequential)]
     public struct MemoryHeap
     {
-        DeviceSize size;
+        IntPtr size;
         MemoryHeapFlags flags;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct MemoryRequirements
     {
-        DeviceSize size;
-        DeviceSize alignment;
-        uint32_t memoryTypeBits;
+        IntPtr size;
+        IntPtr alignment;
+        uint memoryTypeBits;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct MemoryType
     {
         MemoryPropertyFlags propertyFlags;
-        uint32_t heapIndex;
+        uint heapIndex;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct Offset2D
     {
-        int32_t x;
-        int32_t y;
+        int x;
+        int y;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct Offset3D
     {
-        int32_t x;
-        int32_t y;
-        int32_t z;
+        int x;
+        int y;
+        int z;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -706,119 +706,119 @@ namespace OpenTK.Graphics.Vulkan
     [StructLayout(LayoutKind.Sequential)]
     public struct PhysicalDeviceLimits
     {
-        uint32_t maxImageDimension1D;
-        uint32_t maxImageDimension2D;
-        uint32_t maxImageDimension3D;
-        uint32_t maxImageDimensionCube;
-        uint32_t maxImageArrayLayers;
-        uint32_t maxTexelBufferSize;
-        uint32_t maxUniformBufferSize;
-        uint32_t maxStorageBufferSize;
-        uint32_t maxPushConstantsSize;
-        uint32_t maxMemoryAllocationCount;
-        DeviceSize bufferImageGranularity;
-        uint32_t maxBoundDescriptorSets;
-        uint32_t maxDescriptorSets;
-        uint32_t maxPerStageDescriptorSamplers;
-        uint32_t maxPerStageDescriptorUniformBuffers;
-        uint32_t maxPerStageDescriptorStorageBuffers;
-        uint32_t maxPerStageDescriptorSampledImages;
-        uint32_t maxPerStageDescriptorStorageImages;
-        uint32_t maxDescriptorSetSamplers;
-        uint32_t maxDescriptorSetUniformBuffers;
-        uint32_t maxDescriptorSetStorageBuffers;
-        uint32_t maxDescriptorSetSampledImages;
-        uint32_t maxDescriptorSetStorageImages;
-        uint32_t maxVertexInputAttributes;
-        uint32_t maxVertexInputAttributeOffset;
-        uint32_t maxVertexInputBindingStride;
-        uint32_t maxVertexOutputComponents;
-        uint32_t maxTessGenLevel;
-        uint32_t maxTessPatchSize;
-        uint32_t maxTessControlPerVertexInputComponents;
-        uint32_t maxTessControlPerVertexOutputComponents;
-        uint32_t maxTessControlPerPatchOutputComponents;
-        uint32_t maxTessControlTotalOutputComponents;
-        uint32_t maxTessEvaluationInputComponents;
-        uint32_t maxTessEvaluationOutputComponents;
-        uint32_t maxGeometryShaderInvocations;
-        uint32_t maxGeometryInputComponents;
-        uint32_t maxGeometryOutputComponents;
-        uint32_t maxGeometryOutputVertices;
-        uint32_t maxGeometryTotalOutputComponents;
-        uint32_t maxFragmentInputComponents;
-        uint32_t maxFragmentOutputBuffers;
-        uint32_t maxFragmentDualSourceBuffers;
-        uint32_t maxFragmentCombinedOutputResources;
-        uint32_t maxComputeSharedMemorySize;
-        uint32_t [3] maxComputeWorkGroupCount;
-        uint32_t maxComputeWorkGroupInvocations;
-        uint32_t [3] maxComputeWorkGroupSize;
-        uint32_t subPixelPrecisionBits;
-        uint32_t subTexelPrecisionBits;
-        uint32_t mipmapPrecisionBits;
-        uint32_t maxDrawIndexedIndexValue;
-        uint32_t maxDrawIndirectInstanceCount;
+        uint maxImageDimension1D;
+        uint maxImageDimension2D;
+        uint maxImageDimension3D;
+        uint maxImageDimensionCube;
+        uint maxImageArrayLayers;
+        uint maxTexelBufferSize;
+        uint maxUniformBufferSize;
+        uint maxStorageBufferSize;
+        uint maxPushConstantsSize;
+        uint maxMemoryAllocationCount;
+        IntPtr bufferImageGranularity;
+        uint maxBoundDescriptorSets;
+        uint maxDescriptorSets;
+        uint maxPerStageDescriptorSamplers;
+        uint maxPerStageDescriptorUniformBuffers;
+        uint maxPerStageDescriptorStorageBuffers;
+        uint maxPerStageDescriptorSampledImages;
+        uint maxPerStageDescriptorStorageImages;
+        uint maxDescriptorSetSamplers;
+        uint maxDescriptorSetUniformBuffers;
+        uint maxDescriptorSetStorageBuffers;
+        uint maxDescriptorSetSampledImages;
+        uint maxDescriptorSetStorageImages;
+        uint maxVertexInputAttributes;
+        uint maxVertexInputAttributeOffset;
+        uint maxVertexInputBindingStride;
+        uint maxVertexOutputComponents;
+        uint maxTessGenLevel;
+        uint maxTessPatchSize;
+        uint maxTessControlPerVertexInputComponents;
+        uint maxTessControlPerVertexOutputComponents;
+        uint maxTessControlPerPatchOutputComponents;
+        uint maxTessControlTotalOutputComponents;
+        uint maxTessEvaluationInputComponents;
+        uint maxTessEvaluationOutputComponents;
+        uint maxGeometryShaderInvocations;
+        uint maxGeometryInputComponents;
+        uint maxGeometryOutputComponents;
+        uint maxGeometryOutputVertices;
+        uint maxGeometryTotalOutputComponents;
+        uint maxFragmentInputComponents;
+        uint maxFragmentOutputBuffers;
+        uint maxFragmentDualSourceBuffers;
+        uint maxFragmentCombinedOutputResources;
+        uint maxComputeSharedMemorySize;
+        fixed uint maxComputeWorkGroupCount[3];
+        uint maxComputeWorkGroupInvocations;
+        fixed uint maxComputeWorkGroupSize[3];
+        uint subPixelPrecisionBits;
+        uint subTexelPrecisionBits;
+        uint mipmapPrecisionBits;
+        uint maxDrawIndexedIndexValue;
+        uint maxDrawIndirectInstanceCount;
         Bool32 primitiveRestartForPatches;
-        float maxSamplerLodBias;
-        float maxSamplerAnisotropy;
-        uint32_t maxViewports;
-        uint32_t maxDynamicViewportStates;
-        uint32_t [2] maxViewportDimensions;
-        float [2] viewportBoundsRange;
-        uint32_t viewportSubPixelBits;
-        uint32_t minMemoryMapAlignment;
-        uint32_t minTexelBufferOffsetAlignment;
-        uint32_t minUniformBufferOffsetAlignment;
-        uint32_t minStorageBufferOffsetAlignment;
-        uint32_t minTexelOffset;
-        uint32_t maxTexelOffset;
-        uint32_t minTexelGatherOffset;
-        uint32_t maxTexelGatherOffset;
-        float minInterpolationOffset;
-        float maxInterpolationOffset;
-        uint32_t subPixelInterpolationOffsetBits;
-        uint32_t maxFramebufferWidth;
-        uint32_t maxFramebufferHeight;
-        uint32_t maxFramebufferLayers;
-        uint32_t maxFramebufferColorSamples;
-        uint32_t maxFramebufferDepthSamples;
-        uint32_t maxFramebufferStencilSamples;
-        uint32_t maxColorAttachments;
-        uint32_t maxSampledImageColorSamples;
-        uint32_t maxSampledImageDepthSamples;
-        uint32_t maxSampledImageIntegerSamples;
-        uint32_t maxStorageImageSamples;
-        uint32_t maxSampleMaskWords;
-        uint64_t timestampFrequency;
-        uint32_t maxClipDistances;
-        uint32_t maxCullDistances;
-        uint32_t maxCombinedClipAndCullDistances;
-        float [2] pointSizeRange;
-        float [2] lineWidthRange;
-        float pointSizeGranularity;
-        float lineWidthGranularity;
+        Single maxSamplerLodBias;
+        Single maxSamplerAnisotropy;
+        uint maxViewports;
+        uint maxDynamicViewportStates;
+        fixed uint maxViewportDimensions[2];
+        fixed Single viewportBoundsRange[2];
+        uint viewportSubPixelBits;
+        uint minMemoryMapAlignment;
+        uint minTexelBufferOffsetAlignment;
+        uint minUniformBufferOffsetAlignment;
+        uint minStorageBufferOffsetAlignment;
+        uint minTexelOffset;
+        uint maxTexelOffset;
+        uint minTexelGatherOffset;
+        uint maxTexelGatherOffset;
+        Single minInterpolationOffset;
+        Single maxInterpolationOffset;
+        uint subPixelInterpolationOffsetBits;
+        uint maxFramebufferWidth;
+        uint maxFramebufferHeight;
+        uint maxFramebufferLayers;
+        uint maxFramebufferColorSamples;
+        uint maxFramebufferDepthSamples;
+        uint maxFramebufferStencilSamples;
+        uint maxColorAttachments;
+        uint maxSampledImageColorSamples;
+        uint maxSampledImageDepthSamples;
+        uint maxSampledImageIntegerSamples;
+        uint maxStorageImageSamples;
+        uint maxSampleMaskWords;
+        ulong timestampFrequency;
+        uint maxClipDistances;
+        uint maxCullDistances;
+        uint maxCombinedClipAndCullDistances;
+        fixed Single pointSizeRange[2];
+        fixed Single lineWidthRange[2];
+        Single pointSizeGranularity;
+        Single lineWidthGranularity;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct PhysicalDeviceMemoryProperties
     {
-        uint32_t memoryTypeCount;
-        MemoryType [] memoryTypes;
-        uint32_t memoryHeapCount;
-        MemoryHeap [] memoryHeaps;
+        uint memoryTypeCount;
+        MemoryType[] memoryTypes;
+        uint memoryHeapCount;
+        MemoryHeap[] memoryHeaps;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct PhysicalDeviceProperties
     {
-        uint32_t apiVersion;
-        uint32_t driverVersion;
-        uint32_t vendorId;
-        uint32_t deviceId;
+        uint apiVersion;
+        uint driverVersion;
+        uint vendorId;
+        uint deviceId;
         PhysicalDeviceType deviceType;
-        char [] deviceName;
-        uint8_t [] pipelineCacheUUID;
+        char[] deviceName;
+        uint8_t[] pipelineCacheUUID;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -826,9 +826,9 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        size_t initialSize;
+        IntPtr initialSize;
         void* initialData;
-        size_t maxSize;
+        IntPtr maxSize;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -852,7 +852,7 @@ namespace OpenTK.Graphics.Vulkan
         Bool32 alphaToCoverageEnable;
         Bool32 logicOpEnable;
         LogicOp logicOp;
-        uint32_t attachmentCount;
+        uint attachmentCount;
         PipelineColorBlendAttachmentState* pAttachments;
     }
 
@@ -884,9 +884,9 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        uint32_t descriptorSetCount;
+        uint descriptorSetCount;
         DescriptorSetLayout* pSetLayouts;
-        uint32_t pushConstantRangeCount;
+        uint pushConstantRangeCount;
         PushConstantRange* pPushConstantRanges;
     }
 
@@ -895,9 +895,9 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        uint32_t rasterSamples;
+        uint rasterSamples;
         Bool32 sampleShadingEnable;
-        float minSampleShading;
+        Single minSampleShading;
         SampleMask sampleMask;
     }
 
@@ -928,7 +928,7 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        uint32_t patchControlPoints;
+        uint patchControlPoints;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -936,9 +936,9 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        uint32_t bindingCount;
+        uint bindingCount;
         VertexInputBindingDescription* pVertexBindingDescriptions;
-        uint32_t attributeCount;
+        uint attributeCount;
         VertexInputAttributeDescription* pVertexAttributeDescriptions;
     }
 
@@ -947,15 +947,15 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        uint32_t viewportCount;
+        uint viewportCount;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct PushConstantRange
     {
         ShaderStageFlags stageFlags;
-        uint32_t start;
-        uint32_t length;
+        uint start;
+        uint length;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -964,7 +964,7 @@ namespace OpenTK.Graphics.Vulkan
         StructureType sType;
         void* pNext;
         QueryType queryType;
-        uint32_t slots;
+        uint slots;
         QueryPipelineStatisticFlags pipelineStatistics;
     }
 
@@ -972,7 +972,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct QueueFamilyProperties
     {
         QueueFlags queueFlags;
-        uint32_t queueCount;
+        uint queueCount;
         Bool32 supportsTimestamps;
     }
 
@@ -998,7 +998,7 @@ namespace OpenTK.Graphics.Vulkan
         RenderPass renderPass;
         Framebuffer framebuffer;
         Rect2D renderArea;
-        uint32_t clearValueCount;
+        uint clearValueCount;
         ClearValue* pClearValues;
     }
 
@@ -1007,11 +1007,11 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        uint32_t attachmentCount;
+        uint attachmentCount;
         AttachmentDescription* pAttachments;
-        uint32_t subpassCount;
+        uint subpassCount;
         SubpassDescription* pSubpasses;
-        uint32_t dependencyCount;
+        uint dependencyCount;
         SubpassDependency* pDependencies;
     }
 
@@ -1026,12 +1026,12 @@ namespace OpenTK.Graphics.Vulkan
         TexAddress addressU;
         TexAddress addressV;
         TexAddress addressW;
-        float mipLodBias;
-        float maxAnisotropy;
+        Single mipLodBias;
+        Single maxAnisotropy;
         Bool32 compareEnable;
         CompareOp compareOp;
-        float minLod;
-        float maxLod;
+        Single minLod;
+        Single maxLod;
         BorderColor borderColor;
     }
 
@@ -1058,7 +1058,7 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        size_t codeSize;
+        IntPtr codeSize;
         void* pCode;
         ShaderModuleCreateFlags flags;
     }
@@ -1077,7 +1077,7 @@ namespace OpenTK.Graphics.Vulkan
         ImageSubresource subresource;
         Offset3D offset;
         Extent3D extent;
-        DeviceSize memOffset;
+        IntPtr memOffset;
         DeviceMemory mem;
         SparseMemoryBindFlags flags;
     }
@@ -1086,17 +1086,17 @@ namespace OpenTK.Graphics.Vulkan
     public struct SparseImageMemoryRequirements
     {
         SparseImageFormatProperties formatProps;
-        uint32_t imageMipTailStartLOD;
-        DeviceSize imageMipTailSize;
-        DeviceSize imageMipTailOffset;
-        DeviceSize imageMipTailStride;
+        uint imageMipTailStartLOD;
+        IntPtr imageMipTailSize;
+        IntPtr imageMipTailOffset;
+        IntPtr imageMipTailStride;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct SparseMemoryBindInfo
     {
-        DeviceSize offset;
-        DeviceSize memOffset;
+        IntPtr offset;
+        IntPtr memOffset;
         DeviceMemory mem;
         SparseMemoryBindFlags flags;
     }
@@ -1104,18 +1104,18 @@ namespace OpenTK.Graphics.Vulkan
     [StructLayout(LayoutKind.Sequential)]
     public struct SpecializationInfo
     {
-        uint32_t mapEntryCount;
+        uint mapEntryCount;
         SpecializationMapEntry* pMap;
-        size_t dataSize;
+        IntPtr dataSize;
         void* pData;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct SpecializationMapEntry
     {
-        uint32_t constantId;
-        size_t size;
-        uint32_t offset;
+        uint constantId;
+        IntPtr size;
+        uint offset;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -1132,8 +1132,8 @@ namespace OpenTK.Graphics.Vulkan
     {
         StructureType sType;
         void* pNext;
-        uint32_t srcSubpass;
-        uint32_t destSubpass;
+        uint srcSubpass;
+        uint destSubpass;
         PipelineStageFlags srcStageMask;
         PipelineStageFlags destStageMask;
         MemoryOutputFlags outputMask;
@@ -1148,51 +1148,51 @@ namespace OpenTK.Graphics.Vulkan
         void* pNext;
         PipelineBindPoint pipelineBindPoint;
         SubpassDescriptionFlags flags;
-        uint32_t inputCount;
+        uint inputCount;
         AttachmentReference* pInputAttachments;
-        uint32_t colorCount;
+        uint colorCount;
         AttachmentReference* pColorAttachments;
         AttachmentReference* pResolveAttachments;
         AttachmentReference depthStencilAttachment;
-        uint32_t preserveCount;
+        uint preserveCount;
         AttachmentReference* pPreserveAttachments;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct SubresourceLayout
     {
-        DeviceSize offset;
-        DeviceSize size;
-        DeviceSize rowPitch;
-        DeviceSize depthPitch;
+        IntPtr offset;
+        IntPtr size;
+        IntPtr rowPitch;
+        IntPtr depthPitch;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct VertexInputAttributeDescription
     {
-        uint32_t location;
-        uint32_t binding;
+        uint location;
+        uint binding;
         Format format;
-        uint32_t offsetInBytes;
+        uint offsetInBytes;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct VertexInputBindingDescription
     {
-        uint32_t binding;
-        uint32_t strideInBytes;
+        uint binding;
+        uint strideInBytes;
         VertexInputStepRate stepRate;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct Viewport
     {
-        float originX;
-        float originY;
-        float width;
-        float height;
-        float minDepth;
-        float maxDepth;
+        Single originX;
+        Single originY;
+        Single width;
+        Single height;
+        Single minDepth;
+        Single maxDepth;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -1201,9 +1201,9 @@ namespace OpenTK.Graphics.Vulkan
         StructureType sType;
         void* pNext;
         DescriptorSet destSet;
-        uint32_t destBinding;
-        uint32_t destArrayElement;
-        uint32_t count;
+        uint destBinding;
+        uint destArrayElement;
+        uint count;
         DescriptorType descriptorType;
         DescriptorInfo* pDescriptors;
     }
