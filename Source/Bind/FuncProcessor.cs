@@ -260,7 +260,7 @@ namespace Bind
             return GetPath("replace", apiname, apiversion, function, extension);
         }
 
-        void TranslateType(Bind.Structures.Type type,
+        void TranslateType(Bind.Structures.Type type, bool reference,
             XPathNavigator function_override, XPathNavigator overrides,
             EnumProcessor enum_processor, EnumCollection enums,
             string category, string apiname)
@@ -336,7 +336,7 @@ namespace Bind
                 }
             }
 
-            if ((type.Array == 0 && type.Pointer == 0 && !type.Reference) &&
+            if ((type.Array == 0 && type.Pointer == 0 && !reference) &&
                 (type.QualifiedType.ToLower().Contains("buffersize") ||
                 type.QualifiedType.ToLower().Contains("sizeiptr") ||
                 type.QualifiedType.Contains("size_t")))
@@ -565,7 +565,7 @@ namespace Bind
         {
             ApplyReturnTypeReplacement(d, function_override);
 
-            TranslateType(d.ReturnType, function_override, nav, enum_processor, enums, d.Category, apiname);
+            TranslateType(d.ReturnType, false, function_override, nav, enum_processor, enums, d.Category, apiname);
 
             if (d.ReturnType.CurrentType.ToLower() == "void" && d.ReturnType.Pointer != 0)
             {
@@ -638,7 +638,7 @@ namespace Bind
             EnumProcessor enum_processor, EnumCollection enums,
             string category, string apiname)
         {
-            TranslateType(p.Type, function_override, overrides, enum_processor, enums, category, apiname);
+            TranslateType(p.Type, p.Reference, function_override, overrides, enum_processor, enums, category, apiname);
 
             // Translate char* -> string. This simplifies the rest of the logic below
             if (p.Type.CurrentType.ToLower().Contains("char") && p.Type.Pointer > 0)
@@ -849,7 +849,7 @@ namespace Bind
                                     break;
 
                                 if (wrappers[i].Parameters[k].DiffersOnlyOnReference(wrappers[j].Parameters[k]))
-                                    if (wrappers[i].Parameters[k].Type.Reference)
+                                    if (wrappers[i].Parameters[k].Reference)
                                         function_i_is_problematic = true;
                                     else
                                         function_j_is_problematic = true;
@@ -1025,7 +1025,7 @@ namespace Bind
                 WrapperTypes.ReferenceParameter |
                 WrapperTypes.ArrayParameter);
             p_array.Type.Array = p_array.Type.Pointer = 0;
-            p_array.Type.Reference = false;
+            p_array.Reference = false;
             return f;
         }
 
@@ -1069,7 +1069,7 @@ namespace Bind
 
                             if (p.Type.ElementCount == 1)
                             {
-                                p.Type.Reference = true;
+                                p.Reference = true;
                             }
                             else
                             {
@@ -1085,7 +1085,7 @@ namespace Bind
                         {
                             var p = wrapper.Parameters[i];
 
-                            p.Type.Reference = true;
+                            p.Reference = true;
                             p.Type.Pointer--;
                         }
                     }
@@ -1138,7 +1138,7 @@ namespace Bind
                         generic_wrapper = generic_wrapper ?? new Function(wrapper);
                         var p = generic_wrapper.Parameters[i];
 
-                        p.Type.Reference = true;
+                        p.Reference = true;
                         p.Type.Pointer = 0;
                         p.Type.Array = 0;
                         p.Generic = true;
@@ -1169,7 +1169,7 @@ namespace Bind
                             }
                             var p = generic_wrapper.Parameters[i];
 
-                            p.Type.Reference = false;
+                            p.Reference = false;
                             p.Type.Pointer = 0;
                             p.Type.Array = arity;
                             if (arity == 0)

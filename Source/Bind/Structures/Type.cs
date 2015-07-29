@@ -33,7 +33,6 @@ namespace Bind.Structures
                 WrapperType = t.WrapperType;
                 Array = t.Array;
                 Pointer = t.Pointer;
-                Reference = t.Reference;
                 ElementCount = t.ElementCount;
                 IsEnum = t.IsEnum;
             }
@@ -127,18 +126,6 @@ namespace Bind.Structures
         {
             get { return _previous_type; }
             private set { _previous_type = value; }
-        }
-
-        #endregion
-
-        #region public bool Reference
-
-        bool reference;
-
-        public bool Reference
-        {
-            get { return reference; }
-            set { reference = value; }
         }
 
         #endregion
@@ -308,8 +295,6 @@ namespace Bind.Structures
             if (result == 0)
                 result = Pointer.CompareTo(other.Pointer); // Must come after array/ref, see issue [#1098]
             if (result == 0)
-                result = Reference.CompareTo(other.Reference);
-            if (result == 0)
                 result = Array.CompareTo(other.Array);
             // Note: CLS-compliance and element counts
             // are used for comparison calculations, in order
@@ -331,7 +316,6 @@ namespace Bind.Structures
             bool result =
                 CurrentType.Equals(other.CurrentType) &&
                 Pointer.Equals(other.Pointer) &&
-                Reference.Equals(other.Reference) &&
                 Array.Equals(other.Array);
             // Note: CLS-compliance and element count do not factor
             // factor into the equality calculations, i.e.

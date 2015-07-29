@@ -42,6 +42,7 @@ namespace Bind.Structures
             Name = p.Name;
             Unchecked = p.Unchecked;
             UnmanagedType = p.UnmanagedType;
+            Reference = p.Reference;
             Generic = p.Generic;
             Flow = p.Flow;
             cache = p.cache;
@@ -122,6 +123,18 @@ namespace Bind.Structures
 
         #endregion
 
+        #region public bool Reference
+
+        bool reference;
+
+        public bool Reference
+        {
+            get { return reference; }
+            set { reference = value; }
+        }
+
+        #endregion
+
         #region public FlowDirection Flow
 
         FlowDirection _flow;
@@ -149,7 +162,7 @@ namespace Bind.Structures
         {
             get
             {
-                return (Type.Array > 0 || Type.Reference || Type.CurrentType == "object") &&
+                return (Type.Array > 0 || Reference || Type.CurrentType == "object") &&
                         !Type.CurrentType.ToLower().Contains("string");
             }
         }
@@ -197,8 +210,8 @@ namespace Bind.Structures
         {
             return
                 Type.CurrentType == other.Type.CurrentType &&
-                (Type.Reference && !(other.Type.Reference || other.Type.Array > 0 || other.Type.Pointer != 0) ||
-                other.Type.Reference && !(Type.Reference || Type.Array > 0 || Type.Pointer != 0));
+                (Reference && !(other.Reference || other.Type.Array > 0 || other.Type.Pointer != 0) ||
+                other.Reference && !(Reference || Type.Array > 0 || Type.Pointer != 0));
         }
 
         #endregion
@@ -232,6 +245,8 @@ namespace Bind.Structures
             int result = Type.CompareTo(other.Type);
             if (result == 0)
                 result = Name.CompareTo(other.Name);
+            if (result == 0)
+                result = Reference.CompareTo(other.Reference);
             return result;
         }
 
@@ -244,7 +259,7 @@ namespace Bind.Structures
             return String.Format("{2}{0} {1}",
                 Type.ToString(),
                 Name,
-                Type.Reference ? 
+                Reference ? 
                     Flow == FlowDirection.Out ? "out " : "ref " :
                     String.Empty);
         }
@@ -257,7 +272,8 @@ namespace Bind.Structures
         {
             bool result =
                 Type.Equals(other.Type) &&
-                Name.Equals(other.Name);
+                Name.Equals(other.Name) &&
+                Reference.Equals(other.Reference);
 
             return result;
         }
@@ -389,7 +405,7 @@ namespace Bind.Structures
                 if (p.Type.Pointer != 0 || p.Type.CurrentType.Contains("IntPtr"))
                     hasPointerParameters = true;
 
-                if (p.Type.Reference)
+                if (p.Reference)
                     hasReferenceParameters = true;
 
                 if (p.Type.Unsigned)

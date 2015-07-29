@@ -762,7 +762,7 @@ namespace Bind
             else if (p.Flow == FlowDirection.Undefined)
                 sb.Append("[InAttribute, OutAttribute] ");
 
-            if (p.Type.Reference)
+            if (p.Reference)
             {
                 if (p.Flow == FlowDirection.Out)
                     sb.Append("out ");
