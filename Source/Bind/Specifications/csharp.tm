@@ -157,7 +157,10 @@ cl_work_group_info, WorkGroupInfo
 
 # Vulkan types
 
+Bool32, bool
 bool32_t, bool
 uint32_t, uint
 uint64_t, ulong
 DeviceSize, IntPtr
+PFN_vkAllocFunction, IntPtr
+PFN_vkFreeFunction, IntPtr

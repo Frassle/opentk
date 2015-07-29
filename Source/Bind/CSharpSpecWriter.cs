@@ -193,8 +193,19 @@ namespace Bind
                 {
                     sw.Write("Sequential");
                 }
+
+                bool isUnsafe = false;
+                foreach (var member in structure.Members)
+                {
+                    if (member.Type.Pointer > 0 || member.Type.ElementCount > 0)
+                    {
+                        isUnsafe = true;
+                        break;
+                    }
+                }
+
                 sw.WriteLine(")]");
-                sw.WriteLine("public struct {0}", structure.Name);
+                sw.WriteLine("public{0}struct {1}", isUnsafe ? " unsafe " : " ", structure.Name);
                 sw.WriteLine("{");
                 sw.Indent();
                 foreach (var member in structure.Members)
