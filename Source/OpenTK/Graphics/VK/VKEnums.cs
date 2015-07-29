@@ -2668,6 +2668,14 @@ namespace OpenTK.Graphics.Vulkan
     /// <summary>
     /// Not used directly.
     /// </summary>
+    [Flags]
+    public enum CmdBufferCreateFlags : int
+    {
+    }
+
+    /// <summary>
+    /// Not used directly.
+    /// </summary>
     public enum CmdBufferLevel : int
     {
         /// <summary>
@@ -2901,6 +2909,14 @@ namespace OpenTK.Graphics.Vulkan
         /// Original was VK_DEVICE_CREATE_VALIDATION_BIT = 0x1
         /// </summary>
         DeviceCreateValidationBit = ((int)0x1),
+    }
+
+    /// <summary>
+    /// Not used directly.
+    /// </summary>
+    [Flags]
+    public enum EventCreateFlags : int
+    {
     }
 
     /// <summary>
@@ -4082,6 +4098,14 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     /// <summary>
+    /// Used in GL.MapMemory
+    /// </summary>
+    [Flags]
+    public enum MemoryMapFlags : int
+    {
+    }
+
+    /// <summary>
     /// Not used directly.
     /// </summary>
     [Flags]
@@ -4641,6 +4665,30 @@ namespace OpenTK.Graphics.Vulkan
         /// Original was VK_ERROR_INVALID_VALUE = -9
         /// </summary>
         ErrorInvalidValue = ((int)-9),
+    }
+
+    /// <summary>
+    /// Not used directly.
+    /// </summary>
+    [Flags]
+    public enum SemaphoreCreateFlags : int
+    {
+    }
+
+    /// <summary>
+    /// Not used directly.
+    /// </summary>
+    [Flags]
+    public enum ShaderCreateFlags : int
+    {
+    }
+
+    /// <summary>
+    /// Not used directly.
+    /// </summary>
+    [Flags]
+    public enum ShaderModuleCreateFlags : int
+    {
     }
 
     /// <summary>

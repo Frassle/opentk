@@ -818,7 +818,7 @@ namespace OpenTK.Graphics.Vulkan
         uint deviceId;
         PhysicalDeviceType deviceType;
         char[] deviceName;
-        uint8_t[] pipelineCacheUUID;
+        byte[] pipelineCacheUUID;
     }
 
     [StructLayout(LayoutKind.Sequential)]
