@@ -1675,6 +1675,37 @@
       <param name="waitAll" type="Bool32" />
       <param name="timeout" type="uint64_t" />
     </function>
+    <handle name="AttachmentView" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="Buffer" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="BufferView" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="CmdBuffer" method="DEFINE_HANDLE" />
+    <handle name="CmdPool" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="DescriptorPool" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="DescriptorSet" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="DescriptorSetLayout" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="Device" method="DEFINE_HANDLE" />
+    <handle name="DeviceMemory" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="DynamicColorBlendState" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="DynamicDepthStencilState" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="DynamicRasterState" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="DynamicViewportState" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="Event" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="Fence" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="Framebuffer" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="Image" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="ImageView" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="Instance" method="DEFINE_HANDLE" />
+    <handle name="PhysicalDevice" method="DEFINE_HANDLE" />
+    <handle name="Pipeline" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="PipelineCache" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="PipelineLayout" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="QueryPool" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="Queue" method="DEFINE_HANDLE" />
+    <handle name="RenderPass" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="Sampler" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="Semaphore" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="Shader" method="DEFINE_NONDISP_HANDLE" />
+    <handle name="ShaderModule" method="DEFINE_NONDISP_HANDLE" />
     <struct name="AllocCallbacks" union="false">
       <member name="pUserData" type="void*" />
       <member name="pfnAlloc" type="PFN_vkAllocFunction" />

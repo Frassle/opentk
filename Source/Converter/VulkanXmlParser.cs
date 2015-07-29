@@ -169,6 +169,16 @@ namespace OpenTK.Convert
             return tkenum;
         }
 
+        private XElement ParseHandle(XElement handle)
+        {
+            var name = TrimName(handle.Element("name").Value);
+            var method = handle.Value.Substring(0, handle.Value.IndexOf("(")).Replace("VK_", "");
+
+            return new XElement("handle",
+                new XAttribute("name", name),
+                new XAttribute("method", method));
+        }
+
         private IEnumerable<XElement> ParseTypes(XDocument input)
         {
             var types = input.Root.Elements("types").Elements("type");
@@ -189,6 +199,10 @@ namespace OpenTK.Convert
                         {
                             yield return bitmask;
                         }
+                    }
+                    if (category.Value == "handle")
+                    {
+                        yield return ParseHandle(type);
                     }
                 }
             }
