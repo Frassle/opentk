@@ -159,8 +159,10 @@ cl_work_group_info, WorkGroupInfo
 
 Bool32, bool
 bool32_t, bool
+uint8_t, byte
 uint32_t, uint
 uint64_t, ulong
 DeviceSize, IntPtr
 PFN_vkAllocFunction, IntPtr
 PFN_vkFreeFunction, IntPtr
+PFN_vkVoidFunction, IntPtr
