@@ -32,15 +32,15 @@ namespace OpenTK.Graphics.Vulkan
     using System.Runtime.InteropServices;
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct AllocCallbacks
+    public unsafe struct AllocCallbacks
     {
         void* pUserData;
-        PFN_vkAllocFunction pfnAlloc;
-        PFN_vkFreeFunction pfnFree;
+        IntPtr pfnAlloc;
+        IntPtr pfnFree;
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct ApplicationInfo
+    public unsafe struct ApplicationInfo
     {
         StructureType sType;
         void* pNext;
@@ -52,7 +52,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct AttachmentDescription
+    public unsafe struct AttachmentDescription
     {
         StructureType sType;
         void* pNext;
@@ -74,7 +74,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct AttachmentViewCreateInfo
+    public unsafe struct AttachmentViewCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -95,7 +95,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct BufferCreateInfo
+    public unsafe struct BufferCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -119,7 +119,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct BufferMemoryBarrier
+    public unsafe struct BufferMemoryBarrier
     {
         StructureType sType;
         void* pNext;
@@ -133,7 +133,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct BufferViewCreateInfo
+    public unsafe struct BufferViewCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -154,7 +154,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Explicit)]
-    public struct ClearColorValue
+    public unsafe struct ClearColorValue
     {
         [FieldOffset(0)]
         fixed Single f32[4];
@@ -181,7 +181,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct CmdBufferBeginInfo
+    public unsafe struct CmdBufferBeginInfo
     {
         StructureType sType;
         void* pNext;
@@ -191,7 +191,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct CmdBufferCreateInfo
+    public unsafe struct CmdBufferCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -201,7 +201,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct CmdPoolCreateInfo
+    public unsafe struct CmdPoolCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -210,7 +210,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct ComputePipelineCreateInfo
+    public unsafe struct ComputePipelineCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -222,7 +222,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct CopyDescriptorSet
+    public unsafe struct CopyDescriptorSet
     {
         StructureType sType;
         void* pNext;
@@ -246,7 +246,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct DescriptorPoolCreateInfo
+    public unsafe struct DescriptorPoolCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -255,7 +255,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct DescriptorSetLayoutBinding
+    public unsafe struct DescriptorSetLayoutBinding
     {
         DescriptorType descriptorType;
         uint arraySize;
@@ -264,7 +264,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct DescriptorSetLayoutCreateInfo
+    public unsafe struct DescriptorSetLayoutCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -280,7 +280,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct DeviceCreateInfo
+    public unsafe struct DeviceCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -329,7 +329,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct DynamicColorBlendStateCreateInfo
+    public unsafe struct DynamicColorBlendStateCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -337,7 +337,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct DynamicDepthStencilStateCreateInfo
+    public unsafe struct DynamicDepthStencilStateCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -350,7 +350,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct DynamicRasterStateCreateInfo
+    public unsafe struct DynamicRasterStateCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -361,7 +361,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct DynamicViewportStateCreateInfo
+    public unsafe struct DynamicViewportStateCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -371,7 +371,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct EventCreateInfo
+    public unsafe struct EventCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -401,7 +401,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct FenceCreateInfo
+    public unsafe struct FenceCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -416,7 +416,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct FramebufferCreateInfo
+    public unsafe struct FramebufferCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -429,7 +429,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct GraphicsPipelineCreateInfo
+    public unsafe struct GraphicsPipelineCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -473,7 +473,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct ImageCreateInfo
+    public unsafe struct ImageCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -499,7 +499,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct ImageMemoryBarrier
+    public unsafe struct ImageMemoryBarrier
     {
         StructureType sType;
         void* pNext;
@@ -542,7 +542,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct ImageViewCreateInfo
+    public unsafe struct ImageViewCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -554,7 +554,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct InstanceCreateInfo
+    public unsafe struct InstanceCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -576,7 +576,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct MappedMemoryRange
+    public unsafe struct MappedMemoryRange
     {
         StructureType sType;
         void* pNext;
@@ -586,7 +586,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct MemoryAllocInfo
+    public unsafe struct MemoryAllocInfo
     {
         StructureType sType;
         void* pNext;
@@ -595,7 +595,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct MemoryBarrier
+    public unsafe struct MemoryBarrier
     {
         StructureType sType;
         void* pNext;
@@ -643,68 +643,68 @@ namespace OpenTK.Graphics.Vulkan
     [StructLayout(LayoutKind.Sequential)]
     public struct PhysicalDeviceFeatures
     {
-        Bool32 robustBufferAccess;
-        Bool32 fullDrawIndexUint32;
-        Bool32 imageCubeArray;
-        Bool32 independentBlend;
-        Bool32 geometryShader;
-        Bool32 tessellationShader;
-        Bool32 sampleRateShading;
-        Bool32 dualSourceBlend;
-        Bool32 logicOp;
-        Bool32 instancedDrawIndirect;
-        Bool32 depthClip;
-        Bool32 depthBiasClamp;
-        Bool32 fillModeNonSolid;
-        Bool32 depthBounds;
-        Bool32 wideLines;
-        Bool32 largePoints;
-        Bool32 textureCompressionETC2;
-        Bool32 textureCompressionASTC_LDR;
-        Bool32 textureCompressionBC;
-        Bool32 pipelineStatisticsQuery;
-        Bool32 vertexSideEffects;
-        Bool32 tessellationSideEffects;
-        Bool32 geometrySideEffects;
-        Bool32 fragmentSideEffects;
-        Bool32 shaderTessellationPointSize;
-        Bool32 shaderGeometryPointSize;
-        Bool32 shaderTextureGatherExtended;
-        Bool32 shaderStorageImageExtendedFormats;
-        Bool32 shaderStorageImageMultisample;
-        Bool32 shaderStorageBufferArrayConstantIndexing;
-        Bool32 shaderStorageImageArrayConstantIndexing;
-        Bool32 shaderUniformBufferArrayDynamicIndexing;
-        Bool32 shaderSampledImageArrayDynamicIndexing;
-        Bool32 shaderStorageBufferArrayDynamicIndexing;
-        Bool32 shaderStorageImageArrayDynamicIndexing;
-        Bool32 shaderClipDistance;
-        Bool32 shaderCullDistance;
-        Bool32 shaderFloat64;
-        Bool32 shaderInt64;
-        Bool32 shaderFloat16;
-        Bool32 shaderInt16;
-        Bool32 shaderResourceResidency;
-        Bool32 shaderResourceMinLOD;
-        Bool32 sparse;
-        Bool32 sparseResidencyBuffer;
-        Bool32 sparseResidencyImage2D;
-        Bool32 sparseResidencyImage3D;
-        Bool32 sparseResidency2Samples;
-        Bool32 sparseResidency4Samples;
-        Bool32 sparseResidency8Samples;
-        Bool32 sparseResidency16Samples;
-        Bool32 sparseResidencyStandard2DBlockShape;
-        Bool32 sparseResidencyStandard2DMSBlockShape;
-        Bool32 sparseResidencyStandard3DBlockShape;
-        Bool32 sparseResidencyAlignedMipSize;
-        Bool32 sparseResidencyNonResident;
-        Bool32 sparseResidencyNonResidentStrict;
-        Bool32 sparseResidencyAliased;
+        bool robustBufferAccess;
+        bool fullDrawIndexUint32;
+        bool imageCubeArray;
+        bool independentBlend;
+        bool geometryShader;
+        bool tessellationShader;
+        bool sampleRateShading;
+        bool dualSourceBlend;
+        bool logicOp;
+        bool instancedDrawIndirect;
+        bool depthClip;
+        bool depthBiasClamp;
+        bool fillModeNonSolid;
+        bool depthBounds;
+        bool wideLines;
+        bool largePoints;
+        bool textureCompressionETC2;
+        bool textureCompressionASTC_LDR;
+        bool textureCompressionBC;
+        bool pipelineStatisticsQuery;
+        bool vertexSideEffects;
+        bool tessellationSideEffects;
+        bool geometrySideEffects;
+        bool fragmentSideEffects;
+        bool shaderTessellationPointSize;
+        bool shaderGeometryPointSize;
+        bool shaderTextureGatherExtended;
+        bool shaderStorageImageExtendedFormats;
+        bool shaderStorageImageMultisample;
+        bool shaderStorageBufferArrayConstantIndexing;
+        bool shaderStorageImageArrayConstantIndexing;
+        bool shaderUniformBufferArrayDynamicIndexing;
+        bool shaderSampledImageArrayDynamicIndexing;
+        bool shaderStorageBufferArrayDynamicIndexing;
+        bool shaderStorageImageArrayDynamicIndexing;
+        bool shaderClipDistance;
+        bool shaderCullDistance;
+        bool shaderFloat64;
+        bool shaderInt64;
+        bool shaderFloat16;
+        bool shaderInt16;
+        bool shaderResourceResidency;
+        bool shaderResourceMinLOD;
+        bool sparse;
+        bool sparseResidencyBuffer;
+        bool sparseResidencyImage2D;
+        bool sparseResidencyImage3D;
+        bool sparseResidency2Samples;
+        bool sparseResidency4Samples;
+        bool sparseResidency8Samples;
+        bool sparseResidency16Samples;
+        bool sparseResidencyStandard2DBlockShape;
+        bool sparseResidencyStandard2DMSBlockShape;
+        bool sparseResidencyStandard3DBlockShape;
+        bool sparseResidencyAlignedMipSize;
+        bool sparseResidencyNonResident;
+        bool sparseResidencyNonResidentStrict;
+        bool sparseResidencyAliased;
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct PhysicalDeviceLimits
+    public unsafe struct PhysicalDeviceLimits
     {
         uint maxImageDimension1D;
         uint maxImageDimension2D;
@@ -759,7 +759,7 @@ namespace OpenTK.Graphics.Vulkan
         uint mipmapPrecisionBits;
         uint maxDrawIndexedIndexValue;
         uint maxDrawIndirectInstanceCount;
-        Bool32 primitiveRestartForPatches;
+        bool primitiveRestartForPatches;
         Single maxSamplerLodBias;
         Single maxSamplerAnisotropy;
         uint maxViewports;
@@ -822,7 +822,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct PipelineCacheCreateInfo
+    public unsafe struct PipelineCacheCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -834,7 +834,7 @@ namespace OpenTK.Graphics.Vulkan
     [StructLayout(LayoutKind.Sequential)]
     public struct PipelineColorBlendAttachmentState
     {
-        Bool32 blendEnable;
+        bool blendEnable;
         Blend srcBlendColor;
         Blend destBlendColor;
         BlendOp blendOpColor;
@@ -845,42 +845,42 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct PipelineColorBlendStateCreateInfo
+    public unsafe struct PipelineColorBlendStateCreateInfo
     {
         StructureType sType;
         void* pNext;
-        Bool32 alphaToCoverageEnable;
-        Bool32 logicOpEnable;
+        bool alphaToCoverageEnable;
+        bool logicOpEnable;
         LogicOp logicOp;
         uint attachmentCount;
         PipelineColorBlendAttachmentState* pAttachments;
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct PipelineDepthStencilStateCreateInfo
+    public unsafe struct PipelineDepthStencilStateCreateInfo
     {
         StructureType sType;
         void* pNext;
-        Bool32 depthTestEnable;
-        Bool32 depthWriteEnable;
+        bool depthTestEnable;
+        bool depthWriteEnable;
         CompareOp depthCompareOp;
-        Bool32 depthBoundsEnable;
-        Bool32 stencilTestEnable;
+        bool depthBoundsEnable;
+        bool stencilTestEnable;
         StencilOpState front;
         StencilOpState back;
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct PipelineInputAssemblyStateCreateInfo
+    public unsafe struct PipelineInputAssemblyStateCreateInfo
     {
         StructureType sType;
         void* pNext;
         PrimitiveTopology topology;
-        Bool32 primitiveRestartEnable;
+        bool primitiveRestartEnable;
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct PipelineLayoutCreateInfo
+    public unsafe struct PipelineLayoutCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -891,30 +891,30 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct PipelineMultisampleStateCreateInfo
+    public unsafe struct PipelineMultisampleStateCreateInfo
     {
         StructureType sType;
         void* pNext;
         uint rasterSamples;
-        Bool32 sampleShadingEnable;
+        bool sampleShadingEnable;
         Single minSampleShading;
         SampleMask sampleMask;
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct PipelineRasterStateCreateInfo
+    public unsafe struct PipelineRasterStateCreateInfo
     {
         StructureType sType;
         void* pNext;
-        Bool32 depthClipEnable;
-        Bool32 rasterizerDiscardEnable;
+        bool depthClipEnable;
+        bool rasterizerDiscardEnable;
         FillMode fillMode;
         CullMode cullMode;
         FrontFace frontFace;
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct PipelineShaderStageCreateInfo
+    public unsafe struct PipelineShaderStageCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -924,7 +924,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct PipelineTessellationStateCreateInfo
+    public unsafe struct PipelineTessellationStateCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -932,7 +932,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct PipelineVertexInputStateCreateInfo
+    public unsafe struct PipelineVertexInputStateCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -943,7 +943,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct PipelineViewportStateCreateInfo
+    public unsafe struct PipelineViewportStateCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -959,7 +959,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct QueryPoolCreateInfo
+    public unsafe struct QueryPoolCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -973,7 +973,7 @@ namespace OpenTK.Graphics.Vulkan
     {
         QueueFlags queueFlags;
         uint queueCount;
-        Bool32 supportsTimestamps;
+        bool supportsTimestamps;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -991,7 +991,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct RenderPassBeginInfo
+    public unsafe struct RenderPassBeginInfo
     {
         StructureType sType;
         void* pNext;
@@ -1003,7 +1003,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct RenderPassCreateInfo
+    public unsafe struct RenderPassCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -1016,7 +1016,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct SamplerCreateInfo
+    public unsafe struct SamplerCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -1028,7 +1028,7 @@ namespace OpenTK.Graphics.Vulkan
         TexAddress addressW;
         Single mipLodBias;
         Single maxAnisotropy;
-        Bool32 compareEnable;
+        bool compareEnable;
         CompareOp compareOp;
         Single minLod;
         Single maxLod;
@@ -1036,7 +1036,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct SemaphoreCreateInfo
+    public unsafe struct SemaphoreCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -1044,7 +1044,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct ShaderCreateInfo
+    public unsafe struct ShaderCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -1054,7 +1054,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct ShaderModuleCreateInfo
+    public unsafe struct ShaderModuleCreateInfo
     {
         StructureType sType;
         void* pNext;
@@ -1102,7 +1102,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct SpecializationInfo
+    public unsafe struct SpecializationInfo
     {
         uint mapEntryCount;
         SpecializationMapEntry* pMap;
@@ -1128,7 +1128,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct SubpassDependency
+    public unsafe struct SubpassDependency
     {
         StructureType sType;
         void* pNext;
@@ -1138,11 +1138,11 @@ namespace OpenTK.Graphics.Vulkan
         PipelineStageFlags destStageMask;
         MemoryOutputFlags outputMask;
         MemoryInputFlags inputMask;
-        Bool32 byRegion;
+        bool byRegion;
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct SubpassDescription
+    public unsafe struct SubpassDescription
     {
         StructureType sType;
         void* pNext;
@@ -1196,7 +1196,7 @@ namespace OpenTK.Graphics.Vulkan
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct WriteDescriptorSet
+    public unsafe struct WriteDescriptorSet
     {
         StructureType sType;
         void* pNext;
