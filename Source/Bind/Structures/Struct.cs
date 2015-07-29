@@ -50,7 +50,7 @@ namespace Bind.Structures
         {
             get
             {
-                return Members.All(p => p.CLSCompliant);
+                return Members.All(p => p.Type.CLSCompliant);
             }
         }
     }

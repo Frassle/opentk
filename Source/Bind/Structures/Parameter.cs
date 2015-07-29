@@ -15,7 +15,7 @@ namespace Bind.Structures
     /// <summary>
     /// Represents a single parameter of an opengl function.
     /// </summary>
-    class Parameter : Type, IComparable<Parameter>, IEquatable<Parameter>
+    class Parameter : IComparable<Parameter>, IEquatable<Parameter>
     {
         string cache;
 
@@ -25,8 +25,8 @@ namespace Bind.Structures
         /// Creates a new Parameter without type and name.
         /// </summary>
         public Parameter()
-            :base()
         {
+            Type = new Type();
         }
 
         /// <summary>
@@ -34,11 +34,11 @@ namespace Bind.Structures
         /// </summary>
         /// <param name="p">The parameter to copy from.</param>
         public Parameter(Parameter p)
-            : base(p)
         {
             if (p == null)
                 return;
 
+            Type = new Type(p.Type);
             Name = p.Name;
             Unchecked = p.Unchecked;
             UnmanagedType = p.UnmanagedType;
@@ -47,6 +47,16 @@ namespace Bind.Structures
             cache = p.cache;
             ComputeSize = p.ComputeSize;
             //this.rebuild = false;
+        }
+
+        #endregion
+
+        #region Type
+
+        public Type Type
+        {
+            get;
+            set;
         }
 
         #endregion
@@ -82,7 +92,7 @@ namespace Bind.Structures
                 {
                     while (value.StartsWith("*"))
                     {
-                        Pointer++;
+                        Type.Pointer++;
                         value = value.Substring(1);
                     }
                     RawName = value;
@@ -139,8 +149,8 @@ namespace Bind.Structures
         {
             get
             {
-                return (Array > 0 || Reference || CurrentType == "object") &&
-                        !CurrentType.ToLower().Contains("string");
+                return (Type.Array > 0 || Type.Reference || Type.CurrentType == "object") &&
+                        !Type.CurrentType.ToLower().Contains("string");
             }
         }
 
@@ -186,9 +196,9 @@ namespace Bind.Structures
         public bool DiffersOnlyOnReference(Parameter other)
         {
             return
-                CurrentType == other.CurrentType &&
-                (Reference && !(other.Reference || other.Array > 0 || other.Pointer != 0) ||
-                other.Reference && !(Reference || Array > 0 || Pointer != 0));
+                Type.CurrentType == other.Type.CurrentType &&
+                (Type.Reference && !(other.Type.Reference || other.Type.Array > 0 || other.Type.Pointer != 0) ||
+                other.Type.Reference && !(Type.Reference || Type.Array > 0 || Type.Pointer != 0));
         }
 
         #endregion
@@ -219,7 +229,7 @@ namespace Bind.Structures
 
         public int CompareTo(Parameter other)
         {
-            int result = base.CompareTo(other);
+            int result = Type.CompareTo(other.Type);
             if (result == 0)
                 result = Name.CompareTo(other.Name);
             return result;
@@ -232,9 +242,9 @@ namespace Bind.Structures
         public override string ToString()
         {
             return String.Format("{2}{0} {1}",
-                base.ToString(),
+                Type.ToString(),
                 Name,
-                Reference ? 
+                Type.Reference ? 
                     Flow == FlowDirection.Out ? "out " : "ref " :
                     String.Empty);
         }
@@ -246,7 +256,7 @@ namespace Bind.Structures
         public bool Equals(Parameter other)
         {
             bool result =
-                base.Equals(other as Type) &&
+                Type.Equals(other.Type) &&
                 Name.Equals(other.Name);
 
             return result;
@@ -376,13 +386,13 @@ namespace Bind.Structures
         {
             foreach (Parameter p in this)
             {
-                if (p.Pointer != 0 || p.CurrentType.Contains("IntPtr"))
+                if (p.Type.Pointer != 0 || p.Type.CurrentType.Contains("IntPtr"))
                     hasPointerParameters = true;
 
-                if (p.Reference)
+                if (p.Type.Reference)
                     hasReferenceParameters = true;
 
-                if (p.Unsigned)
+                if (p.Type.Unsigned)
                     hasUnsignedParameters = true;
 
                 if (p.Generic)
@@ -421,7 +431,7 @@ namespace Bind.Structures
         public bool ContainsType(string type)
         {
             foreach (Parameter p in this)
-                if (p.CurrentType == type)
+                if (p.Type.CurrentType == type)
                     return true;
             return false;
         }

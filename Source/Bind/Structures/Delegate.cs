@@ -81,7 +81,7 @@ namespace Bind.Structures
 
                 foreach (Parameter p in Parameters)
                 {
-                    if (!p.CLSCompliant)
+                    if (!p.Type.CLSCompliant)
                         return false;
                 }
                 return true;
@@ -124,7 +124,7 @@ namespace Bind.Structures
 
                 foreach (Parameter p in Parameters)
                 {
-                    if (p.WrapperType != WrapperTypes.None)
+                    if (p.Type.WrapperType != WrapperTypes.None)
                         return true;
                 }
 
@@ -153,7 +153,7 @@ namespace Bind.Structures
 
                 foreach (Parameter p in Parameters)
                 {
-                    if (p.Pointer != 0)
+                    if (p.Type.Pointer != 0)
                     {
                         return true;
                     }

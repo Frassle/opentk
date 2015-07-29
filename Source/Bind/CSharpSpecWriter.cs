@@ -215,7 +215,7 @@ namespace Bind
                 sw.WriteLine("[FieldOffset(0)]");
             }
 
-            sw.WriteLine("{0} {1};", member.CurrentType, member.Name);
+            sw.WriteLine("{0} {1};", member.Type.CurrentType, member.Name);
         }
 
         #endregion
@@ -549,9 +549,9 @@ namespace Bind
                 foreach (var wrapper in wrappers.Values.SelectMany(w => w))
                 {
                     // Add every function to every enum parameter it references
-                    foreach (var parameter in wrapper.Parameters.Where(p => p.IsEnum))
+                    foreach (var parameter in wrapper.Parameters.Where(p => p.Type.IsEnum))
                     {
-                        var e = enums[parameter.CurrentType];
+                        var e = enums[parameter.Type.CurrentType];
                         var list = enum_counts[e];
                         list.Add(wrapper);
                     }
@@ -730,7 +730,7 @@ namespace Bind
                 {
                     if (p.Generic)
                     {
-                        sb.Append(p.CurrentType);
+                        sb.Append(p.Type.CurrentType);
                         sb.Append(",");
                     }
                 }
@@ -746,7 +746,7 @@ namespace Bind
                 foreach (Parameter p in f.Parameters)
                 {
                     if (p.Generic)
-                        sb.AppendLine(String.Format("    where {0} : struct", p.CurrentType));
+                        sb.AppendLine(String.Format("    where {0} : struct", p.Type.CurrentType));
                 }
             }
 
@@ -762,7 +762,7 @@ namespace Bind
             else if (p.Flow == FlowDirection.Undefined)
                 sb.Append("[InAttribute, OutAttribute] ");
 
-            if (p.Reference)
+            if (p.Type.Reference)
             {
                 if (p.Flow == FlowDirection.Out)
                     sb.Append("out ");
@@ -772,18 +772,18 @@ namespace Bind
 
             if (!override_unsafe_setting && ((Settings.Compatibility & Settings.Legacy.NoPublicUnsafeFunctions) != Settings.Legacy.None))
             {
-                if (p.Pointer != 0)
+                if (p.Type.Pointer != 0)
                 {
                     sb.Append("IntPtr");
                 }
                 else
                 {
-                    sb.Append(GetDeclarationString(p as Type, settings));
+                    sb.Append(GetDeclarationString(p.Type, settings));
                 }
             }
             else
             {
-                sb.Append(GetDeclarationString(p as Type, settings));
+                sb.Append(GetDeclarationString(p.Type, settings));
             }
             if (!String.IsNullOrEmpty(p.Name))
             {
