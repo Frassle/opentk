@@ -43,10 +43,10 @@ namespace OpenTK.Graphics.Vulkan
     public struct ApplicationInfo
     {
         StructureType sType;
-        const void* pNext;
-        const char* pAppName;
+        void* pNext;
+        char* pAppName;
         uint32_t appVersion;
-        const char* pEngineName;
+        char* pEngineName;
         uint32_t engineVersion;
         uint32_t apiVersion;
     }
@@ -55,7 +55,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct AttachmentDescription
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         Format format;
         uint32_t samples;
         AttachmentLoadOp loadOp;
@@ -77,7 +77,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct AttachmentViewCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         Image image;
         Format format;
         uint32_t mipLevel;
@@ -98,13 +98,13 @@ namespace OpenTK.Graphics.Vulkan
     public struct BufferCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         DeviceSize size;
         BufferUsageFlags usage;
         BufferCreateFlags flags;
         SharingMode sharingMode;
         uint32_t queueFamilyCount;
-        const uint32_t* pQueueFamilyIndices;
+        uint32_t* pQueueFamilyIndices;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -122,7 +122,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct BufferMemoryBarrier
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         MemoryOutputFlags outputMask;
         MemoryInputFlags inputMask;
         uint32_t srcQueueFamilyIndex;
@@ -136,7 +136,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct BufferViewCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         Buffer buffer;
         BufferViewType viewType;
         Format format;
@@ -184,7 +184,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct CmdBufferBeginInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         CmdBufferOptimizeFlags flags;
         RenderPass renderPass;
         Framebuffer framebuffer;
@@ -194,7 +194,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct CmdBufferCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         CmdPool cmdPool;
         CmdBufferLevel level;
         CmdBufferCreateFlags flags;
@@ -204,7 +204,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct CmdPoolCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         uint32_t queueFamilyIndex;
         CmdPoolCreateFlags flags;
     }
@@ -213,7 +213,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct ComputePipelineCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         PipelineShaderStageCreateInfo cs;
         PipelineCreateFlags flags;
         PipelineLayout layout;
@@ -225,7 +225,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct CopyDescriptorSet
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         DescriptorSet srcSet;
         uint32_t srcBinding;
         uint32_t srcArrayElement;
@@ -249,9 +249,9 @@ namespace OpenTK.Graphics.Vulkan
     public struct DescriptorPoolCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         uint32_t count;
-        const DescriptorTypeCount* pTypeCount;
+        DescriptorTypeCount* pTypeCount;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -260,16 +260,16 @@ namespace OpenTK.Graphics.Vulkan
         DescriptorType descriptorType;
         uint32_t arraySize;
         ShaderStageFlags stageFlags;
-        const Sampler* pImmutableSamplers;
+        Sampler* pImmutableSamplers;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct DescriptorSetLayoutCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         uint32_t count;
-        const DescriptorSetLayoutBinding* pBinding;
+        DescriptorSetLayoutBinding* pBinding;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -283,14 +283,14 @@ namespace OpenTK.Graphics.Vulkan
     public struct DeviceCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         uint32_t queueRecordCount;
-        const DeviceQueueCreateInfo* pRequestedQueues;
+        DeviceQueueCreateInfo* pRequestedQueues;
         uint32_t layerCount;
-        const char*const* ppEnabledLayerNames;
+        char** ppEnabledLayerNames;
         uint32_t extensionCount;
-        const char*const* ppEnabledExtensionNames;
-        const PhysicalDeviceFeatures* pEnabledFeatures;
+        char** ppEnabledExtensionNames;
+        PhysicalDeviceFeatures* pEnabledFeatures;
         DeviceCreateFlags flags;
     }
 
@@ -332,7 +332,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct DynamicColorBlendStateCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         float [4] blendConst;
     }
 
@@ -340,7 +340,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct DynamicDepthStencilStateCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         float minDepthBounds;
         float maxDepthBounds;
         uint32_t stencilReadMask;
@@ -353,7 +353,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct DynamicRasterStateCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         float depthBias;
         float depthBiasClamp;
         float slopeScaledDepthBias;
@@ -364,17 +364,17 @@ namespace OpenTK.Graphics.Vulkan
     public struct DynamicViewportStateCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         uint32_t viewportAndScissorCount;
-        const Viewport* pViewports;
-        const Rect2D* pScissors;
+        Viewport* pViewports;
+        Rect2D* pScissors;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct EventCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         EventCreateFlags flags;
     }
 
@@ -404,7 +404,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct FenceCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         FenceCreateFlags flags;
     }
 
@@ -419,10 +419,10 @@ namespace OpenTK.Graphics.Vulkan
     public struct FramebufferCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         RenderPass renderPass;
         uint32_t attachmentCount;
-        const AttachmentView* pAttachments;
+        AttachmentView* pAttachments;
         uint32_t width;
         uint32_t height;
         uint32_t layers;
@@ -432,17 +432,17 @@ namespace OpenTK.Graphics.Vulkan
     public struct GraphicsPipelineCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         uint32_t stageCount;
-        const PipelineShaderStageCreateInfo* pStages;
-        const PipelineVertexInputStateCreateInfo* pVertexInputState;
-        const PipelineInputAssemblyStateCreateInfo* pInputAssemblyState;
-        const PipelineTessellationStateCreateInfo* pTessellationState;
-        const PipelineViewportStateCreateInfo* pViewportState;
-        const PipelineRasterStateCreateInfo* pRasterState;
-        const PipelineMultisampleStateCreateInfo* pMultisampleState;
-        const PipelineDepthStencilStateCreateInfo* pDepthStencilState;
-        const PipelineColorBlendStateCreateInfo* pColorBlendState;
+        PipelineShaderStageCreateInfo* pStages;
+        PipelineVertexInputStateCreateInfo* pVertexInputState;
+        PipelineInputAssemblyStateCreateInfo* pInputAssemblyState;
+        PipelineTessellationStateCreateInfo* pTessellationState;
+        PipelineViewportStateCreateInfo* pViewportState;
+        PipelineRasterStateCreateInfo* pRasterState;
+        PipelineMultisampleStateCreateInfo* pMultisampleState;
+        PipelineDepthStencilStateCreateInfo* pDepthStencilState;
+        PipelineColorBlendStateCreateInfo* pColorBlendState;
         PipelineCreateFlags flags;
         PipelineLayout layout;
         RenderPass renderPass;
@@ -476,7 +476,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct ImageCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         ImageType imageType;
         Format format;
         Extent3D extent;
@@ -488,7 +488,7 @@ namespace OpenTK.Graphics.Vulkan
         ImageCreateFlags flags;
         SharingMode sharingMode;
         uint32_t queueFamilyCount;
-        const uint32_t* pQueueFamilyIndices;
+        uint32_t* pQueueFamilyIndices;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -502,7 +502,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct ImageMemoryBarrier
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         MemoryOutputFlags outputMask;
         MemoryInputFlags inputMask;
         ImageLayout oldLayout;
@@ -545,7 +545,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct ImageViewCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         Image image;
         ImageViewType viewType;
         Format format;
@@ -557,13 +557,13 @@ namespace OpenTK.Graphics.Vulkan
     public struct InstanceCreateInfo
     {
         StructureType sType;
-        const void* pNext;
-        const ApplicationInfo* pAppInfo;
-        const AllocCallbacks* pAllocCb;
+        void* pNext;
+        ApplicationInfo* pAppInfo;
+        AllocCallbacks* pAllocCb;
         uint32_t layerCount;
-        const char*const* ppEnabledLayerNames;
+        char** ppEnabledLayerNames;
         uint32_t extensionCount;
-        const char*const* ppEnabledExtensionNames;
+        char** ppEnabledExtensionNames;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -579,7 +579,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct MappedMemoryRange
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         DeviceMemory mem;
         DeviceSize offset;
         DeviceSize size;
@@ -589,7 +589,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct MemoryAllocInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         DeviceSize allocationSize;
         uint32_t memoryTypeIndex;
     }
@@ -598,7 +598,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct MemoryBarrier
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         MemoryOutputFlags outputMask;
         MemoryInputFlags inputMask;
     }
@@ -825,9 +825,9 @@ namespace OpenTK.Graphics.Vulkan
     public struct PipelineCacheCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         size_t initialSize;
-        const void* initialData;
+        void* initialData;
         size_t maxSize;
     }
 
@@ -848,19 +848,19 @@ namespace OpenTK.Graphics.Vulkan
     public struct PipelineColorBlendStateCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         Bool32 alphaToCoverageEnable;
         Bool32 logicOpEnable;
         LogicOp logicOp;
         uint32_t attachmentCount;
-        const PipelineColorBlendAttachmentState* pAttachments;
+        PipelineColorBlendAttachmentState* pAttachments;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct PipelineDepthStencilStateCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         Bool32 depthTestEnable;
         Bool32 depthWriteEnable;
         CompareOp depthCompareOp;
@@ -874,7 +874,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct PipelineInputAssemblyStateCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         PrimitiveTopology topology;
         Bool32 primitiveRestartEnable;
     }
@@ -883,18 +883,18 @@ namespace OpenTK.Graphics.Vulkan
     public struct PipelineLayoutCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         uint32_t descriptorSetCount;
-        const DescriptorSetLayout* pSetLayouts;
+        DescriptorSetLayout* pSetLayouts;
         uint32_t pushConstantRangeCount;
-        const PushConstantRange* pPushConstantRanges;
+        PushConstantRange* pPushConstantRanges;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct PipelineMultisampleStateCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         uint32_t rasterSamples;
         Bool32 sampleShadingEnable;
         float minSampleShading;
@@ -905,7 +905,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct PipelineRasterStateCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         Bool32 depthClipEnable;
         Bool32 rasterizerDiscardEnable;
         FillMode fillMode;
@@ -917,17 +917,17 @@ namespace OpenTK.Graphics.Vulkan
     public struct PipelineShaderStageCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         ShaderStage stage;
         Shader shader;
-        const SpecializationInfo* pSpecializationInfo;
+        SpecializationInfo* pSpecializationInfo;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct PipelineTessellationStateCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         uint32_t patchControlPoints;
     }
 
@@ -935,18 +935,18 @@ namespace OpenTK.Graphics.Vulkan
     public struct PipelineVertexInputStateCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         uint32_t bindingCount;
-        const VertexInputBindingDescription* pVertexBindingDescriptions;
+        VertexInputBindingDescription* pVertexBindingDescriptions;
         uint32_t attributeCount;
-        const VertexInputAttributeDescription* pVertexAttributeDescriptions;
+        VertexInputAttributeDescription* pVertexAttributeDescriptions;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct PipelineViewportStateCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         uint32_t viewportCount;
     }
 
@@ -962,7 +962,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct QueryPoolCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         QueryType queryType;
         uint32_t slots;
         QueryPipelineStatisticFlags pipelineStatistics;
@@ -994,32 +994,32 @@ namespace OpenTK.Graphics.Vulkan
     public struct RenderPassBeginInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         RenderPass renderPass;
         Framebuffer framebuffer;
         Rect2D renderArea;
         uint32_t clearValueCount;
-        const ClearValue* pClearValues;
+        ClearValue* pClearValues;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct RenderPassCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         uint32_t attachmentCount;
-        const AttachmentDescription* pAttachments;
+        AttachmentDescription* pAttachments;
         uint32_t subpassCount;
-        const SubpassDescription* pSubpasses;
+        SubpassDescription* pSubpasses;
         uint32_t dependencyCount;
-        const SubpassDependency* pDependencies;
+        SubpassDependency* pDependencies;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct SamplerCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         TexFilter magFilter;
         TexFilter minFilter;
         TexMipmapMode mipMode;
@@ -1039,7 +1039,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct SemaphoreCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         SemaphoreCreateFlags flags;
     }
 
@@ -1047,9 +1047,9 @@ namespace OpenTK.Graphics.Vulkan
     public struct ShaderCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         ShaderModule module;
-        const char* pName;
+        char* pName;
         ShaderCreateFlags flags;
     }
 
@@ -1057,9 +1057,9 @@ namespace OpenTK.Graphics.Vulkan
     public struct ShaderModuleCreateInfo
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         size_t codeSize;
-        const void* pCode;
+        void* pCode;
         ShaderModuleCreateFlags flags;
     }
 
@@ -1105,9 +1105,9 @@ namespace OpenTK.Graphics.Vulkan
     public struct SpecializationInfo
     {
         uint32_t mapEntryCount;
-        const SpecializationMapEntry* pMap;
+        SpecializationMapEntry* pMap;
         size_t dataSize;
-        const void* pData;
+        void* pData;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -1131,7 +1131,7 @@ namespace OpenTK.Graphics.Vulkan
     public struct SubpassDependency
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         uint32_t srcSubpass;
         uint32_t destSubpass;
         PipelineStageFlags srcStageMask;
@@ -1145,17 +1145,17 @@ namespace OpenTK.Graphics.Vulkan
     public struct SubpassDescription
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         PipelineBindPoint pipelineBindPoint;
         SubpassDescriptionFlags flags;
         uint32_t inputCount;
-        const AttachmentReference* pInputAttachments;
+        AttachmentReference* pInputAttachments;
         uint32_t colorCount;
-        const AttachmentReference* pColorAttachments;
-        const AttachmentReference* pResolveAttachments;
+        AttachmentReference* pColorAttachments;
+        AttachmentReference* pResolveAttachments;
         AttachmentReference depthStencilAttachment;
         uint32_t preserveCount;
-        const AttachmentReference* pPreserveAttachments;
+        AttachmentReference* pPreserveAttachments;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -1199,12 +1199,12 @@ namespace OpenTK.Graphics.Vulkan
     public struct WriteDescriptorSet
     {
         StructureType sType;
-        const void* pNext;
+        void* pNext;
         DescriptorSet destSet;
         uint32_t destBinding;
         uint32_t destArrayElement;
         uint32_t count;
         DescriptorType descriptorType;
-        const DescriptorInfo* pDescriptors;
+        DescriptorInfo* pDescriptors;
     }
 }

@@ -62,7 +62,30 @@ namespace Bind
         public StructCollection Process(EnumProcessor enum_processor, DocProcessor doc_processor,
             StructCollection structs, EnumCollection enums, string apiname, string apiversion)
         {
+            // Translate each delegate:
+            // 1st using the <replace> elements in overrides.xml
+            // 2nd using the hardcoded rules in FuncProcessor (e.g. char* -> string)
+            foreach (var s in structs.Values)
+            {
+                TranslateMembers(s, enum_processor, enums, apiname);
+            }
+
             return structs;
+        }
+
+        private void TranslateMembers(Struct s, EnumProcessor enum_processor, EnumCollection enums, string apiname)
+        {
+            foreach (var member in s.Members)
+            {
+                TranslateType(member.Type, enum_processor, enums, apiname);
+            }
+        }
+
+        private void TranslateType(Type type, EnumProcessor enum_processor, EnumCollection enums, string apiname)
+        {
+            // Remove const
+            var constRegex = new Regex(@"\bconst\b");
+            type.CurrentType = constRegex.Replace(type.CurrentType, "");
         }
     }
 }
