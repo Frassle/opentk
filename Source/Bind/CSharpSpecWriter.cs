@@ -215,8 +215,38 @@ namespace Bind
                 sw.WriteLine("[FieldOffset(0)]");
             }
 
-            var type = GetDeclarationString(member.Type, Bind.Settings.Legacy.None);
-            sw.WriteLine("{0} {1};", type, member.Name);
+            if (member.Type.ElementCount != 0)
+            {
+                sw.Write("fixed ");
+            }
+
+            sw.Write(member.Type.CurrentType);
+
+            for (int i = 0; i < member.Type.Pointer; ++i)
+            {
+                sw.Write("*");
+            }
+
+            if (member.Type.ElementCount == 0 && member.Type.Array > 0)
+            {
+                sw.Write("[");
+
+                for (int i = 1; i < member.Type.Array; ++i)
+                {
+                    sw.Write(",");
+                }
+
+                sw.Write("]");
+            }
+
+            sw.Write(" " + member.Name);
+
+            if (member.Type.ElementCount != 0)
+            {
+                sw.Write("[" + member.Type.ElementCount.ToString() + "]");
+            }
+
+            sw.WriteLine(";");
         }
 
         #endregion
@@ -472,19 +502,6 @@ namespace Bind
             {
                 Console.WriteLine("[Warning] Error documenting function {0}: {1}", f.WrappedDelegate.Name, e.ToString());
             }   
-        }
-
-        #endregion
-
-        #region WriteTypes
-
-        public void WriteTypes(BindStreamWriter sw, Dictionary<string, string> CSTypes)
-        {
-            sw.WriteLine();
-            foreach (string s in CSTypes.Keys)
-            {
-                sw.WriteLine("using {0} = System.{1};", s, CSTypes[s]);
-            }
         }
 
         #endregion
