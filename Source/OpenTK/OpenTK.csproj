@@ -138,14 +138,14 @@
     </Compile>
     <Compile Include="DisplayIndex.cs" />
     <Compile Include="Graphics\GraphicsModeComparer.cs" />
-    <Compile Include="Graphics\Vulkan\Vulkan.cs" />
-    <Compile Include="Graphics\Vulkan\VulkanEnum.cs" />
-    <Compile Include="Graphics\Vulkan\VulkanObjects.cs">
+    <Compile Include="Graphics\VK\VK.cs" />
+    <Compile Include="Graphics\VK\VKEnums.cs" />
+    <Compile Include="Graphics\VK\VKStructures.cs" />
+    <Compile Include="Graphics\VK\VulkanObjects.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>VulkanObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="Graphics\Vulkan\VulkanStructs.cs" />
     <Compile Include="Input\GamePadThumbSticks.cs" />
     <Compile Include="Input\GamePadTriggers.cs" />
     <Compile Include="Input\GamePadType.cs" />
@@ -837,7 +837,7 @@
     <Compile Include="Platform\Linux\Bindings\Evdev.cs" />
     <Compile Include="Platform\Linux\DefaultCursor.cs" />
     <Compile Include="Platform\Linux\Bindings\Kms.cs" />
-    <None Include="Graphics\Vulkan\VulkanObjects.tt">
+    <None Include="Graphics\VK\VulkanObjects.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>VulkanObjects.cs</LastGenOutput>
     </None>
