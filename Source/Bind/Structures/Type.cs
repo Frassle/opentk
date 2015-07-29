@@ -108,6 +108,25 @@ namespace Bind.Structures
                 if (!String.IsNullOrEmpty(value))
                     type = value.Trim();
 
+                if (type.Contains("["))
+                {
+                    var lbrace = type.IndexOf("[") + 1;
+                    var rbrace = type.LastIndexOf("]");
+                    var elements = type.Substring(lbrace, rbrace - lbrace);
+
+                    int element_count;
+                    if (int.TryParse(elements, out element_count))
+                    {
+                        ElementCount = element_count;
+                        Array = 1;
+                    }
+                    else
+                    {
+                        Array = elements.Replace(" ", "").Length + 1;
+                    }
+                    type = type.Substring(0, lbrace - 1).Trim();
+                }
+
                 while (type.EndsWith("*"))
                 {
                     type = type.Substring(0, type.Length - 1).Trim();
