@@ -150,6 +150,25 @@ namespace OpenTK.Convert
             return xstruct;
         }
 
+        private XElement ParseBitmask(XElement bitmask)
+        {
+            var name = bitmask.Element("name");
+
+            if (bitmask.Attribute("requires") != null)
+            {
+                // if it requires something we'll resolve it later by renaming 
+                // the required type to this one
+                return null;
+            }
+            
+            var tkenum = new XElement(
+                        "enum",
+                        new XAttribute("name", TrimName(name.Value)),
+                        new XAttribute("flags", true));
+
+            return tkenum;
+        }
+
         private IEnumerable<XElement> ParseTypes(XDocument input)
         {
             var types = input.Root.Elements("types").Elements("type");
@@ -162,6 +181,14 @@ namespace OpenTK.Convert
                     if (category.Value == "struct" || category.Value == "union")
                     {
                         yield return ParseStruct(type);
+                    }
+                    if (category.Value == "bitmask")
+                    {
+                        var bitmask = ParseBitmask(type);
+                        if(bitmask != null)
+                        {
+                            yield return bitmask;
+                        }
                     }
                 }
             }
