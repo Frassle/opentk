@@ -398,6 +398,12 @@ namespace Bind
                     e.IsFlagCollection = e.Name.ToLower().Contains("mask") ||
                         node.GetAttribute("flags", String.Empty) == "true";
 
+                    // Replace FlagBits with Flags for vulkan enums
+                    if (node.GetAttribute("flags", String.Empty) == "true")
+                    {
+                        e.Name = e.Name.Replace("FlagBits", "Flags");
+                    }
+
                     foreach (XPathNavigator param in node.SelectChildren(XPathNodeType.Element))
                     {
                         Constant c = null;
