@@ -710,7 +710,7 @@
       <token name="VERTEX_INPUT_STEP_RATE_VERTEX" value="0" />
       <token name="VERTEX_INPUT_STEP_RATE_INSTANCE" value="1" />
     </enum>
-    <function name="AllocDescriptorSets" extension="vulkan">
+    <function name="AllocDescriptorSets" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="descriptorPool" type="DescriptorPool" />
@@ -719,45 +719,45 @@
       <param name="pSetLayouts" type="const DescriptorSetLayout*" />
       <param name="pDescriptorSets" type="DescriptorSet*" />
     </function>
-    <function name="AllocMemory" extension="vulkan">
+    <function name="AllocMemory" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pAllocInfo" type="const MemoryAllocInfo*" />
       <param name="pMem" type="DeviceMemory*" />
     </function>
-    <function name="BeginCommandBuffer" extension="vulkan">
+    <function name="BeginCommandBuffer" extension="Core">
       <returns type="Result" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="pBeginInfo" type="const CmdBufferBeginInfo*" />
     </function>
-    <function name="BindBufferMemory" extension="vulkan">
+    <function name="BindBufferMemory" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="buffer" type="Buffer" />
       <param name="mem" type="DeviceMemory" />
       <param name="memOffset" type="DeviceSize" />
     </function>
-    <function name="BindImageMemory" extension="vulkan">
+    <function name="BindImageMemory" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="image" type="Image" />
       <param name="mem" type="DeviceMemory" />
       <param name="memOffset" type="DeviceSize" />
     </function>
-    <function name="CmdBeginQuery" extension="vulkan">
+    <function name="CmdBeginQuery" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="queryPool" type="QueryPool" />
       <param name="slot" type="uint32_t" />
       <param name="flags" type="QueryControlFlags" />
     </function>
-    <function name="CmdBeginRenderPass" extension="vulkan">
+    <function name="CmdBeginRenderPass" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="pRenderPassBegin" type="const RenderPassBeginInfo*" />
       <param name="contents" type="RenderPassContents" />
     </function>
-    <function name="CmdBindDescriptorSets" extension="vulkan">
+    <function name="CmdBindDescriptorSets" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="pipelineBindPoint" type="PipelineBindPoint" />
@@ -768,40 +768,40 @@
       <param name="dynamicOffsetCount" type="uint32_t" />
       <param name="pDynamicOffsets" type="const uint32_t*" />
     </function>
-    <function name="CmdBindDynamicColorBlendState" extension="vulkan">
+    <function name="CmdBindDynamicColorBlendState" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="dynamicColorBlendState" type="DynamicColorBlendState" />
     </function>
-    <function name="CmdBindDynamicDepthStencilState" extension="vulkan">
+    <function name="CmdBindDynamicDepthStencilState" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="dynamicDepthStencilState" type="DynamicDepthStencilState" />
     </function>
-    <function name="CmdBindDynamicRasterState" extension="vulkan">
+    <function name="CmdBindDynamicRasterState" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="dynamicRasterState" type="DynamicRasterState" />
     </function>
-    <function name="CmdBindDynamicViewportState" extension="vulkan">
+    <function name="CmdBindDynamicViewportState" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="dynamicViewportState" type="DynamicViewportState" />
     </function>
-    <function name="CmdBindIndexBuffer" extension="vulkan">
+    <function name="CmdBindIndexBuffer" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="buffer" type="Buffer" />
       <param name="offset" type="DeviceSize" />
       <param name="indexType" type="IndexType" />
     </function>
-    <function name="CmdBindPipeline" extension="vulkan">
+    <function name="CmdBindPipeline" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="pipelineBindPoint" type="PipelineBindPoint" />
       <param name="pipeline" type="Pipeline" />
     </function>
-    <function name="CmdBindVertexBuffers" extension="vulkan">
+    <function name="CmdBindVertexBuffers" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="startBinding" type="uint32_t" />
@@ -809,7 +809,7 @@
       <param name="pBuffers" type="const Buffer*" />
       <param name="pOffsets" type="const DeviceSize*" />
     </function>
-    <function name="CmdBlitImage" extension="vulkan">
+    <function name="CmdBlitImage" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="srcImage" type="Image" />
@@ -820,7 +820,7 @@
       <param name="pRegions" type="const ImageBlit*" />
       <param name="filter" type="TexFilter" />
     </function>
-    <function name="CmdClearColorAttachment" extension="vulkan">
+    <function name="CmdClearColorAttachment" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="colorAttachment" type="uint32_t" />
@@ -829,7 +829,7 @@
       <param name="rectCount" type="uint32_t" />
       <param name="pRects" type="const Rect3D*" />
     </function>
-    <function name="CmdClearColorImage" extension="vulkan">
+    <function name="CmdClearColorImage" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="image" type="Image" />
@@ -838,7 +838,7 @@
       <param name="rangeCount" type="uint32_t" />
       <param name="pRanges" type="const ImageSubresourceRange*" />
     </function>
-    <function name="CmdClearDepthStencilAttachment" extension="vulkan">
+    <function name="CmdClearDepthStencilAttachment" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="imageAspectMask" type="ImageAspectFlags" />
@@ -848,7 +848,7 @@
       <param name="rectCount" type="uint32_t" />
       <param name="pRects" type="const Rect3D*" />
     </function>
-    <function name="CmdClearDepthStencilImage" extension="vulkan">
+    <function name="CmdClearDepthStencilImage" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="image" type="Image" />
@@ -858,7 +858,7 @@
       <param name="rangeCount" type="uint32_t" />
       <param name="pRanges" type="const ImageSubresourceRange*" />
     </function>
-    <function name="CmdCopyBuffer" extension="vulkan">
+    <function name="CmdCopyBuffer" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="srcBuffer" type="Buffer" />
@@ -866,7 +866,7 @@
       <param name="regionCount" type="uint32_t" />
       <param name="pRegions" type="const BufferCopy*" />
     </function>
-    <function name="CmdCopyBufferToImage" extension="vulkan">
+    <function name="CmdCopyBufferToImage" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="srcBuffer" type="Buffer" />
@@ -875,7 +875,7 @@
       <param name="regionCount" type="uint32_t" />
       <param name="pRegions" type="const BufferImageCopy*" />
     </function>
-    <function name="CmdCopyImage" extension="vulkan">
+    <function name="CmdCopyImage" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="srcImage" type="Image" />
@@ -885,7 +885,7 @@
       <param name="regionCount" type="uint32_t" />
       <param name="pRegions" type="const ImageCopy*" />
     </function>
-    <function name="CmdCopyImageToBuffer" extension="vulkan">
+    <function name="CmdCopyImageToBuffer" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="srcImage" type="Image" />
@@ -894,7 +894,7 @@
       <param name="regionCount" type="uint32_t" />
       <param name="pRegions" type="const BufferImageCopy*" />
     </function>
-    <function name="CmdCopyQueryPoolResults" extension="vulkan">
+    <function name="CmdCopyQueryPoolResults" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="queryPool" type="QueryPool" />
@@ -905,20 +905,20 @@
       <param name="destStride" type="DeviceSize" />
       <param name="flags" type="QueryResultFlags" />
     </function>
-    <function name="CmdDispatch" extension="vulkan">
+    <function name="CmdDispatch" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="x" type="uint32_t" />
       <param name="y" type="uint32_t" />
       <param name="z" type="uint32_t" />
     </function>
-    <function name="CmdDispatchIndirect" extension="vulkan">
+    <function name="CmdDispatchIndirect" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="buffer" type="Buffer" />
       <param name="offset" type="DeviceSize" />
     </function>
-    <function name="CmdDraw" extension="vulkan">
+    <function name="CmdDraw" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="firstVertex" type="uint32_t" />
@@ -926,7 +926,7 @@
       <param name="firstInstance" type="uint32_t" />
       <param name="instanceCount" type="uint32_t" />
     </function>
-    <function name="CmdDrawIndexed" extension="vulkan">
+    <function name="CmdDrawIndexed" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="firstIndex" type="uint32_t" />
@@ -935,7 +935,7 @@
       <param name="firstInstance" type="uint32_t" />
       <param name="instanceCount" type="uint32_t" />
     </function>
-    <function name="CmdDrawIndexedIndirect" extension="vulkan">
+    <function name="CmdDrawIndexedIndirect" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="buffer" type="Buffer" />
@@ -943,7 +943,7 @@
       <param name="count" type="uint32_t" />
       <param name="stride" type="uint32_t" />
     </function>
-    <function name="CmdDrawIndirect" extension="vulkan">
+    <function name="CmdDrawIndirect" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="buffer" type="Buffer" />
@@ -951,23 +951,23 @@
       <param name="count" type="uint32_t" />
       <param name="stride" type="uint32_t" />
     </function>
-    <function name="CmdEndQuery" extension="vulkan">
+    <function name="CmdEndQuery" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="queryPool" type="QueryPool" />
       <param name="slot" type="uint32_t" />
     </function>
-    <function name="CmdEndRenderPass" extension="vulkan">
+    <function name="CmdEndRenderPass" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
     </function>
-    <function name="CmdExecuteCommands" extension="vulkan">
+    <function name="CmdExecuteCommands" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="cmdBuffersCount" type="uint32_t" />
       <param name="pCmdBuffers" type="const CmdBuffer*" />
     </function>
-    <function name="CmdFillBuffer" extension="vulkan">
+    <function name="CmdFillBuffer" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="destBuffer" type="Buffer" />
@@ -975,12 +975,12 @@
       <param name="fillSize" type="DeviceSize" />
       <param name="data" type="uint32_t" />
     </function>
-    <function name="CmdNextSubpass" extension="vulkan">
+    <function name="CmdNextSubpass" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="contents" type="RenderPassContents" />
     </function>
-    <function name="CmdPipelineBarrier" extension="vulkan">
+    <function name="CmdPipelineBarrier" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="srcStageMask" type="PipelineStageFlags" />
@@ -989,7 +989,7 @@
       <param name="memBarrierCount" type="uint32_t" />
       <param name="ppMemBarriers" type="const void* const*" />
     </function>
-    <function name="CmdPushConstants" extension="vulkan">
+    <function name="CmdPushConstants" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="layout" type="PipelineLayout" />
@@ -998,20 +998,20 @@
       <param name="length" type="uint32_t" />
       <param name="values" type="const void*" />
     </function>
-    <function name="CmdResetEvent" extension="vulkan">
+    <function name="CmdResetEvent" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="event" type="Event" />
       <param name="stageMask" type="PipelineStageFlags" />
     </function>
-    <function name="CmdResetQueryPool" extension="vulkan">
+    <function name="CmdResetQueryPool" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="queryPool" type="QueryPool" />
       <param name="startQuery" type="uint32_t" />
       <param name="queryCount" type="uint32_t" />
     </function>
-    <function name="CmdResolveImage" extension="vulkan">
+    <function name="CmdResolveImage" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="srcImage" type="Image" />
@@ -1021,13 +1021,13 @@
       <param name="regionCount" type="uint32_t" />
       <param name="pRegions" type="const ImageResolve*" />
     </function>
-    <function name="CmdSetEvent" extension="vulkan">
+    <function name="CmdSetEvent" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="event" type="Event" />
       <param name="stageMask" type="PipelineStageFlags" />
     </function>
-    <function name="CmdUpdateBuffer" extension="vulkan">
+    <function name="CmdUpdateBuffer" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="destBuffer" type="Buffer" />
@@ -1035,7 +1035,7 @@
       <param name="dataSize" type="DeviceSize" />
       <param name="pData" type="const uint32_t*" />
     </function>
-    <function name="CmdWaitEvents" extension="vulkan">
+    <function name="CmdWaitEvents" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="eventCount" type="uint32_t" />
@@ -1045,44 +1045,44 @@
       <param name="memBarrierCount" type="uint32_t" />
       <param name="ppMemBarriers" type="const void* const*" />
     </function>
-    <function name="CmdWriteTimestamp" extension="vulkan">
+    <function name="CmdWriteTimestamp" extension="Core">
       <returns type="void" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="timestampType" type="TimestampType" />
       <param name="destBuffer" type="Buffer" />
       <param name="destOffset" type="DeviceSize" />
     </function>
-    <function name="CreateAttachmentView" extension="vulkan">
+    <function name="CreateAttachmentView" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const AttachmentViewCreateInfo*" />
       <param name="pView" type="AttachmentView*" />
     </function>
-    <function name="CreateBuffer" extension="vulkan">
+    <function name="CreateBuffer" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const BufferCreateInfo*" />
       <param name="pBuffer" type="Buffer*" />
     </function>
-    <function name="CreateBufferView" extension="vulkan">
+    <function name="CreateBufferView" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const BufferViewCreateInfo*" />
       <param name="pView" type="BufferView*" />
     </function>
-    <function name="CreateCommandBuffer" extension="vulkan">
+    <function name="CreateCommandBuffer" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const CmdBufferCreateInfo*" />
       <param name="pCmdBuffer" type="CmdBuffer*" />
     </function>
-    <function name="CreateCommandPool" extension="vulkan">
+    <function name="CreateCommandPool" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const CmdPoolCreateInfo*" />
       <param name="pCmdPool" type="CmdPool*" />
     </function>
-    <function name="CreateComputePipelines" extension="vulkan">
+    <function name="CreateComputePipelines" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pipelineCache" type="PipelineCache" />
@@ -1090,7 +1090,7 @@
       <param name="pCreateInfos" type="const ComputePipelineCreateInfo*" />
       <param name="pPipelines" type="Pipeline*" />
     </function>
-    <function name="CreateDescriptorPool" extension="vulkan">
+    <function name="CreateDescriptorPool" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="poolUsage" type="DescriptorPoolUsage" />
@@ -1098,61 +1098,61 @@
       <param name="pCreateInfo" type="const DescriptorPoolCreateInfo*" />
       <param name="pDescriptorPool" type="DescriptorPool*" />
     </function>
-    <function name="CreateDescriptorSetLayout" extension="vulkan">
+    <function name="CreateDescriptorSetLayout" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const DescriptorSetLayoutCreateInfo*" />
       <param name="pSetLayout" type="DescriptorSetLayout*" />
     </function>
-    <function name="CreateDevice" extension="vulkan">
+    <function name="CreateDevice" extension="Core">
       <returns type="Result" />
       <param name="physicalDevice" type="PhysicalDevice" />
       <param name="pCreateInfo" type="const DeviceCreateInfo*" />
       <param name="pDevice" type="Device*" />
     </function>
-    <function name="CreateDynamicColorBlendState" extension="vulkan">
+    <function name="CreateDynamicColorBlendState" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const DynamicColorBlendStateCreateInfo*" />
       <param name="pState" type="DynamicColorBlendState*" />
     </function>
-    <function name="CreateDynamicDepthStencilState" extension="vulkan">
+    <function name="CreateDynamicDepthStencilState" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const DynamicDepthStencilStateCreateInfo*" />
       <param name="pState" type="DynamicDepthStencilState*" />
     </function>
-    <function name="CreateDynamicRasterState" extension="vulkan">
+    <function name="CreateDynamicRasterState" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const DynamicRasterStateCreateInfo*" />
       <param name="pState" type="DynamicRasterState*" />
     </function>
-    <function name="CreateDynamicViewportState" extension="vulkan">
+    <function name="CreateDynamicViewportState" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const DynamicViewportStateCreateInfo*" />
       <param name="pState" type="DynamicViewportState*" />
     </function>
-    <function name="CreateEvent" extension="vulkan">
+    <function name="CreateEvent" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const EventCreateInfo*" />
       <param name="pEvent" type="Event*" />
     </function>
-    <function name="CreateFence" extension="vulkan">
+    <function name="CreateFence" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const FenceCreateInfo*" />
       <param name="pFence" type="Fence*" />
     </function>
-    <function name="CreateFramebuffer" extension="vulkan">
+    <function name="CreateFramebuffer" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const FramebufferCreateInfo*" />
       <param name="pFramebuffer" type="Framebuffer*" />
     </function>
-    <function name="CreateGraphicsPipelines" extension="vulkan">
+    <function name="CreateGraphicsPipelines" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pipelineCache" type="PipelineCache" />
@@ -1160,325 +1160,325 @@
       <param name="pCreateInfos" type="const GraphicsPipelineCreateInfo*" />
       <param name="pPipelines" type="Pipeline*" />
     </function>
-    <function name="CreateImage" extension="vulkan">
+    <function name="CreateImage" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const ImageCreateInfo*" />
       <param name="pImage" type="Image*" />
     </function>
-    <function name="CreateImageView" extension="vulkan">
+    <function name="CreateImageView" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const ImageViewCreateInfo*" />
       <param name="pView" type="ImageView*" />
     </function>
-    <function name="CreateInstance" extension="vulkan">
+    <function name="CreateInstance" extension="Core">
       <returns type="Result" />
       <param name="pCreateInfo" type="const InstanceCreateInfo*" />
       <param name="pInstance" type="Instance*" />
     </function>
-    <function name="CreatePipelineCache" extension="vulkan">
+    <function name="CreatePipelineCache" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const PipelineCacheCreateInfo*" />
       <param name="pPipelineCache" type="PipelineCache*" />
     </function>
-    <function name="CreatePipelineLayout" extension="vulkan">
+    <function name="CreatePipelineLayout" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const PipelineLayoutCreateInfo*" />
       <param name="pPipelineLayout" type="PipelineLayout*" />
     </function>
-    <function name="CreateQueryPool" extension="vulkan">
+    <function name="CreateQueryPool" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const QueryPoolCreateInfo*" />
       <param name="pQueryPool" type="QueryPool*" />
     </function>
-    <function name="CreateRenderPass" extension="vulkan">
+    <function name="CreateRenderPass" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const RenderPassCreateInfo*" />
       <param name="pRenderPass" type="RenderPass*" />
     </function>
-    <function name="CreateSampler" extension="vulkan">
+    <function name="CreateSampler" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const SamplerCreateInfo*" />
       <param name="pSampler" type="Sampler*" />
     </function>
-    <function name="CreateSemaphore" extension="vulkan">
+    <function name="CreateSemaphore" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const SemaphoreCreateInfo*" />
       <param name="pSemaphore" type="Semaphore*" />
     </function>
-    <function name="CreateShader" extension="vulkan">
+    <function name="CreateShader" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const ShaderCreateInfo*" />
       <param name="pShader" type="Shader*" />
     </function>
-    <function name="CreateShaderModule" extension="vulkan">
+    <function name="CreateShaderModule" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pCreateInfo" type="const ShaderModuleCreateInfo*" />
       <param name="pShaderModule" type="ShaderModule*" />
     </function>
-    <function name="DestroyAttachmentView" extension="vulkan">
+    <function name="DestroyAttachmentView" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="attachmentView" type="AttachmentView" />
     </function>
-    <function name="DestroyBuffer" extension="vulkan">
+    <function name="DestroyBuffer" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="buffer" type="Buffer" />
     </function>
-    <function name="DestroyBufferView" extension="vulkan">
+    <function name="DestroyBufferView" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="bufferView" type="BufferView" />
     </function>
-    <function name="DestroyCommandBuffer" extension="vulkan">
+    <function name="DestroyCommandBuffer" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="commandBuffer" type="CmdBuffer" />
     </function>
-    <function name="DestroyCommandPool" extension="vulkan">
+    <function name="DestroyCommandPool" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="cmdPool" type="CmdPool" />
     </function>
-    <function name="DestroyDescriptorPool" extension="vulkan">
+    <function name="DestroyDescriptorPool" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="descriptorPool" type="DescriptorPool" />
     </function>
-    <function name="DestroyDescriptorSetLayout" extension="vulkan">
+    <function name="DestroyDescriptorSetLayout" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="descriptorSetLayout" type="DescriptorSetLayout" />
     </function>
-    <function name="DestroyDevice" extension="vulkan">
+    <function name="DestroyDevice" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
     </function>
-    <function name="DestroyDynamicColorBlendState" extension="vulkan">
+    <function name="DestroyDynamicColorBlendState" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="dynamicColorBlendState" type="DynamicColorBlendState" />
     </function>
-    <function name="DestroyDynamicDepthStencilState" extension="vulkan">
+    <function name="DestroyDynamicDepthStencilState" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="dynamicDepthStencilState" type="DynamicDepthStencilState" />
     </function>
-    <function name="DestroyDynamicRasterState" extension="vulkan">
+    <function name="DestroyDynamicRasterState" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="dynamicRasterState" type="DynamicRasterState" />
     </function>
-    <function name="DestroyDynamicViewportState" extension="vulkan">
+    <function name="DestroyDynamicViewportState" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="dynamicViewportState" type="DynamicViewportState" />
     </function>
-    <function name="DestroyEvent" extension="vulkan">
+    <function name="DestroyEvent" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="event" type="Event" />
     </function>
-    <function name="DestroyFence" extension="vulkan">
+    <function name="DestroyFence" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="fence" type="Fence" />
     </function>
-    <function name="DestroyFramebuffer" extension="vulkan">
+    <function name="DestroyFramebuffer" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="framebuffer" type="Framebuffer" />
     </function>
-    <function name="DestroyImage" extension="vulkan">
+    <function name="DestroyImage" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="image" type="Image" />
     </function>
-    <function name="DestroyImageView" extension="vulkan">
+    <function name="DestroyImageView" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="imageView" type="ImageView" />
     </function>
-    <function name="DestroyInstance" extension="vulkan">
+    <function name="DestroyInstance" extension="Core">
       <returns type="Result" />
       <param name="instance" type="Instance" />
     </function>
-    <function name="DestroyPipeline" extension="vulkan">
+    <function name="DestroyPipeline" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pipeline" type="Pipeline" />
     </function>
-    <function name="DestroyPipelineCache" extension="vulkan">
+    <function name="DestroyPipelineCache" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pipelineCache" type="PipelineCache" />
     </function>
-    <function name="DestroyPipelineLayout" extension="vulkan">
+    <function name="DestroyPipelineLayout" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="pipelineLayout" type="PipelineLayout" />
     </function>
-    <function name="DestroyQueryPool" extension="vulkan">
+    <function name="DestroyQueryPool" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="queryPool" type="QueryPool" />
     </function>
-    <function name="DestroyRenderPass" extension="vulkan">
+    <function name="DestroyRenderPass" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="renderPass" type="RenderPass" />
     </function>
-    <function name="DestroySampler" extension="vulkan">
+    <function name="DestroySampler" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="sampler" type="Sampler" />
     </function>
-    <function name="DestroySemaphore" extension="vulkan">
+    <function name="DestroySemaphore" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="semaphore" type="Semaphore" />
     </function>
-    <function name="DestroyShader" extension="vulkan">
+    <function name="DestroyShader" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="shader" type="Shader" />
     </function>
-    <function name="DestroyShaderModule" extension="vulkan">
+    <function name="DestroyShaderModule" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="shaderModule" type="ShaderModule" />
     </function>
-    <function name="DeviceWaitIdle" extension="vulkan">
+    <function name="DeviceWaitIdle" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
     </function>
-    <function name="EndCommandBuffer" extension="vulkan">
+    <function name="EndCommandBuffer" extension="Core">
       <returns type="Result" />
       <param name="cmdBuffer" type="CmdBuffer" />
     </function>
-    <function name="EnumeratePhysicalDevices" extension="vulkan">
+    <function name="EnumeratePhysicalDevices" extension="Core">
       <returns type="Result" />
       <param name="instance" type="Instance" />
       <param name="pPhysicalDeviceCount" type="uint32_t*" />
       <param name="pPhysicalDevices" type="PhysicalDevice*" />
     </function>
-    <function name="FlushMappedMemoryRanges" extension="vulkan">
+    <function name="FlushMappedMemoryRanges" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="memRangeCount" type="uint32_t" />
       <param name="pMemRanges" type="const MappedMemoryRange*" />
     </function>
-    <function name="FreeDescriptorSets" extension="vulkan">
+    <function name="FreeDescriptorSets" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="descriptorPool" type="DescriptorPool" />
       <param name="count" type="uint32_t" />
       <param name="pDescriptorSets" type="const DescriptorSet*" />
     </function>
-    <function name="FreeMemory" extension="vulkan">
+    <function name="FreeMemory" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="mem" type="DeviceMemory" />
     </function>
-    <function name="GetBufferMemoryRequirements" extension="vulkan">
+    <function name="GetBufferMemoryRequirements" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="buffer" type="Buffer" />
       <param name="pMemoryRequirements" type="MemoryRequirements*" />
     </function>
-    <function name="GetDeviceMemoryCommitment" extension="vulkan">
+    <function name="GetDeviceMemoryCommitment" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="memory" type="DeviceMemory" />
       <param name="pCommittedMemoryInBytes" type="DeviceSize*" />
     </function>
-    <function name="GetDeviceProcAddr" extension="vulkan">
+    <function name="GetDeviceProcAddr" extension="Core">
       <returns type="PFN_vkVoidFunction" />
       <param name="device" type="Device" />
       <param name="pName" type="const char*" />
     </function>
-    <function name="GetDeviceQueue" extension="vulkan">
+    <function name="GetDeviceQueue" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="queueFamilyIndex" type="uint32_t" />
       <param name="queueIndex" type="uint32_t" />
       <param name="pQueue" type="Queue*" />
     </function>
-    <function name="GetEventStatus" extension="vulkan">
+    <function name="GetEventStatus" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="event" type="Event" />
     </function>
-    <function name="GetFenceStatus" extension="vulkan">
+    <function name="GetFenceStatus" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="fence" type="Fence" />
     </function>
-    <function name="GetGlobalExtensionProperties" extension="vulkan">
+    <function name="GetGlobalExtensionProperties" extension="Core">
       <returns type="Result" />
       <param name="pLayerName" type="const char*" />
       <param name="pCount" type="uint32_t*" />
       <param name="pProperties" type="ExtensionProperties*" />
     </function>
-    <function name="GetGlobalLayerProperties" extension="vulkan">
+    <function name="GetGlobalLayerProperties" extension="Core">
       <returns type="Result" />
       <param name="pCount" type="uint32_t*" />
       <param name="pProperties" type="LayerProperties*" />
     </function>
-    <function name="GetImageMemoryRequirements" extension="vulkan">
+    <function name="GetImageMemoryRequirements" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="image" type="Image" />
       <param name="pMemoryRequirements" type="MemoryRequirements*" />
     </function>
-    <function name="GetImageSparseMemoryRequirements" extension="vulkan">
+    <function name="GetImageSparseMemoryRequirements" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="image" type="Image" />
       <param name="pNumRequirements" type="uint32_t*" />
       <param name="pSparseMemoryRequirements" type="SparseImageMemoryRequirements*" />
     </function>
-    <function name="GetImageSubresourceLayout" extension="vulkan">
+    <function name="GetImageSubresourceLayout" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="image" type="Image" />
       <param name="pSubresource" type="const ImageSubresource*" />
       <param name="pLayout" type="SubresourceLayout*" />
     </function>
-    <function name="GetInstanceProcAddr" extension="vulkan">
+    <function name="GetInstanceProcAddr" extension="Core">
       <returns type="PFN_vkVoidFunction" />
       <param name="instance" type="Instance" />
       <param name="pName" type="const char*" />
     </function>
-    <function name="GetPhysicalDeviceExtensionProperties" extension="vulkan">
+    <function name="GetPhysicalDeviceExtensionProperties" extension="Core">
       <returns type="Result" />
       <param name="physicalDevice" type="PhysicalDevice" />
       <param name="pLayerName" type="const char*" />
       <param name="pCount" type="uint32_t*" />
       <param name="pProperties" type="ExtensionProperties*" />
     </function>
-    <function name="GetPhysicalDeviceFeatures" extension="vulkan">
+    <function name="GetPhysicalDeviceFeatures" extension="Core">
       <returns type="Result" />
       <param name="physicalDevice" type="PhysicalDevice" />
       <param name="pFeatures" type="PhysicalDeviceFeatures*" />
     </function>
-    <function name="GetPhysicalDeviceFormatProperties" extension="vulkan">
+    <function name="GetPhysicalDeviceFormatProperties" extension="Core">
       <returns type="Result" />
       <param name="physicalDevice" type="PhysicalDevice" />
       <param name="format" type="Format" />
       <param name="pFormatProperties" type="FormatProperties*" />
     </function>
-    <function name="GetPhysicalDeviceImageFormatProperties" extension="vulkan">
+    <function name="GetPhysicalDeviceImageFormatProperties" extension="Core">
       <returns type="Result" />
       <param name="physicalDevice" type="PhysicalDevice" />
       <param name="format" type="Format" />
@@ -1487,34 +1487,34 @@
       <param name="usage" type="ImageUsageFlags" />
       <param name="pImageFormatProperties" type="ImageFormatProperties*" />
     </function>
-    <function name="GetPhysicalDeviceLayerProperties" extension="vulkan">
+    <function name="GetPhysicalDeviceLayerProperties" extension="Core">
       <returns type="Result" />
       <param name="physicalDevice" type="PhysicalDevice" />
       <param name="pCount" type="uint32_t*" />
       <param name="pProperties" type="LayerProperties*" />
     </function>
-    <function name="GetPhysicalDeviceLimits" extension="vulkan">
+    <function name="GetPhysicalDeviceLimits" extension="Core">
       <returns type="Result" />
       <param name="physicalDevice" type="PhysicalDevice" />
       <param name="pLimits" type="PhysicalDeviceLimits*" />
     </function>
-    <function name="GetPhysicalDeviceMemoryProperties" extension="vulkan">
+    <function name="GetPhysicalDeviceMemoryProperties" extension="Core">
       <returns type="Result" />
       <param name="physicalDevice" type="PhysicalDevice" />
       <param name="pMemoryProperties" type="PhysicalDeviceMemoryProperties*" />
     </function>
-    <function name="GetPhysicalDeviceProperties" extension="vulkan">
+    <function name="GetPhysicalDeviceProperties" extension="Core">
       <returns type="Result" />
       <param name="physicalDevice" type="PhysicalDevice" />
       <param name="pProperties" type="PhysicalDeviceProperties*" />
     </function>
-    <function name="GetPhysicalDeviceQueueFamilyProperties" extension="vulkan">
+    <function name="GetPhysicalDeviceQueueFamilyProperties" extension="Core">
       <returns type="Result" />
       <param name="physicalDevice" type="PhysicalDevice" />
       <param name="pCount" type="uint32_t*" />
       <param name="pQueueFamilyProperties" type="QueueFamilyProperties*" />
     </function>
-    <function name="GetPhysicalDeviceSparseImageFormatProperties" extension="vulkan">
+    <function name="GetPhysicalDeviceSparseImageFormatProperties" extension="Core">
       <returns type="Result" />
       <param name="physicalDevice" type="PhysicalDevice" />
       <param name="format" type="Format" />
@@ -1525,18 +1525,18 @@
       <param name="pNumProperties" type="uint32_t*" />
       <param name="pProperties" type="SparseImageFormatProperties*" />
     </function>
-    <function name="GetPipelineCacheData" extension="vulkan">
+    <function name="GetPipelineCacheData" extension="Core">
       <returns type="VkResult" />
       <param name="device" type="Device" />
       <param name="pipelineCache" type="PipelineCache" />
       <param name="pData" type="void*" />
     </function>
-    <function name="GetPipelineCacheSize" extension="vulkan">
+    <function name="GetPipelineCacheSize" extension="Core">
       <returns type="size_t" />
       <param name="device" type="Device" />
       <param name="pipelineCache" type="PipelineCache" />
     </function>
-    <function name="GetQueryPoolResults" extension="vulkan">
+    <function name="GetQueryPoolResults" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="queryPool" type="QueryPool" />
@@ -1546,19 +1546,19 @@
       <param name="pData" type="void*" />
       <param name="flags" type="QueryResultFlags" />
     </function>
-    <function name="GetRenderAreaGranularity" extension="vulkan">
+    <function name="GetRenderAreaGranularity" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="renderPass" type="RenderPass" />
       <param name="pGranularity" type="Extent2D*" />
     </function>
-    <function name="InvalidateMappedMemoryRanges" extension="vulkan">
+    <function name="InvalidateMappedMemoryRanges" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="memRangeCount" type="uint32_t" />
       <param name="pMemRanges" type="const MappedMemoryRange*" />
     </function>
-    <function name="MapMemory" extension="vulkan">
+    <function name="MapMemory" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="mem" type="DeviceMemory" />
@@ -1567,93 +1567,93 @@
       <param name="flags" type="MemoryMapFlags" />
       <param name="ppData" type="void**" />
     </function>
-    <function name="MergePipelineCaches" extension="vulkan">
+    <function name="MergePipelineCaches" extension="Core">
       <returns type="VkResult" />
       <param name="device" type="Device" />
       <param name="destCache" type="PipelineCache" />
       <param name="srcCacheCount" type="uint32_t" />
       <param name="pSrcCaches" type="const PipelineCache*" />
     </function>
-    <function name="QueueBindSparseBufferMemory" extension="vulkan">
+    <function name="QueueBindSparseBufferMemory" extension="Core">
       <returns type="Result" />
       <param name="queue" type="Queue" />
       <param name="buffer" type="Buffer" />
       <param name="numBindings" type="uint32_t" />
       <param name="pBindInfo" type="const SparseMemoryBindInfo*" />
     </function>
-    <function name="QueueBindSparseImageMemory" extension="vulkan">
+    <function name="QueueBindSparseImageMemory" extension="Core">
       <returns type="Result" />
       <param name="queue" type="Queue" />
       <param name="image" type="Image" />
       <param name="numBindings" type="uint32_t" />
       <param name="pBindInfo" type="const SparseImageMemoryBindInfo*" />
     </function>
-    <function name="QueueBindSparseImageOpaqueMemory" extension="vulkan">
+    <function name="QueueBindSparseImageOpaqueMemory" extension="Core">
       <returns type="Result" />
       <param name="queue" type="Queue" />
       <param name="image" type="Image" />
       <param name="numBindings" type="uint32_t" />
       <param name="pBindInfo" type="const SparseMemoryBindInfo*" />
     </function>
-    <function name="QueueSignalSemaphore" extension="vulkan">
+    <function name="QueueSignalSemaphore" extension="Core">
       <returns type="Result" />
       <param name="queue" type="Queue" />
       <param name="semaphore" type="Semaphore" />
     </function>
-    <function name="QueueSubmit" extension="vulkan">
+    <function name="QueueSubmit" extension="Core">
       <returns type="Result" />
       <param name="queue" type="Queue" />
       <param name="cmdBufferCount" type="uint32_t" />
       <param name="pCmdBuffers" type="const CmdBuffer*" />
       <param name="fence" type="Fence" />
     </function>
-    <function name="QueueWaitIdle" extension="vulkan">
+    <function name="QueueWaitIdle" extension="Core">
       <returns type="Result" />
       <param name="queue" type="Queue" />
     </function>
-    <function name="QueueWaitSemaphore" extension="vulkan">
+    <function name="QueueWaitSemaphore" extension="Core">
       <returns type="Result" />
       <param name="queue" type="Queue" />
       <param name="semaphore" type="Semaphore" />
     </function>
-    <function name="ResetCommandBuffer" extension="vulkan">
+    <function name="ResetCommandBuffer" extension="Core">
       <returns type="Result" />
       <param name="cmdBuffer" type="CmdBuffer" />
       <param name="flags" type="CmdBufferResetFlags" />
     </function>
-    <function name="ResetCommandPool" extension="vulkan">
+    <function name="ResetCommandPool" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="cmdPool" type="CmdPool" />
       <param name="flags" type="CmdPoolResetFlags" />
     </function>
-    <function name="ResetDescriptorPool" extension="vulkan">
+    <function name="ResetDescriptorPool" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="descriptorPool" type="DescriptorPool" />
     </function>
-    <function name="ResetEvent" extension="vulkan">
+    <function name="ResetEvent" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="event" type="Event" />
     </function>
-    <function name="ResetFences" extension="vulkan">
+    <function name="ResetFences" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="fenceCount" type="uint32_t" />
       <param name="pFences" type="const Fence*" />
     </function>
-    <function name="SetEvent" extension="vulkan">
+    <function name="SetEvent" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="event" type="Event" />
     </function>
-    <function name="UnmapMemory" extension="vulkan">
+    <function name="UnmapMemory" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="mem" type="DeviceMemory" />
     </function>
-    <function name="UpdateDescriptorSets" extension="vulkan">
+    <function name="UpdateDescriptorSets" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="writeCount" type="uint32_t" />
@@ -1661,7 +1661,7 @@
       <param name="copyCount" type="uint32_t" />
       <param name="pDescriptorCopies" type="const CopyDescriptorSet*" />
     </function>
-    <function name="WaitForFences" extension="vulkan">
+    <function name="WaitForFences" extension="Core">
       <returns type="Result" />
       <param name="device" type="Device" />
       <param name="fenceCount" type="uint32_t" />
