@@ -11,8 +11,12 @@ namespace Bind.VK
             : base(settings)
         {
             Profile = "vulkan";
-            Version = "1.0"; 
-                        
+            Version = "1.0";
+
+            Settings.FunctionPrefix = "vk";
+            Settings.ConstantPrefix = "VK_";
+            Settings.EnumPrefix = "Vk";
+
             Settings.OutputClass = "VK";
 
             enumSpec = Path.Combine("VK", "signatures.xml");
