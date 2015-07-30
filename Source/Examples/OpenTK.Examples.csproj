@@ -382,6 +382,7 @@
     <Compile Include="OpenTK\Test\TestGraphicsModes.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Vulkan\1.x\HelloVulkan.cs" />
     <EmbeddedResource Include="OpenGL\1.x\ImmediateMode.rtf">
     </EmbeddedResource>
     <EmbeddedResource Include="OpenGL\1.x\VBODynamic.rtf">
@@ -568,6 +569,7 @@
     </None>
     <Compile Include="OpenTK\Test\ExternalContext.cs" />
     <Compile Include="OpenTK\Test\PointToClient.cs" />
+    <EmbeddedResource Include="Vulkan\1.x\HelloVulkan.rtf" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -636,6 +638,7 @@
     <Content Include="..\..\Dependencies\x86\SDL2.dll">
       <Link>Dependencies\x86\SDL2.dll</Link>
     </Content>
+    <None Include="Resources\Vulkan.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

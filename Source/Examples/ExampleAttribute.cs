@@ -54,6 +54,7 @@ namespace Examples
         OpenGL,
         OpenAL,
         OpenCL,
-        OpenGLES
+        OpenGLES,
+        Vulkan
     }
 }

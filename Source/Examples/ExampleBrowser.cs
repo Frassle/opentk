@@ -89,6 +89,7 @@ namespace Examples
             imageListSampleCategories.Images.Add("OpenGLES", Resources.OpenGLES);
             imageListSampleCategories.Images.Add("OpenCL", Resources.OpenCL);
             imageListSampleCategories.Images.Add("OpenTK", Resources.OpenTK);
+            imageListSampleCategories.Images.Add("Vulkan", Resources.Vulkan);
             imageListSampleCategories.Images.Add("1.x", Resources.v1x);
             imageListSampleCategories.Images.Add("2.x", Resources.v2x);
             imageListSampleCategories.Images.Add("3.x", Resources.v3x);
