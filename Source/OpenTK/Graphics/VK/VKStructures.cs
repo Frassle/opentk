@@ -34,1177 +34,1177 @@ namespace OpenTK.Graphics.Vulkan
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct AllocCallbacks
     {
-        void* pUserData;
-        IntPtr pfnAlloc;
-        IntPtr pfnFree;
+        public void* pUserData;
+        public IntPtr pfnAlloc;
+        public IntPtr pfnFree;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct ApplicationInfo
     {
-        StructureType sType;
-        void* pNext;
-        char* pAppName;
-        uint appVersion;
-        char* pEngineName;
-        uint engineVersion;
-        uint apiVersion;
+        public StructureType sType;
+        public void* pNext;
+        public char* pAppName;
+        public uint appVersion;
+        public char* pEngineName;
+        public uint engineVersion;
+        public uint apiVersion;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct AttachmentDescription
     {
-        StructureType sType;
-        void* pNext;
-        Format format;
-        uint samples;
-        AttachmentLoadOp loadOp;
-        AttachmentStoreOp storeOp;
-        AttachmentLoadOp stencilLoadOp;
-        AttachmentStoreOp stencilStoreOp;
-        ImageLayout initialLayout;
-        ImageLayout finalLayout;
+        public StructureType sType;
+        public void* pNext;
+        public Format format;
+        public uint samples;
+        public AttachmentLoadOp loadOp;
+        public AttachmentStoreOp storeOp;
+        public AttachmentLoadOp stencilLoadOp;
+        public AttachmentStoreOp stencilStoreOp;
+        public ImageLayout initialLayout;
+        public ImageLayout finalLayout;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct AttachmentReference
     {
-        uint attachment;
-        ImageLayout layout;
+        public uint attachment;
+        public ImageLayout layout;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct AttachmentViewCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        Image image;
-        Format format;
-        uint mipLevel;
-        uint baseArraySlice;
-        uint arraySize;
-        AttachmentViewCreateFlags flags;
+        public StructureType sType;
+        public void* pNext;
+        public Image image;
+        public Format format;
+        public uint mipLevel;
+        public uint baseArraySlice;
+        public uint arraySize;
+        public AttachmentViewCreateFlags flags;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct BufferCopy
     {
-        IntPtr srcOffset;
-        IntPtr destOffset;
-        IntPtr copySize;
+        public IntPtr srcOffset;
+        public IntPtr destOffset;
+        public IntPtr copySize;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct BufferCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        IntPtr size;
-        BufferUsageFlags usage;
-        BufferCreateFlags flags;
-        SharingMode sharingMode;
-        uint queueFamilyCount;
-        uint* pQueueFamilyIndices;
+        public StructureType sType;
+        public void* pNext;
+        public IntPtr size;
+        public BufferUsageFlags usage;
+        public BufferCreateFlags flags;
+        public SharingMode sharingMode;
+        public uint queueFamilyCount;
+        public uint* pQueueFamilyIndices;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct BufferImageCopy
     {
-        IntPtr bufferOffset;
-        uint bufferRowLength;
-        uint bufferImageHeight;
-        ImageSubresource imageSubresource;
-        Offset3D imageOffset;
-        Extent3D imageExtent;
+        public IntPtr bufferOffset;
+        public uint bufferRowLength;
+        public uint bufferImageHeight;
+        public ImageSubresource imageSubresource;
+        public Offset3D imageOffset;
+        public Extent3D imageExtent;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct BufferMemoryBarrier
     {
-        StructureType sType;
-        void* pNext;
-        MemoryOutputFlags outputMask;
-        MemoryInputFlags inputMask;
-        uint srcQueueFamilyIndex;
-        uint destQueueFamilyIndex;
-        Buffer buffer;
-        IntPtr offset;
-        IntPtr size;
+        public StructureType sType;
+        public void* pNext;
+        public MemoryOutputFlags outputMask;
+        public MemoryInputFlags inputMask;
+        public uint srcQueueFamilyIndex;
+        public uint destQueueFamilyIndex;
+        public Buffer buffer;
+        public IntPtr offset;
+        public IntPtr size;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct BufferViewCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        Buffer buffer;
-        BufferViewType viewType;
-        Format format;
-        IntPtr offset;
-        IntPtr range;
+        public StructureType sType;
+        public void* pNext;
+        public Buffer buffer;
+        public BufferViewType viewType;
+        public Format format;
+        public IntPtr offset;
+        public IntPtr range;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct ChannelMapping
     {
-        ChannelSwizzle r;
-        ChannelSwizzle g;
-        ChannelSwizzle b;
-        ChannelSwizzle a;
+        public ChannelSwizzle r;
+        public ChannelSwizzle g;
+        public ChannelSwizzle b;
+        public ChannelSwizzle a;
     }
 
     [StructLayout(LayoutKind.Explicit)]
     public unsafe struct ClearColorValue
     {
         [FieldOffset(0)]
-        fixed Single f32[4];
+        public fixed Single f32[4];
         [FieldOffset(0)]
-        fixed int s32[4];
+        public fixed int s32[4];
         [FieldOffset(0)]
-        fixed uint u32[4];
+        public fixed uint u32[4];
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct ClearDepthStencilValue
     {
-        Single depth;
-        uint stencil;
+        public Single depth;
+        public uint stencil;
     }
 
     [StructLayout(LayoutKind.Explicit)]
     public struct ClearValue
     {
         [FieldOffset(0)]
-        ClearColorValue color;
+        public ClearColorValue color;
         [FieldOffset(0)]
-        ClearDepthStencilValue ds;
+        public ClearDepthStencilValue ds;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct CmdBufferBeginInfo
     {
-        StructureType sType;
-        void* pNext;
-        CmdBufferOptimizeFlags flags;
-        RenderPass renderPass;
-        Framebuffer framebuffer;
+        public StructureType sType;
+        public void* pNext;
+        public CmdBufferOptimizeFlags flags;
+        public RenderPass renderPass;
+        public Framebuffer framebuffer;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct CmdBufferCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        CmdPool cmdPool;
-        CmdBufferLevel level;
-        CmdBufferCreateFlags flags;
+        public StructureType sType;
+        public void* pNext;
+        public CmdPool cmdPool;
+        public CmdBufferLevel level;
+        public CmdBufferCreateFlags flags;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct CmdPoolCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        uint queueFamilyIndex;
-        CmdPoolCreateFlags flags;
+        public StructureType sType;
+        public void* pNext;
+        public uint queueFamilyIndex;
+        public CmdPoolCreateFlags flags;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct ComputePipelineCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        PipelineShaderStageCreateInfo cs;
-        PipelineCreateFlags flags;
-        PipelineLayout layout;
-        Pipeline basePipelineHandle;
-        int basePipelineIndex;
+        public StructureType sType;
+        public void* pNext;
+        public PipelineShaderStageCreateInfo cs;
+        public PipelineCreateFlags flags;
+        public PipelineLayout layout;
+        public Pipeline basePipelineHandle;
+        public int basePipelineIndex;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct CopyDescriptorSet
     {
-        StructureType sType;
-        void* pNext;
-        DescriptorSet srcSet;
-        uint srcBinding;
-        uint srcArrayElement;
-        DescriptorSet destSet;
-        uint destBinding;
-        uint destArrayElement;
-        uint count;
+        public StructureType sType;
+        public void* pNext;
+        public DescriptorSet srcSet;
+        public uint srcBinding;
+        public uint srcArrayElement;
+        public DescriptorSet destSet;
+        public uint destBinding;
+        public uint destArrayElement;
+        public uint count;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct DescriptorInfo
     {
-        BufferView bufferView;
-        Sampler sampler;
-        ImageView imageView;
-        AttachmentView attachmentView;
-        ImageLayout imageLayout;
+        public BufferView bufferView;
+        public Sampler sampler;
+        public ImageView imageView;
+        public AttachmentView attachmentView;
+        public ImageLayout imageLayout;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct DescriptorPoolCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        uint count;
-        DescriptorTypeCount* pTypeCount;
+        public StructureType sType;
+        public void* pNext;
+        public uint count;
+        public DescriptorTypeCount* pTypeCount;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct DescriptorSetLayoutBinding
     {
-        DescriptorType descriptorType;
-        uint arraySize;
-        ShaderStageFlags stageFlags;
-        Sampler* pImmutableSamplers;
+        public DescriptorType descriptorType;
+        public uint arraySize;
+        public ShaderStageFlags stageFlags;
+        public Sampler* pImmutableSamplers;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct DescriptorSetLayoutCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        uint count;
-        DescriptorSetLayoutBinding* pBinding;
+        public StructureType sType;
+        public void* pNext;
+        public uint count;
+        public DescriptorSetLayoutBinding* pBinding;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct DescriptorTypeCount
     {
-        DescriptorType type;
-        uint count;
+        public DescriptorType type;
+        public uint count;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct DeviceCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        uint queueRecordCount;
-        DeviceQueueCreateInfo* pRequestedQueues;
-        uint layerCount;
-        char** ppEnabledLayerNames;
-        uint extensionCount;
-        char** ppEnabledExtensionNames;
-        PhysicalDeviceFeatures* pEnabledFeatures;
-        DeviceCreateFlags flags;
+        public StructureType sType;
+        public void* pNext;
+        public uint queueRecordCount;
+        public DeviceQueueCreateInfo* pRequestedQueues;
+        public uint layerCount;
+        public char** ppEnabledLayerNames;
+        public uint extensionCount;
+        public char** ppEnabledExtensionNames;
+        public PhysicalDeviceFeatures* pEnabledFeatures;
+        public DeviceCreateFlags flags;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct DeviceQueueCreateInfo
     {
-        uint queueFamilyIndex;
-        uint queueCount;
+        public uint queueFamilyIndex;
+        public uint queueCount;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct DispatchIndirectCmd
     {
-        uint x;
-        uint y;
-        uint z;
+        public uint x;
+        public uint y;
+        public uint z;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct DrawIndexedIndirectCmd
     {
-        uint indexCount;
-        uint instanceCount;
-        uint firstIndex;
-        int vertexOffset;
-        uint firstInstance;
+        public uint indexCount;
+        public uint instanceCount;
+        public uint firstIndex;
+        public int vertexOffset;
+        public uint firstInstance;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct DrawIndirectCmd
     {
-        uint vertexCount;
-        uint instanceCount;
-        uint firstVertex;
-        uint firstInstance;
+        public uint vertexCount;
+        public uint instanceCount;
+        public uint firstVertex;
+        public uint firstInstance;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct DynamicColorBlendStateCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        fixed Single blendConst[4];
+        public StructureType sType;
+        public void* pNext;
+        public fixed Single blendConst[4];
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct DynamicDepthStencilStateCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        Single minDepthBounds;
-        Single maxDepthBounds;
-        uint stencilReadMask;
-        uint stencilWriteMask;
-        uint stencilFrontRef;
-        uint stencilBackRef;
+        public StructureType sType;
+        public void* pNext;
+        public Single minDepthBounds;
+        public Single maxDepthBounds;
+        public uint stencilReadMask;
+        public uint stencilWriteMask;
+        public uint stencilFrontRef;
+        public uint stencilBackRef;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct DynamicRasterStateCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        Single depthBias;
-        Single depthBiasClamp;
-        Single slopeScaledDepthBias;
-        Single lineWidth;
+        public StructureType sType;
+        public void* pNext;
+        public Single depthBias;
+        public Single depthBiasClamp;
+        public Single slopeScaledDepthBias;
+        public Single lineWidth;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct DynamicViewportStateCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        uint viewportAndScissorCount;
-        Viewport* pViewports;
-        Rect2D* pScissors;
+        public StructureType sType;
+        public void* pNext;
+        public uint viewportAndScissorCount;
+        public Viewport* pViewports;
+        public Rect2D* pScissors;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct EventCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        EventCreateFlags flags;
+        public StructureType sType;
+        public void* pNext;
+        public EventCreateFlags flags;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct ExtensionProperties
     {
-        char* extName;
-        uint specVersion;
+        public char* extName;
+        public uint specVersion;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct Extent2D
     {
-        int width;
-        int height;
+        public int width;
+        public int height;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct Extent3D
     {
-        int width;
-        int height;
-        int depth;
+        public int width;
+        public int height;
+        public int depth;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct FenceCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        FenceCreateFlags flags;
+        public StructureType sType;
+        public void* pNext;
+        public FenceCreateFlags flags;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct FormatProperties
     {
-        FormatFeatureFlags linearTilingFeatures;
-        FormatFeatureFlags optimalTilingFeatures;
+        public FormatFeatureFlags linearTilingFeatures;
+        public FormatFeatureFlags optimalTilingFeatures;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct FramebufferCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        RenderPass renderPass;
-        uint attachmentCount;
-        AttachmentView* pAttachments;
-        uint width;
-        uint height;
-        uint layers;
+        public StructureType sType;
+        public void* pNext;
+        public RenderPass renderPass;
+        public uint attachmentCount;
+        public AttachmentView* pAttachments;
+        public uint width;
+        public uint height;
+        public uint layers;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct GraphicsPipelineCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        uint stageCount;
-        PipelineShaderStageCreateInfo* pStages;
-        PipelineVertexInputStateCreateInfo* pVertexInputState;
-        PipelineInputAssemblyStateCreateInfo* pInputAssemblyState;
-        PipelineTessellationStateCreateInfo* pTessellationState;
-        PipelineViewportStateCreateInfo* pViewportState;
-        PipelineRasterStateCreateInfo* pRasterState;
-        PipelineMultisampleStateCreateInfo* pMultisampleState;
-        PipelineDepthStencilStateCreateInfo* pDepthStencilState;
-        PipelineColorBlendStateCreateInfo* pColorBlendState;
-        PipelineCreateFlags flags;
-        PipelineLayout layout;
-        RenderPass renderPass;
-        uint subpass;
-        Pipeline basePipelineHandle;
-        int basePipelineIndex;
+        public StructureType sType;
+        public void* pNext;
+        public uint stageCount;
+        public PipelineShaderStageCreateInfo* pStages;
+        public PipelineVertexInputStateCreateInfo* pVertexInputState;
+        public PipelineInputAssemblyStateCreateInfo* pInputAssemblyState;
+        public PipelineTessellationStateCreateInfo* pTessellationState;
+        public PipelineViewportStateCreateInfo* pViewportState;
+        public PipelineRasterStateCreateInfo* pRasterState;
+        public PipelineMultisampleStateCreateInfo* pMultisampleState;
+        public PipelineDepthStencilStateCreateInfo* pDepthStencilState;
+        public PipelineColorBlendStateCreateInfo* pColorBlendState;
+        public PipelineCreateFlags flags;
+        public PipelineLayout layout;
+        public RenderPass renderPass;
+        public uint subpass;
+        public Pipeline basePipelineHandle;
+        public int basePipelineIndex;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct ImageBlit
     {
-        ImageSubresource srcSubresource;
-        Offset3D srcOffset;
-        Extent3D srcExtent;
-        ImageSubresource destSubresource;
-        Offset3D destOffset;
-        Extent3D destExtent;
+        public ImageSubresource srcSubresource;
+        public Offset3D srcOffset;
+        public Extent3D srcExtent;
+        public ImageSubresource destSubresource;
+        public Offset3D destOffset;
+        public Extent3D destExtent;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct ImageCopy
     {
-        ImageSubresource srcSubresource;
-        Offset3D srcOffset;
-        ImageSubresource destSubresource;
-        Offset3D destOffset;
-        Extent3D extent;
+        public ImageSubresource srcSubresource;
+        public Offset3D srcOffset;
+        public ImageSubresource destSubresource;
+        public Offset3D destOffset;
+        public Extent3D extent;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct ImageCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        ImageType imageType;
-        Format format;
-        Extent3D extent;
-        uint mipLevels;
-        uint arraySize;
-        uint samples;
-        ImageTiling tiling;
-        ImageUsageFlags usage;
-        ImageCreateFlags flags;
-        SharingMode sharingMode;
-        uint queueFamilyCount;
-        uint* pQueueFamilyIndices;
+        public StructureType sType;
+        public void* pNext;
+        public ImageType imageType;
+        public Format format;
+        public Extent3D extent;
+        public uint mipLevels;
+        public uint arraySize;
+        public uint samples;
+        public ImageTiling tiling;
+        public ImageUsageFlags usage;
+        public ImageCreateFlags flags;
+        public SharingMode sharingMode;
+        public uint queueFamilyCount;
+        public uint* pQueueFamilyIndices;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct ImageFormatProperties
     {
-        ulong maxResourceSize;
-        uint maxSamples;
+        public ulong maxResourceSize;
+        public uint maxSamples;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct ImageMemoryBarrier
     {
-        StructureType sType;
-        void* pNext;
-        MemoryOutputFlags outputMask;
-        MemoryInputFlags inputMask;
-        ImageLayout oldLayout;
-        ImageLayout newLayout;
-        uint srcQueueFamilyIndex;
-        uint destQueueFamilyIndex;
-        Image image;
-        ImageSubresourceRange subresourceRange;
+        public StructureType sType;
+        public void* pNext;
+        public MemoryOutputFlags outputMask;
+        public MemoryInputFlags inputMask;
+        public ImageLayout oldLayout;
+        public ImageLayout newLayout;
+        public uint srcQueueFamilyIndex;
+        public uint destQueueFamilyIndex;
+        public Image image;
+        public ImageSubresourceRange subresourceRange;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct ImageResolve
     {
-        ImageSubresource srcSubresource;
-        Offset3D srcOffset;
-        ImageSubresource destSubresource;
-        Offset3D destOffset;
-        Extent3D extent;
+        public ImageSubresource srcSubresource;
+        public Offset3D srcOffset;
+        public ImageSubresource destSubresource;
+        public Offset3D destOffset;
+        public Extent3D extent;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct ImageSubresource
     {
-        ImageAspect aspect;
-        uint mipLevel;
-        uint arraySlice;
+        public ImageAspect aspect;
+        public uint mipLevel;
+        public uint arraySlice;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct ImageSubresourceRange
     {
-        ImageAspect aspect;
-        uint baseMipLevel;
-        uint mipLevels;
-        uint baseArraySlice;
-        uint arraySize;
+        public ImageAspect aspect;
+        public uint baseMipLevel;
+        public uint mipLevels;
+        public uint baseArraySlice;
+        public uint arraySize;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct ImageViewCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        Image image;
-        ImageViewType viewType;
-        Format format;
-        ChannelMapping channels;
-        ImageSubresourceRange subresourceRange;
+        public StructureType sType;
+        public void* pNext;
+        public Image image;
+        public ImageViewType viewType;
+        public Format format;
+        public ChannelMapping channels;
+        public ImageSubresourceRange subresourceRange;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct InstanceCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        ApplicationInfo* pAppInfo;
-        AllocCallbacks* pAllocCb;
-        uint layerCount;
-        char** ppEnabledLayerNames;
-        uint extensionCount;
-        char** ppEnabledExtensionNames;
+        public StructureType sType;
+        public void* pNext;
+        public ApplicationInfo* pAppInfo;
+        public AllocCallbacks* pAllocCb;
+        public uint layerCount;
+        public char** ppEnabledLayerNames;
+        public uint extensionCount;
+        public char** ppEnabledExtensionNames;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct LayerProperties
     {
-        char* layerName;
-        uint specVersion;
-        uint implVersion;
-        char* description;
+        public char* layerName;
+        public uint specVersion;
+        public uint implVersion;
+        public char* description;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct MappedMemoryRange
     {
-        StructureType sType;
-        void* pNext;
-        DeviceMemory mem;
-        IntPtr offset;
-        IntPtr size;
+        public StructureType sType;
+        public void* pNext;
+        public DeviceMemory mem;
+        public IntPtr offset;
+        public IntPtr size;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct MemoryAllocInfo
     {
-        StructureType sType;
-        void* pNext;
-        IntPtr allocationSize;
-        uint memoryTypeIndex;
+        public StructureType sType;
+        public void* pNext;
+        public IntPtr allocationSize;
+        public uint memoryTypeIndex;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct MemoryBarrier
     {
-        StructureType sType;
-        void* pNext;
-        MemoryOutputFlags outputMask;
-        MemoryInputFlags inputMask;
+        public StructureType sType;
+        public void* pNext;
+        public MemoryOutputFlags outputMask;
+        public MemoryInputFlags inputMask;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct MemoryHeap
     {
-        IntPtr size;
-        MemoryHeapFlags flags;
+        public IntPtr size;
+        public MemoryHeapFlags flags;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct MemoryRequirements
     {
-        IntPtr size;
-        IntPtr alignment;
-        uint memoryTypeBits;
+        public IntPtr size;
+        public IntPtr alignment;
+        public uint memoryTypeBits;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct MemoryType
     {
-        MemoryPropertyFlags propertyFlags;
-        uint heapIndex;
+        public MemoryPropertyFlags propertyFlags;
+        public uint heapIndex;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct Offset2D
     {
-        int x;
-        int y;
+        public int x;
+        public int y;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct Offset3D
     {
-        int x;
-        int y;
-        int z;
+        public int x;
+        public int y;
+        public int z;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct PhysicalDeviceFeatures
     {
-        bool robustBufferAccess;
-        bool fullDrawIndexUint32;
-        bool imageCubeArray;
-        bool independentBlend;
-        bool geometryShader;
-        bool tessellationShader;
-        bool sampleRateShading;
-        bool dualSourceBlend;
-        bool logicOp;
-        bool instancedDrawIndirect;
-        bool depthClip;
-        bool depthBiasClamp;
-        bool fillModeNonSolid;
-        bool depthBounds;
-        bool wideLines;
-        bool largePoints;
-        bool textureCompressionETC2;
-        bool textureCompressionASTC_LDR;
-        bool textureCompressionBC;
-        bool pipelineStatisticsQuery;
-        bool vertexSideEffects;
-        bool tessellationSideEffects;
-        bool geometrySideEffects;
-        bool fragmentSideEffects;
-        bool shaderTessellationPointSize;
-        bool shaderGeometryPointSize;
-        bool shaderTextureGatherExtended;
-        bool shaderStorageImageExtendedFormats;
-        bool shaderStorageImageMultisample;
-        bool shaderStorageBufferArrayConstantIndexing;
-        bool shaderStorageImageArrayConstantIndexing;
-        bool shaderUniformBufferArrayDynamicIndexing;
-        bool shaderSampledImageArrayDynamicIndexing;
-        bool shaderStorageBufferArrayDynamicIndexing;
-        bool shaderStorageImageArrayDynamicIndexing;
-        bool shaderClipDistance;
-        bool shaderCullDistance;
-        bool shaderFloat64;
-        bool shaderInt64;
-        bool shaderFloat16;
-        bool shaderInt16;
-        bool shaderResourceResidency;
-        bool shaderResourceMinLOD;
-        bool sparse;
-        bool sparseResidencyBuffer;
-        bool sparseResidencyImage2D;
-        bool sparseResidencyImage3D;
-        bool sparseResidency2Samples;
-        bool sparseResidency4Samples;
-        bool sparseResidency8Samples;
-        bool sparseResidency16Samples;
-        bool sparseResidencyStandard2DBlockShape;
-        bool sparseResidencyStandard2DMSBlockShape;
-        bool sparseResidencyStandard3DBlockShape;
-        bool sparseResidencyAlignedMipSize;
-        bool sparseResidencyNonResident;
-        bool sparseResidencyNonResidentStrict;
-        bool sparseResidencyAliased;
+        public bool robustBufferAccess;
+        public bool fullDrawIndexUint32;
+        public bool imageCubeArray;
+        public bool independentBlend;
+        public bool geometryShader;
+        public bool tessellationShader;
+        public bool sampleRateShading;
+        public bool dualSourceBlend;
+        public bool logicOp;
+        public bool instancedDrawIndirect;
+        public bool depthClip;
+        public bool depthBiasClamp;
+        public bool fillModeNonSolid;
+        public bool depthBounds;
+        public bool wideLines;
+        public bool largePoints;
+        public bool textureCompressionETC2;
+        public bool textureCompressionASTC_LDR;
+        public bool textureCompressionBC;
+        public bool pipelineStatisticsQuery;
+        public bool vertexSideEffects;
+        public bool tessellationSideEffects;
+        public bool geometrySideEffects;
+        public bool fragmentSideEffects;
+        public bool shaderTessellationPointSize;
+        public bool shaderGeometryPointSize;
+        public bool shaderTextureGatherExtended;
+        public bool shaderStorageImageExtendedFormats;
+        public bool shaderStorageImageMultisample;
+        public bool shaderStorageBufferArrayConstantIndexing;
+        public bool shaderStorageImageArrayConstantIndexing;
+        public bool shaderUniformBufferArrayDynamicIndexing;
+        public bool shaderSampledImageArrayDynamicIndexing;
+        public bool shaderStorageBufferArrayDynamicIndexing;
+        public bool shaderStorageImageArrayDynamicIndexing;
+        public bool shaderClipDistance;
+        public bool shaderCullDistance;
+        public bool shaderFloat64;
+        public bool shaderInt64;
+        public bool shaderFloat16;
+        public bool shaderInt16;
+        public bool shaderResourceResidency;
+        public bool shaderResourceMinLOD;
+        public bool sparse;
+        public bool sparseResidencyBuffer;
+        public bool sparseResidencyImage2D;
+        public bool sparseResidencyImage3D;
+        public bool sparseResidency2Samples;
+        public bool sparseResidency4Samples;
+        public bool sparseResidency8Samples;
+        public bool sparseResidency16Samples;
+        public bool sparseResidencyStandard2DBlockShape;
+        public bool sparseResidencyStandard2DMSBlockShape;
+        public bool sparseResidencyStandard3DBlockShape;
+        public bool sparseResidencyAlignedMipSize;
+        public bool sparseResidencyNonResident;
+        public bool sparseResidencyNonResidentStrict;
+        public bool sparseResidencyAliased;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct PhysicalDeviceLimits
     {
-        uint maxImageDimension1D;
-        uint maxImageDimension2D;
-        uint maxImageDimension3D;
-        uint maxImageDimensionCube;
-        uint maxImageArrayLayers;
-        uint maxTexelBufferSize;
-        uint maxUniformBufferSize;
-        uint maxStorageBufferSize;
-        uint maxPushConstantsSize;
-        uint maxMemoryAllocationCount;
-        IntPtr bufferImageGranularity;
-        uint maxBoundDescriptorSets;
-        uint maxDescriptorSets;
-        uint maxPerStageDescriptorSamplers;
-        uint maxPerStageDescriptorUniformBuffers;
-        uint maxPerStageDescriptorStorageBuffers;
-        uint maxPerStageDescriptorSampledImages;
-        uint maxPerStageDescriptorStorageImages;
-        uint maxDescriptorSetSamplers;
-        uint maxDescriptorSetUniformBuffers;
-        uint maxDescriptorSetStorageBuffers;
-        uint maxDescriptorSetSampledImages;
-        uint maxDescriptorSetStorageImages;
-        uint maxVertexInputAttributes;
-        uint maxVertexInputAttributeOffset;
-        uint maxVertexInputBindingStride;
-        uint maxVertexOutputComponents;
-        uint maxTessGenLevel;
-        uint maxTessPatchSize;
-        uint maxTessControlPerVertexInputComponents;
-        uint maxTessControlPerVertexOutputComponents;
-        uint maxTessControlPerPatchOutputComponents;
-        uint maxTessControlTotalOutputComponents;
-        uint maxTessEvaluationInputComponents;
-        uint maxTessEvaluationOutputComponents;
-        uint maxGeometryShaderInvocations;
-        uint maxGeometryInputComponents;
-        uint maxGeometryOutputComponents;
-        uint maxGeometryOutputVertices;
-        uint maxGeometryTotalOutputComponents;
-        uint maxFragmentInputComponents;
-        uint maxFragmentOutputBuffers;
-        uint maxFragmentDualSourceBuffers;
-        uint maxFragmentCombinedOutputResources;
-        uint maxComputeSharedMemorySize;
-        fixed uint maxComputeWorkGroupCount[3];
-        uint maxComputeWorkGroupInvocations;
-        fixed uint maxComputeWorkGroupSize[3];
-        uint subPixelPrecisionBits;
-        uint subTexelPrecisionBits;
-        uint mipmapPrecisionBits;
-        uint maxDrawIndexedIndexValue;
-        uint maxDrawIndirectInstanceCount;
-        bool primitiveRestartForPatches;
-        Single maxSamplerLodBias;
-        Single maxSamplerAnisotropy;
-        uint maxViewports;
-        uint maxDynamicViewportStates;
-        fixed uint maxViewportDimensions[2];
-        fixed Single viewportBoundsRange[2];
-        uint viewportSubPixelBits;
-        uint minMemoryMapAlignment;
-        uint minTexelBufferOffsetAlignment;
-        uint minUniformBufferOffsetAlignment;
-        uint minStorageBufferOffsetAlignment;
-        uint minTexelOffset;
-        uint maxTexelOffset;
-        uint minTexelGatherOffset;
-        uint maxTexelGatherOffset;
-        Single minInterpolationOffset;
-        Single maxInterpolationOffset;
-        uint subPixelInterpolationOffsetBits;
-        uint maxFramebufferWidth;
-        uint maxFramebufferHeight;
-        uint maxFramebufferLayers;
-        uint maxFramebufferColorSamples;
-        uint maxFramebufferDepthSamples;
-        uint maxFramebufferStencilSamples;
-        uint maxColorAttachments;
-        uint maxSampledImageColorSamples;
-        uint maxSampledImageDepthSamples;
-        uint maxSampledImageIntegerSamples;
-        uint maxStorageImageSamples;
-        uint maxSampleMaskWords;
-        ulong timestampFrequency;
-        uint maxClipDistances;
-        uint maxCullDistances;
-        uint maxCombinedClipAndCullDistances;
-        fixed Single pointSizeRange[2];
-        fixed Single lineWidthRange[2];
-        Single pointSizeGranularity;
-        Single lineWidthGranularity;
+        public uint maxImageDimension1D;
+        public uint maxImageDimension2D;
+        public uint maxImageDimension3D;
+        public uint maxImageDimensionCube;
+        public uint maxImageArrayLayers;
+        public uint maxTexelBufferSize;
+        public uint maxUniformBufferSize;
+        public uint maxStorageBufferSize;
+        public uint maxPushConstantsSize;
+        public uint maxMemoryAllocationCount;
+        public IntPtr bufferImageGranularity;
+        public uint maxBoundDescriptorSets;
+        public uint maxDescriptorSets;
+        public uint maxPerStageDescriptorSamplers;
+        public uint maxPerStageDescriptorUniformBuffers;
+        public uint maxPerStageDescriptorStorageBuffers;
+        public uint maxPerStageDescriptorSampledImages;
+        public uint maxPerStageDescriptorStorageImages;
+        public uint maxDescriptorSetSamplers;
+        public uint maxDescriptorSetUniformBuffers;
+        public uint maxDescriptorSetStorageBuffers;
+        public uint maxDescriptorSetSampledImages;
+        public uint maxDescriptorSetStorageImages;
+        public uint maxVertexInputAttributes;
+        public uint maxVertexInputAttributeOffset;
+        public uint maxVertexInputBindingStride;
+        public uint maxVertexOutputComponents;
+        public uint maxTessGenLevel;
+        public uint maxTessPatchSize;
+        public uint maxTessControlPerVertexInputComponents;
+        public uint maxTessControlPerVertexOutputComponents;
+        public uint maxTessControlPerPatchOutputComponents;
+        public uint maxTessControlTotalOutputComponents;
+        public uint maxTessEvaluationInputComponents;
+        public uint maxTessEvaluationOutputComponents;
+        public uint maxGeometryShaderInvocations;
+        public uint maxGeometryInputComponents;
+        public uint maxGeometryOutputComponents;
+        public uint maxGeometryOutputVertices;
+        public uint maxGeometryTotalOutputComponents;
+        public uint maxFragmentInputComponents;
+        public uint maxFragmentOutputBuffers;
+        public uint maxFragmentDualSourceBuffers;
+        public uint maxFragmentCombinedOutputResources;
+        public uint maxComputeSharedMemorySize;
+        public fixed uint maxComputeWorkGroupCount[3];
+        public uint maxComputeWorkGroupInvocations;
+        public fixed uint maxComputeWorkGroupSize[3];
+        public uint subPixelPrecisionBits;
+        public uint subTexelPrecisionBits;
+        public uint mipmapPrecisionBits;
+        public uint maxDrawIndexedIndexValue;
+        public uint maxDrawIndirectInstanceCount;
+        public bool primitiveRestartForPatches;
+        public Single maxSamplerLodBias;
+        public Single maxSamplerAnisotropy;
+        public uint maxViewports;
+        public uint maxDynamicViewportStates;
+        public fixed uint maxViewportDimensions[2];
+        public fixed Single viewportBoundsRange[2];
+        public uint viewportSubPixelBits;
+        public uint minMemoryMapAlignment;
+        public uint minTexelBufferOffsetAlignment;
+        public uint minUniformBufferOffsetAlignment;
+        public uint minStorageBufferOffsetAlignment;
+        public uint minTexelOffset;
+        public uint maxTexelOffset;
+        public uint minTexelGatherOffset;
+        public uint maxTexelGatherOffset;
+        public Single minInterpolationOffset;
+        public Single maxInterpolationOffset;
+        public uint subPixelInterpolationOffsetBits;
+        public uint maxFramebufferWidth;
+        public uint maxFramebufferHeight;
+        public uint maxFramebufferLayers;
+        public uint maxFramebufferColorSamples;
+        public uint maxFramebufferDepthSamples;
+        public uint maxFramebufferStencilSamples;
+        public uint maxColorAttachments;
+        public uint maxSampledImageColorSamples;
+        public uint maxSampledImageDepthSamples;
+        public uint maxSampledImageIntegerSamples;
+        public uint maxStorageImageSamples;
+        public uint maxSampleMaskWords;
+        public ulong timestampFrequency;
+        public uint maxClipDistances;
+        public uint maxCullDistances;
+        public uint maxCombinedClipAndCullDistances;
+        public fixed Single pointSizeRange[2];
+        public fixed Single lineWidthRange[2];
+        public Single pointSizeGranularity;
+        public Single lineWidthGranularity;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct PhysicalDeviceMemoryProperties
     {
-        uint memoryTypeCount;
-        MemoryType* memoryTypes;
-        uint memoryHeapCount;
-        MemoryHeap* memoryHeaps;
+        public uint memoryTypeCount;
+        public MemoryType* memoryTypes;
+        public uint memoryHeapCount;
+        public MemoryHeap* memoryHeaps;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct PhysicalDeviceProperties
     {
-        uint apiVersion;
-        uint driverVersion;
-        uint vendorId;
-        uint deviceId;
-        PhysicalDeviceType deviceType;
-        char* deviceName;
-        byte* pipelineCacheUUID;
+        public uint apiVersion;
+        public uint driverVersion;
+        public uint vendorId;
+        public uint deviceId;
+        public PhysicalDeviceType deviceType;
+        public char* deviceName;
+        public byte* pipelineCacheUUID;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct PipelineCacheCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        IntPtr initialSize;
-        void* initialData;
-        IntPtr maxSize;
+        public StructureType sType;
+        public void* pNext;
+        public IntPtr initialSize;
+        public void* initialData;
+        public IntPtr maxSize;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct PipelineColorBlendAttachmentState
     {
-        bool blendEnable;
-        Blend srcBlendColor;
-        Blend destBlendColor;
-        BlendOp blendOpColor;
-        Blend srcBlendAlpha;
-        Blend destBlendAlpha;
-        BlendOp blendOpAlpha;
-        ChannelFlags channelWriteMask;
+        public bool blendEnable;
+        public Blend srcBlendColor;
+        public Blend destBlendColor;
+        public BlendOp blendOpColor;
+        public Blend srcBlendAlpha;
+        public Blend destBlendAlpha;
+        public BlendOp blendOpAlpha;
+        public ChannelFlags channelWriteMask;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct PipelineColorBlendStateCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        bool alphaToCoverageEnable;
-        bool logicOpEnable;
-        LogicOp logicOp;
-        uint attachmentCount;
-        PipelineColorBlendAttachmentState* pAttachments;
+        public StructureType sType;
+        public void* pNext;
+        public bool alphaToCoverageEnable;
+        public bool logicOpEnable;
+        public LogicOp logicOp;
+        public uint attachmentCount;
+        public PipelineColorBlendAttachmentState* pAttachments;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct PipelineDepthStencilStateCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        bool depthTestEnable;
-        bool depthWriteEnable;
-        CompareOp depthCompareOp;
-        bool depthBoundsEnable;
-        bool stencilTestEnable;
-        StencilOpState front;
-        StencilOpState back;
+        public StructureType sType;
+        public void* pNext;
+        public bool depthTestEnable;
+        public bool depthWriteEnable;
+        public CompareOp depthCompareOp;
+        public bool depthBoundsEnable;
+        public bool stencilTestEnable;
+        public StencilOpState front;
+        public StencilOpState back;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct PipelineInputAssemblyStateCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        PrimitiveTopology topology;
-        bool primitiveRestartEnable;
+        public StructureType sType;
+        public void* pNext;
+        public PrimitiveTopology topology;
+        public bool primitiveRestartEnable;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct PipelineLayoutCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        uint descriptorSetCount;
-        DescriptorSetLayout* pSetLayouts;
-        uint pushConstantRangeCount;
-        PushConstantRange* pPushConstantRanges;
+        public StructureType sType;
+        public void* pNext;
+        public uint descriptorSetCount;
+        public DescriptorSetLayout* pSetLayouts;
+        public uint pushConstantRangeCount;
+        public PushConstantRange* pPushConstantRanges;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct PipelineMultisampleStateCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        uint rasterSamples;
-        bool sampleShadingEnable;
-        Single minSampleShading;
-        uint sampleMask;
+        public StructureType sType;
+        public void* pNext;
+        public uint rasterSamples;
+        public bool sampleShadingEnable;
+        public Single minSampleShading;
+        public uint sampleMask;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct PipelineRasterStateCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        bool depthClipEnable;
-        bool rasterizerDiscardEnable;
-        FillMode fillMode;
-        CullMode cullMode;
-        FrontFace frontFace;
+        public StructureType sType;
+        public void* pNext;
+        public bool depthClipEnable;
+        public bool rasterizerDiscardEnable;
+        public FillMode fillMode;
+        public CullMode cullMode;
+        public FrontFace frontFace;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct PipelineShaderStageCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        ShaderStage stage;
-        Shader shader;
-        SpecializationInfo* pSpecializationInfo;
+        public StructureType sType;
+        public void* pNext;
+        public ShaderStage stage;
+        public Shader shader;
+        public SpecializationInfo* pSpecializationInfo;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct PipelineTessellationStateCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        uint patchControlPoints;
+        public StructureType sType;
+        public void* pNext;
+        public uint patchControlPoints;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct PipelineVertexInputStateCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        uint bindingCount;
-        VertexInputBindingDescription* pVertexBindingDescriptions;
-        uint attributeCount;
-        VertexInputAttributeDescription* pVertexAttributeDescriptions;
+        public StructureType sType;
+        public void* pNext;
+        public uint bindingCount;
+        public VertexInputBindingDescription* pVertexBindingDescriptions;
+        public uint attributeCount;
+        public VertexInputAttributeDescription* pVertexAttributeDescriptions;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct PipelineViewportStateCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        uint viewportCount;
+        public StructureType sType;
+        public void* pNext;
+        public uint viewportCount;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct PushConstantRange
     {
-        ShaderStageFlags stageFlags;
-        uint start;
-        uint length;
+        public ShaderStageFlags stageFlags;
+        public uint start;
+        public uint length;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct QueryPoolCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        QueryType queryType;
-        uint slots;
-        QueryPipelineStatisticFlags pipelineStatistics;
+        public StructureType sType;
+        public void* pNext;
+        public QueryType queryType;
+        public uint slots;
+        public QueryPipelineStatisticFlags pipelineStatistics;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct QueueFamilyProperties
     {
-        QueueFlags queueFlags;
-        uint queueCount;
-        bool supportsTimestamps;
+        public QueueFlags queueFlags;
+        public uint queueCount;
+        public bool supportsTimestamps;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct Rect2D
     {
-        Offset2D offset;
-        Extent2D extent;
+        public Offset2D offset;
+        public Extent2D extent;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct Rect3D
     {
-        Offset3D offset;
-        Extent3D extent;
+        public Offset3D offset;
+        public Extent3D extent;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct RenderPassBeginInfo
     {
-        StructureType sType;
-        void* pNext;
-        RenderPass renderPass;
-        Framebuffer framebuffer;
-        Rect2D renderArea;
-        uint clearValueCount;
-        ClearValue* pClearValues;
+        public StructureType sType;
+        public void* pNext;
+        public RenderPass renderPass;
+        public Framebuffer framebuffer;
+        public Rect2D renderArea;
+        public uint clearValueCount;
+        public ClearValue* pClearValues;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct RenderPassCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        uint attachmentCount;
-        AttachmentDescription* pAttachments;
-        uint subpassCount;
-        SubpassDescription* pSubpasses;
-        uint dependencyCount;
-        SubpassDependency* pDependencies;
+        public StructureType sType;
+        public void* pNext;
+        public uint attachmentCount;
+        public AttachmentDescription* pAttachments;
+        public uint subpassCount;
+        public SubpassDescription* pSubpasses;
+        public uint dependencyCount;
+        public SubpassDependency* pDependencies;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct SamplerCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        TexFilter magFilter;
-        TexFilter minFilter;
-        TexMipmapMode mipMode;
-        TexAddress addressU;
-        TexAddress addressV;
-        TexAddress addressW;
-        Single mipLodBias;
-        Single maxAnisotropy;
-        bool compareEnable;
-        CompareOp compareOp;
-        Single minLod;
-        Single maxLod;
-        BorderColor borderColor;
+        public StructureType sType;
+        public void* pNext;
+        public TexFilter magFilter;
+        public TexFilter minFilter;
+        public TexMipmapMode mipMode;
+        public TexAddress addressU;
+        public TexAddress addressV;
+        public TexAddress addressW;
+        public Single mipLodBias;
+        public Single maxAnisotropy;
+        public bool compareEnable;
+        public CompareOp compareOp;
+        public Single minLod;
+        public Single maxLod;
+        public BorderColor borderColor;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct SemaphoreCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        SemaphoreCreateFlags flags;
+        public StructureType sType;
+        public void* pNext;
+        public SemaphoreCreateFlags flags;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct ShaderCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        ShaderModule module;
-        char* pName;
-        ShaderCreateFlags flags;
+        public StructureType sType;
+        public void* pNext;
+        public ShaderModule module;
+        public char* pName;
+        public ShaderCreateFlags flags;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct ShaderModuleCreateInfo
     {
-        StructureType sType;
-        void* pNext;
-        IntPtr codeSize;
-        void* pCode;
-        ShaderModuleCreateFlags flags;
+        public StructureType sType;
+        public void* pNext;
+        public IntPtr codeSize;
+        public void* pCode;
+        public ShaderModuleCreateFlags flags;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct SparseImageFormatProperties
     {
-        ImageAspect aspect;
-        Extent3D imageGranularity;
-        SparseImageFormatFlags flags;
+        public ImageAspect aspect;
+        public Extent3D imageGranularity;
+        public SparseImageFormatFlags flags;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct SparseImageMemoryBindInfo
     {
-        ImageSubresource subresource;
-        Offset3D offset;
-        Extent3D extent;
-        IntPtr memOffset;
-        DeviceMemory mem;
-        SparseMemoryBindFlags flags;
+        public ImageSubresource subresource;
+        public Offset3D offset;
+        public Extent3D extent;
+        public IntPtr memOffset;
+        public DeviceMemory mem;
+        public SparseMemoryBindFlags flags;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct SparseImageMemoryRequirements
     {
-        SparseImageFormatProperties formatProps;
-        uint imageMipTailStartLOD;
-        IntPtr imageMipTailSize;
-        IntPtr imageMipTailOffset;
-        IntPtr imageMipTailStride;
+        public SparseImageFormatProperties formatProps;
+        public uint imageMipTailStartLOD;
+        public IntPtr imageMipTailSize;
+        public IntPtr imageMipTailOffset;
+        public IntPtr imageMipTailStride;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct SparseMemoryBindInfo
     {
-        IntPtr offset;
-        IntPtr memOffset;
-        DeviceMemory mem;
-        SparseMemoryBindFlags flags;
+        public IntPtr offset;
+        public IntPtr memOffset;
+        public DeviceMemory mem;
+        public SparseMemoryBindFlags flags;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct SpecializationInfo
     {
-        uint mapEntryCount;
-        SpecializationMapEntry* pMap;
-        IntPtr dataSize;
-        void* pData;
+        public uint mapEntryCount;
+        public SpecializationMapEntry* pMap;
+        public IntPtr dataSize;
+        public void* pData;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct SpecializationMapEntry
     {
-        uint constantId;
-        IntPtr size;
-        uint offset;
+        public uint constantId;
+        public IntPtr size;
+        public uint offset;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct StencilOpState
     {
-        StencilOp stencilFailOp;
-        StencilOp stencilPassOp;
-        StencilOp stencilDepthFailOp;
-        CompareOp stencilCompareOp;
+        public StencilOp stencilFailOp;
+        public StencilOp stencilPassOp;
+        public StencilOp stencilDepthFailOp;
+        public CompareOp stencilCompareOp;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct SubpassDependency
     {
-        StructureType sType;
-        void* pNext;
-        uint srcSubpass;
-        uint destSubpass;
-        PipelineStageFlags srcStageMask;
-        PipelineStageFlags destStageMask;
-        MemoryOutputFlags outputMask;
-        MemoryInputFlags inputMask;
-        bool byRegion;
+        public StructureType sType;
+        public void* pNext;
+        public uint srcSubpass;
+        public uint destSubpass;
+        public PipelineStageFlags srcStageMask;
+        public PipelineStageFlags destStageMask;
+        public MemoryOutputFlags outputMask;
+        public MemoryInputFlags inputMask;
+        public bool byRegion;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct SubpassDescription
     {
-        StructureType sType;
-        void* pNext;
-        PipelineBindPoint pipelineBindPoint;
-        SubpassDescriptionFlags flags;
-        uint inputCount;
-        AttachmentReference* pInputAttachments;
-        uint colorCount;
-        AttachmentReference* pColorAttachments;
-        AttachmentReference* pResolveAttachments;
-        AttachmentReference depthStencilAttachment;
-        uint preserveCount;
-        AttachmentReference* pPreserveAttachments;
+        public StructureType sType;
+        public void* pNext;
+        public PipelineBindPoint pipelineBindPoint;
+        public SubpassDescriptionFlags flags;
+        public uint inputCount;
+        public AttachmentReference* pInputAttachments;
+        public uint colorCount;
+        public AttachmentReference* pColorAttachments;
+        public AttachmentReference* pResolveAttachments;
+        public AttachmentReference depthStencilAttachment;
+        public uint preserveCount;
+        public AttachmentReference* pPreserveAttachments;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct SubresourceLayout
     {
-        IntPtr offset;
-        IntPtr size;
-        IntPtr rowPitch;
-        IntPtr depthPitch;
+        public IntPtr offset;
+        public IntPtr size;
+        public IntPtr rowPitch;
+        public IntPtr depthPitch;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct VertexInputAttributeDescription
     {
-        uint location;
-        uint binding;
-        Format format;
-        uint offsetInBytes;
+        public uint location;
+        public uint binding;
+        public Format format;
+        public uint offsetInBytes;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct VertexInputBindingDescription
     {
-        uint binding;
-        uint strideInBytes;
-        VertexInputStepRate stepRate;
+        public uint binding;
+        public uint strideInBytes;
+        public VertexInputStepRate stepRate;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct Viewport
     {
-        Single originX;
-        Single originY;
-        Single width;
-        Single height;
-        Single minDepth;
-        Single maxDepth;
+        public Single originX;
+        public Single originY;
+        public Single width;
+        public Single height;
+        public Single minDepth;
+        public Single maxDepth;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct WriteDescriptorSet
     {
-        StructureType sType;
-        void* pNext;
-        DescriptorSet destSet;
-        uint destBinding;
-        uint destArrayElement;
-        uint count;
-        DescriptorType descriptorType;
-        DescriptorInfo* pDescriptors;
+        public StructureType sType;
+        public void* pNext;
+        public DescriptorSet destSet;
+        public uint destBinding;
+        public uint destArrayElement;
+        public uint count;
+        public DescriptorType descriptorType;
+        public DescriptorInfo* pDescriptors;
     }
 }

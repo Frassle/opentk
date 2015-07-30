@@ -281,6 +281,8 @@ namespace Bind
                 sw.WriteLine("[FieldOffset(0)]");
             }
 
+            sw.Write("public ");
+
             if (member.Type.ElementCount != 0)
             {
                 sw.Write("fixed ");
