@@ -56,6 +56,10 @@ namespace OpenTK.Graphics
         /// <summary>
         /// Indicates that this GraphicsContext is targeting OpenGL|ES.
         /// </summary>
-        Embedded = 0x0004
+        Embedded = 0x0004,
+        /// <summary>
+        /// Indicates that this GraphicsContext is targeting Vulkan.
+        /// </summary>
+        Vulkan = 0x0008,
     }
 }
